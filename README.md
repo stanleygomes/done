@@ -43,15 +43,14 @@ Each app/package is 100% [TypeScript](https://www.typescriptlang.org/).
 
 ### Scripts
 
-| Script | Description |
-| :--- | :--- |
-| `npm install` | Install all dependencies |
-| `npm run dev` | Start all apps and packages in development |
-| `npm run build` | Build all projects in the monorepo |
-| `npm run lint` | Run ESLint across all projects |
-| `npm run check-types`| Run TypeScript type checks |
+| Script                            | Description                                   |
+| :-------------------------------- | :-------------------------------------------- |
+| `npm install`                     | Install all dependencies                      |
+| `npm run dev`                     | Start all apps and packages in development    |
+| `npm run build`                   | Build all projects in the monorepo            |
+| `npm run lint`                    | Run ESLint across all projects                |
+| `npm run check-types`             | Run TypeScript type checks                    |
 | `npx turbo <cmd> --filter=<name>` | Run a specific project (`dev`, `build`, etc.) |
-
 
 ## 📖 Usage
 

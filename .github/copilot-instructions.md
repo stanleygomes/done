@@ -15,6 +15,7 @@ lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor inc
 - **Frontend**: Next.js 16.1.6 (React 19) + TailwindCSS 4
 - **Linting**: ESLint 9
 - **Formatting**: Prettier 3.7
+- **UI Design**: [Neobrutalism](https://www.neobrutalism.dev) (High contrast, bold borders, hard shadows)
 
 ### Project Structure
 
@@ -73,6 +74,8 @@ essence-tube/
 - Write concise, objective code — no inline comments; use clear names and method extraction instead.
 - Apply **SRP** and **OCP** (SOLID): each class has one responsibility; extend via new classes, not by modifying existing ones.
 - All code, identifiers, and UI labels must be in **English**.
+- All UI development must follow the **Neobrutalism** design system ([neobrutalism.dev](https://www.neobrutalism.dev)).
+- Shared UI components are managed centrally in [`packages/ui`](file:///media/stan_silva/Partition_3/projects/_personal/done/packages/ui) (`@done/ui`). Use Shadcn with Neobrutalism variants.
 - Prefer existing shared packages (`@done/*`) over duplicating logic across apps.
 
 ## Skills available

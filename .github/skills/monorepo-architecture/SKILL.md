@@ -100,4 +100,5 @@ npx turbo run lint --filter=auth-api
 - [ ] Shared logic lives in `packages/` not duplicated across apps
 - [ ] No `apps/*` → `apps/*` imports
 - [ ] New package uses `@done/<name>` scope and a `src/index.ts` entry point
+- [ ] New UI code follows **Neobrutalism** aesthetics
 - [ ] `turbo.json` updated if a new task is introduced

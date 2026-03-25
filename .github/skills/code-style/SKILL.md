@@ -78,3 +78,29 @@ npm run -w auth-api check-types
 - [ ] `npm run check` passes with no errors
 - [ ] New shared logic extracted to `packages/` (not duplicated across apps)
 - [ ] All identifiers and strings are in English
+- [ ] UI components follow Neobrutalism style (vibrant colors, thick borders, offset shadows)
+
+## 🎨 UI Design Style (Neobrutalism)
+
+This project adopts the **Neobrutalism** aesthetics. All UI development should adhere to these principles:
+
+### Core Aesthetics
+
+- **High Contrast:** Use bold black borders (`border-2` or `border-4` with `border-black`).
+- **Offset Shadows:** Add hard shadows using `shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]` (or similar hard-edged offsets).
+- **Vibrant Palettes:** Use saturated, non-traditional colors for accents and buttons.
+- **Typography:** Bold headings and clear, legible sans-serif fonts.
+
+### Components
+
+- **Location:** All shared components must reside in [`packages/ui`](file:///media/stan_silva/Partition_3/projects/_personal/done/packages/ui) under the `@done/ui` scope.
+- **Shadcn UI:** This project uses Shadcn components with neobrutalism variants.
+- **Installation:** To add new components to the shared library:
+  1. Go to `packages/ui`.
+  2. Run the command:
+     ```bash
+     npx shadcn@latest add https://neobrutalism.dev/r/[component].json
+     ```
+- **Custom Components:** Ensure they have the signature "box-shadow" and thick black borders to match the existing UI in `packages/ui`.
+
+Refer to [neobrutalism.dev](https://www.neobrutalism.dev) for patterns and reference implementations.
