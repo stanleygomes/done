@@ -82,6 +82,10 @@ export function useTasks() {
     setSelectedTaskId(null);
   }
 
+  function clearFinishedTasks() {
+    setTasks((prev) => prev.filter((t) => !t.done));
+  }
+
   return {
     todoTasks,
     finishedTasks,
@@ -99,6 +103,7 @@ export function useTasks() {
     closeEdit,
     openDrawer,
     closeDrawer,
+    clearFinishedTasks,
     reorderTodoTasks,
     reorderFinishedTasks,
   };

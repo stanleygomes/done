@@ -26,6 +26,7 @@ export default function Home() {
     closeDrawer,
     reorderTodoTasks,
     reorderFinishedTasks,
+    clearFinishedTasks,
   } = useTasks();
 
   return (
@@ -51,7 +52,15 @@ export default function Home() {
 
         {finishedTasks.length > 0 && (
           <section className="flex flex-col gap-4 mt-10">
-            <h2 className="text-2xl font-black text-black px-1">Finished</h2>
+            <div className="flex items-center justify-between px-1">
+              <h2 className="text-2xl font-black text-black">Finished</h2>
+              <button
+                onClick={clearFinishedTasks}
+                className="text-sm font-bold text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
+              >
+                Delete all finished tasks
+              </button>
+            </div>
             <TaskList
               tasks={finishedTasks}
               editingTaskId={editingTaskId}
