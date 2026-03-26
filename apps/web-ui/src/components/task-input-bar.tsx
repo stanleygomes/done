@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, KeyboardEvent } from "react";
+import { Rocket } from "lucide-react";
 import { useLocalStorage } from "usehooks-ts";
 import { useDebouncedSave } from "../hooks/use-debounced-save";
 import { AutoResizeTextarea } from "./auto-resize-textarea";
@@ -62,9 +63,9 @@ export function TaskInputBar({ value, onChange, onSubmit }: TaskInputBarProps) {
           />
           <button
             type="submit"
-            className="m-1.5 h-fit rounded-lg bg-black px-5 py-2.5 text-sm font-bold text-white transition-all hover:opacity-80 active:scale-95"
+            className="m-1.5 h-fit rounded-lg bg-black px-4 py-2.5 text-sm font-bold text-white transition-all hover:opacity-80 active:scale-95"
           >
-            Add
+            <Rocket className="h-5 w-5" />
           </button>
         </div>
         <div className="flex items-center justify-between px-1">
