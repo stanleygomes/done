@@ -19,6 +19,7 @@ export default function Home() {
     startEdit,
     updateEdit,
     closeEdit,
+    reorderTasks,
   } = useTasks();
 
   return (
@@ -37,6 +38,7 @@ export default function Home() {
             onUpdateEdit={updateEdit}
             onCloseEdit={closeEdit}
             onDelete={deleteTask}
+            onReorder={reorderTasks}
           />
         </section>
       </div>

@@ -44,6 +44,10 @@ export function useTasks() {
     setEditingContent("");
   }
 
+  function reorderTasks(newTasks: Task[]) {
+    setTasks(newTasks);
+  }
+
   return {
     tasks,
     newTask,
@@ -57,5 +61,6 @@ export function useTasks() {
     startEdit,
     updateEdit,
     closeEdit,
+    reorderTasks,
   };
 }
