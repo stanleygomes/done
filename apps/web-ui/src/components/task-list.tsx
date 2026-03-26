@@ -1,3 +1,4 @@
+import { Reorder } from "framer-motion";
 import type { Task } from "@models/task";
 import { EmptyState } from "./empty-state";
 import { TaskListItem } from "./task-list-item";
@@ -12,6 +13,7 @@ interface TaskListProps {
   onUpdateEdit: (id: string, content: string) => void;
   onCloseEdit: () => void;
   onDelete: (id: string) => void;
+  onReorder: (tasks: Task[]) => void;
 }
 
 export function TaskList({
@@ -24,13 +26,19 @@ export function TaskList({
   onUpdateEdit,
   onCloseEdit,
   onDelete,
+  onReorder,
 }: TaskListProps) {
   if (tasks.length === 0) {
     return <EmptyState />;
   }
 
   return (
-    <ul className="flex flex-col gap-3 pb-10">
+    <Reorder.Group
+      axis="y"
+      values={tasks}
+      onReorder={onReorder}
+      className="flex flex-col gap-3 pb-10"
+    >
       {tasks.map((task) => (
         <TaskListItem
           key={task.id}
@@ -45,6 +53,6 @@ export function TaskList({
           onDelete={onDelete}
         />
       ))}
-    </ul>
+    </Reorder.Group>
   );
 }

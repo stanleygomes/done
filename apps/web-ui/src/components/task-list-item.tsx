@@ -1,4 +1,6 @@
 import { useEffect, useRef } from "react";
+import { Reorder, useDragControls } from "framer-motion";
+import { GripVertical } from "lucide-react";
 import type { Task } from "@models/task";
 
 interface TaskListItemProps {
@@ -24,6 +26,7 @@ export function TaskListItem({
   onCloseEdit,
   onDelete,
 }: TaskListItemProps) {
+  const controls = useDragControls();
   const inputRef = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -55,8 +58,23 @@ export function TaskListItem({
   }
 
   return (
-    <li className="rounded-base border-2 border-black bg-white p-4 shadow-shadow">
+    <Reorder.Item
+      value={task}
+      dragListener={false}
+      dragControls={controls}
+      className="rounded-base border-2 border-black bg-white p-4 shadow-shadow"
+    >
       <div className="flex items-center gap-3">
+        <div
+          className="shrink-0 touch-none cursor-grab text-gray-400 active:cursor-grabbing hover:text-black"
+          onPointerDown={(e) => controls.start(e)}
+          tabIndex={0}
+          role="button"
+          aria-label="Drag to reorder task"
+        >
+          <GripVertical size={16} />
+        </div>
+
         <button
           type="button"
           className={`h-6 w-6 shrink-0 rounded-base border-2 border-black text-sm font-black ${
@@ -97,6 +115,6 @@ export function TaskListItem({
           Delete
         </button>
       </div>
-    </li>
+    </Reorder.Item>
   );
 }
