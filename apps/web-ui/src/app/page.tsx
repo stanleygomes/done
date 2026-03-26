@@ -21,6 +21,7 @@ export default function Home() {
     deleteTask,
     startEdit,
     updateEdit,
+    updateTaskDetails,
     closeEdit,
     openDrawer,
     closeDrawer,
@@ -96,6 +97,7 @@ export default function Home() {
         onUpdateEdit={updateEdit}
         onCloseEdit={closeEdit}
         onDelete={deleteTask}
+        onUpdateDetails={updateTaskDetails}
       />
     </main>
   );

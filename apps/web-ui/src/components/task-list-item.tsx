@@ -29,6 +29,13 @@ export function TaskListItem({
   onOpenDrawer,
 }: TaskListItemProps) {
   const controls = useDragControls();
+  const completedSubtasks = task.subtasks.filter(
+    (subtask) => subtask.done,
+  ).length;
+  const hasDueDate = Boolean(task.dueDate);
+  const dueDateLabel = hasDueDate
+    ? `${task.dueDate}${task.dueTime ? ` ${task.dueTime}` : ""}`
+    : "";
 
   return (
     <Reorder.Item
@@ -60,6 +67,52 @@ export function TaskListItem({
             onCloseEdit={onCloseEdit}
             onDelete={onDelete}
           />
+
+          <aside
+            className="mt-2 flex flex-wrap items-center gap-2 text-xs font-bold"
+            aria-label="Task metadata"
+          >
+            {task.important && (
+              <span
+                title="Important task"
+                className="rounded-base border-2 border-black bg-[#ffe066] px-2 py-1"
+              >
+                ⭐
+              </span>
+            )}
+            {hasDueDate && (
+              <span
+                className="rounded-base border-2 border-black bg-white px-2 py-1"
+                aria-label={`Due date: ${dueDateLabel}`}
+              >
+                ⏰ {dueDateLabel}
+              </span>
+            )}
+            {task.url && (
+              <span
+                title={task.url}
+                className="rounded-base border-2 border-black bg-white px-2 py-1"
+              >
+                🌐
+              </span>
+            )}
+            {task.notes.trim() && (
+              <span
+                title={task.notes}
+                className="rounded-base border-2 border-black bg-white px-2 py-1"
+              >
+                📝
+              </span>
+            )}
+            {task.subtasks.length > 0 && (
+              <span
+                className="rounded-base border-2 border-black bg-white px-2 py-1"
+                aria-label={`Subtasks completed: ${completedSubtasks} of ${task.subtasks.length}`}
+              >
+                ✅ {completedSubtasks} / {task.subtasks.length}
+              </span>
+            )}
+          </aside>
         </div>
 
         <button

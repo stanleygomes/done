@@ -1,9 +1,54 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { TaskManager } from "@modules/todo/task-manager";
 import type { Task } from "@models/task";
+
+function normalizeTask(task: Task): Task {
+  return {
+    ...task,
+    notes: task.notes ?? "",
+    important: task.important ?? false,
+    dueDate: task.dueDate ?? "",
+    dueTime: task.dueTime ?? "",
+    url: task.url ?? "",
+    subtasks: (task.subtasks ?? []).map((subtask) => ({
+      ...subtask,
+      done: Boolean(subtask.done),
+    })),
+  };
+}
+
+function hasLegacyFields(task: Task) {
+  return (
+    task.notes === undefined ||
+    task.important === undefined ||
+    task.dueDate === undefined ||
+    task.dueTime === undefined ||
+    task.url === undefined ||
+    !Array.isArray(task.subtasks)
+  );
+}
+
+function deriveParentTaskDoneState(
+  currentDone: boolean,
+  previousSubtasks: Task["subtasks"],
+  nextSubtasks: Task["subtasks"],
+) {
+  if (nextSubtasks.length > 0) {
+    return nextSubtasks.every((subtask) => subtask.done);
+  }
+
+  const hadAllDoneSubtasks =
+    previousSubtasks.length > 0 &&
+    previousSubtasks.every((subtask) => subtask.done);
+  if (hadAllDoneSubtasks && currentDone) {
+    return false;
+  }
+
+  return currentDone;
+}
 
 export function useTasks() {
   const [tasks, setTasks] = useLocalStorage<Task[]>("todo-tasks", []);
@@ -12,11 +57,27 @@ export function useTasks() {
   const [editingContent, setEditingContent] = useState("");
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
 
-  const manager = useMemo(() => new TaskManager(tasks), [tasks]);
+  const hasLegacyTasks = useMemo(() => tasks.some(hasLegacyFields), [tasks]);
+  const normalizedTasks = useMemo(
+    () => (hasLegacyTasks ? tasks.map(normalizeTask) : tasks),
+    [hasLegacyTasks, tasks],
+  );
+
+  useEffect(() => {
+    if (!hasLegacyTasks) {
+      return;
+    }
+    setTasks((prev) => prev.map(normalizeTask));
+  }, [hasLegacyTasks, setTasks]);
+
+  const manager = useMemo(
+    () => new TaskManager(normalizedTasks),
+    [normalizedTasks],
+  );
 
   const { todoTasks, finishedTasks } = useMemo(
     () =>
-      tasks.reduce<{ todoTasks: Task[]; finishedTasks: Task[] }>(
+      normalizedTasks.reduce<{ todoTasks: Task[]; finishedTasks: Task[] }>(
         (acc, task) => {
           if (task.done) acc.finishedTasks.push(task);
           else acc.todoTasks.push(task);
@@ -24,12 +85,12 @@ export function useTasks() {
         },
         { todoTasks: [], finishedTasks: [] },
       ),
-    [tasks],
+    [normalizedTasks],
   );
 
   const selectedTask = useMemo(
-    () => tasks.find((t) => t.id === selectedTaskId) ?? null,
-    [tasks, selectedTaskId],
+    () => normalizedTasks.find((t) => t.id === selectedTaskId) ?? null,
+    [normalizedTasks, selectedTaskId],
   );
 
   function createTask() {
@@ -59,6 +120,35 @@ export function useTasks() {
 
   function updateEdit(id: string, content: string) {
     setTasks(manager.update(id, content));
+  }
+
+  function updateTaskDetails(
+    id: string,
+    details: Pick<
+      Task,
+      "notes" | "important" | "dueDate" | "dueTime" | "url" | "subtasks"
+    >,
+  ) {
+    setTasks((prev) =>
+      prev.map((task) => {
+        if (task.id !== id) {
+          return normalizeTask(task);
+        }
+
+        const normalizedTask = normalizeTask(task);
+        const done = deriveParentTaskDoneState(
+          normalizedTask.done,
+          normalizedTask.subtasks,
+          details.subtasks,
+        );
+
+        return {
+          ...normalizedTask,
+          ...details,
+          done,
+        };
+      }),
+    );
   }
 
   function closeEdit() {
@@ -100,6 +190,7 @@ export function useTasks() {
     deleteTask,
     startEdit,
     updateEdit,
+    updateTaskDetails,
     closeEdit,
     openDrawer,
     closeDrawer,

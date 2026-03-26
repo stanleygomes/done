@@ -16,6 +16,13 @@ interface TaskDrawerProps {
   onUpdateEdit: (id: string, content: string) => void;
   onCloseEdit: () => void;
   onDelete: (id: string) => void;
+  onUpdateDetails: (
+    id: string,
+    details: Pick<
+      Task,
+      "notes" | "important" | "dueDate" | "dueTime" | "url" | "subtasks"
+    >,
+  ) => void;
 }
 
 export function TaskDrawer({
@@ -30,6 +37,7 @@ export function TaskDrawer({
   onUpdateEdit,
   onCloseEdit,
   onDelete,
+  onUpdateDetails,
 }: TaskDrawerProps) {
   function handleDelete(id: string) {
     onDelete(id);
@@ -59,6 +67,7 @@ export function TaskDrawer({
               onUpdateEdit={onUpdateEdit}
               onCloseEdit={onCloseEdit}
               onDelete={handleDelete}
+              onUpdateDetails={onUpdateDetails}
             />
           </div>
         )}

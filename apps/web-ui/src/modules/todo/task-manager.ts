@@ -19,6 +19,12 @@ export class TaskManager {
         content: value,
         done: false,
         createdAt: this.now(),
+        notes: "",
+        important: false,
+        dueDate: "",
+        dueTime: "",
+        url: "",
+        subtasks: [],
       },
       ...this.tasks,
     ];
