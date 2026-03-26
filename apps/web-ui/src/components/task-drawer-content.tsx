@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Trash2 } from "lucide-react";
 import type { Task } from "@models/task";
 import { useDebouncedSave } from "../hooks/use-debounced-save";
 import { AutoResizeTextarea } from "./auto-resize-textarea";
@@ -252,10 +253,10 @@ export function TaskDrawerContent({
       <div className="mt-4">
         <button
           type="button"
-          className="w-full rounded-base border-2 border-black bg-[#ff8fab] py-3 text-base font-bold shadow-shadow transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none hover:bg-[#ff7597]"
+          className="w-full flex items-center justify-center gap-2 rounded-base border-2 border-black bg-[#ff8fab] py-3 text-base font-bold shadow-shadow transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none hover:bg-[#ff7597]"
           onClick={() => onDelete(task.id)}
         >
-          Delete Task
+          <Trash2 className="h-5 w-5" /> Delete Task
         </button>
       </div>
     </div>
