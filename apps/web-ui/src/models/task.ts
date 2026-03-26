@@ -9,6 +9,7 @@ export interface Task {
   dueTime: string;
   url: string;
   subtasks: TaskSubtask[];
+  tags: string[];
 }
 
 export interface TaskSubtask {

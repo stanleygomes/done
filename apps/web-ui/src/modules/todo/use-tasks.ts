@@ -17,6 +17,7 @@ function normalizeTask(task: Task): Task {
       ...subtask,
       done: Boolean(subtask.done),
     })),
+    tags: task.tags ?? [],
   };
 }
 
@@ -27,7 +28,8 @@ function hasLegacyFields(task: Task) {
     task.dueDate === undefined ||
     task.dueTime === undefined ||
     task.url === undefined ||
-    !Array.isArray(task.subtasks)
+    !Array.isArray(task.subtasks) ||
+    !Array.isArray(task.tags)
   );
 }
 
@@ -126,7 +128,13 @@ export function useTasks() {
     id: string,
     details: Pick<
       Task,
-      "notes" | "important" | "dueDate" | "dueTime" | "url" | "subtasks"
+      | "notes"
+      | "important"
+      | "dueDate"
+      | "dueTime"
+      | "url"
+      | "subtasks"
+      | "tags"
     >,
   ) {
     setTasks((prev) =>

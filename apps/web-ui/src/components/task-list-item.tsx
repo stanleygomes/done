@@ -112,6 +112,15 @@ export function TaskListItem({
                 ✅ {completedSubtasks} / {task.subtasks.length}
               </span>
             )}
+            {task.tags?.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-base border-2 border-black bg-[#cbf0f8] px-2 py-1 flex items-center gap-1"
+                aria-label={`Tag: ${tag}`}
+              >
+                🏷️ {tag}
+              </span>
+            ))}
           </aside>
         </div>
 

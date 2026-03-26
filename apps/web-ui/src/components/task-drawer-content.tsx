@@ -19,7 +19,13 @@ interface TaskDrawerContentProps {
     id: string,
     details: Pick<
       Task,
-      "notes" | "important" | "dueDate" | "dueTime" | "url" | "subtasks"
+      | "notes"
+      | "important"
+      | "dueDate"
+      | "dueTime"
+      | "url"
+      | "subtasks"
+      | "tags"
     >,
   ) => void;
 }
@@ -37,6 +43,7 @@ export function TaskDrawerContent({
   onUpdateDetails,
 }: TaskDrawerContentProps) {
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const tagInputRef = useRef<HTMLInputElement>(null);
   const subtaskIdCounterRef = useRef(0);
   const { save, flush } = useDebouncedSave(600);
 
@@ -64,7 +71,13 @@ export function TaskDrawerContent({
     details: Partial<
       Pick<
         Task,
-        "notes" | "important" | "dueDate" | "dueTime" | "url" | "subtasks"
+        | "notes"
+        | "important"
+        | "dueDate"
+        | "dueTime"
+        | "url"
+        | "subtasks"
+        | "tags"
       >
     >,
   ) {
@@ -75,6 +88,7 @@ export function TaskDrawerContent({
       dueTime: task.dueTime,
       url: task.url,
       subtasks: task.subtasks,
+      tags: task.tags,
       ...details,
     });
   }
@@ -117,6 +131,21 @@ export function TaskDrawerContent({
     });
   }
 
+  function handleTagKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+      const newTag = e.currentTarget.value.trim();
+      if (newTag && !task.tags.includes(newTag)) {
+        patchDetails({ tags: [...task.tags, newTag] });
+      }
+      e.currentTarget.value = "";
+    }
+  }
+
+  function removeTag(tagToRemove: string) {
+    patchDetails({ tags: task.tags.filter((tag) => tag !== tagToRemove) });
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <div className="w-full">
@@ -156,6 +185,35 @@ export function TaskDrawerContent({
           rows={4}
           className="w-full resize-y rounded-base border-2 border-black bg-[#fffaf0] px-3 py-2 outline-none"
           placeholder="Write notes about this task"
+        />
+      </div>
+
+      <div className="rounded-base border-2 border-black bg-white p-4 shadow-shadow">
+        <label className="mb-2 block text-sm font-black">Tags</label>
+        <div className="flex flex-wrap gap-2 mb-2">
+          {task.tags?.map((tag) => (
+            <span
+              key={tag}
+              className="flex items-center gap-1 rounded-base border-2 border-black bg-[#cbf0f8] px-2 py-1 text-xs font-bold"
+            >
+              {tag}
+              <button
+                type="button"
+                className="hover:text-red-500"
+                onClick={() => removeTag(tag)}
+                aria-label={`Remove tag ${tag}`}
+              >
+                &times;
+              </button>
+            </span>
+          ))}
+        </div>
+        <input
+          ref={tagInputRef}
+          type="text"
+          placeholder="Add tag (press Enter or comma)"
+          onKeyDown={handleTagKeyDown}
+          className="w-full rounded-base border-2 border-black bg-[#fffaf0] px-3 py-2 text-sm outline-none"
         />
       </div>
 

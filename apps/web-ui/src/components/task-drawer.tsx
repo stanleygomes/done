@@ -20,7 +20,13 @@ interface TaskDrawerProps {
     id: string,
     details: Pick<
       Task,
-      "notes" | "important" | "dueDate" | "dueTime" | "url" | "subtasks"
+      | "notes"
+      | "important"
+      | "dueDate"
+      | "dueTime"
+      | "url"
+      | "subtasks"
+      | "tags"
     >,
   ) => void;
 }

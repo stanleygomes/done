@@ -25,6 +25,7 @@ export class TaskManager {
         dueTime: "",
         url: "",
         subtasks: [],
+        tags: [],
       },
       ...this.tasks,
     ];
