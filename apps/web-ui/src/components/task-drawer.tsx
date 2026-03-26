@@ -2,7 +2,7 @@
 
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@done/ui";
 import type { Task } from "@models/task";
-import { TaskItemContent } from "./task-item-content";
+import { TaskDrawerContent } from "./task-drawer-content";
 
 interface TaskDrawerProps {
   task: Task | null;
@@ -42,26 +42,24 @@ export function TaskDrawer({
       onOpenChange={(open) => !open && onClose()}
       direction="right"
     >
-      <DrawerContent className="bg-[#fef6d9]">
-        <DrawerHeader className="border-b-2 border-black px-6 py-4 text-left">
+      <DrawerContent className="bg-[#fef6d9] flex flex-col">
+        <DrawerHeader className="border-b-2 border-black px-6 py-4 text-left shrink-0">
           <DrawerTitle className="text-xl font-black">Task Details</DrawerTitle>
         </DrawerHeader>
 
         {task && (
-          <div className="p-6">
-            <div className="rounded-base border-2 border-black bg-white p-4 shadow-shadow">
-              <TaskItemContent
-                task={task}
-                isEditing={isEditing}
-                editingContent={editingContent}
-                onEditingContentChange={onEditingContentChange}
-                onToggle={onToggle}
-                onStartEdit={onStartEdit}
-                onUpdateEdit={onUpdateEdit}
-                onCloseEdit={onCloseEdit}
-                onDelete={handleDelete}
-              />
-            </div>
+          <div className="p-6 flex-1 overflow-y-auto h-full">
+            <TaskDrawerContent
+              task={task}
+              isEditing={isEditing}
+              editingContent={editingContent}
+              onEditingContentChange={onEditingContentChange}
+              onToggle={onToggle}
+              onStartEdit={onStartEdit}
+              onUpdateEdit={onUpdateEdit}
+              onCloseEdit={onCloseEdit}
+              onDelete={handleDelete}
+            />
           </div>
         )}
       </DrawerContent>
