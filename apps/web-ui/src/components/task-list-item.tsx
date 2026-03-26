@@ -77,8 +77,8 @@ export function TaskListItem({
 
         <button
           type="button"
-          className={`h-6 w-6 shrink-0 rounded-base border-2 border-black text-sm font-black ${
-            task.done ? "bg-[#a7f3d0]" : "bg-[#ffb3c6]"
+          className={`h-8 w-8 shrink-0 rounded-base border-2 border-black text-sm font-black transition-all active:scale-90 ${
+            task.done ? "bg-[#a7f3d0]" : ""
           }`}
           onClick={() => onToggle(task.id)}
           aria-label={task.done ? "Mark as not done" : "Mark as done"}
@@ -97,7 +97,7 @@ export function TaskListItem({
             />
           ) : (
             <p
-              className={`cursor-text text-base font-semibold ${
+              className={`cursor-text text-base font-semibold text-lg ${
                 task.done ? "text-gray-500 line-through" : "text-black"
               }`}
               onClick={() => !task.done && onStartEdit(task)}
@@ -109,7 +109,7 @@ export function TaskListItem({
 
         <button
           type="button"
-          className="rounded-base border-2 border-black bg-[#ff8fab] px-2 py-1 text-xs font-bold shadow-shadow"
+          className="rounded-base border-2 border-black bg-[#ff8fab] px-2 py-1 text-xs font-bold shadow-shadow transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
           onClick={() => onDelete(task.id)}
         >
           Delete

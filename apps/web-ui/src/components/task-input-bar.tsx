@@ -27,7 +27,7 @@ export function TaskInputBar({ value, onChange, onSubmit }: TaskInputBarProps) {
           />
           <button
             type="submit"
-            className="m-1.5 rounded-lg bg-black px-5 py-2.5 text-sm font-bold text-white transition-opacity hover:opacity-80"
+            className="m-1.5 rounded-lg bg-black px-5 py-2.5 text-sm font-bold text-white transition-all hover:opacity-80 active:scale-95"
           >
             Add
           </button>
