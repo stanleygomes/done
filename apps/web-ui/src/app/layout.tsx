@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 const themeScript = `
   try {
-    const theme = localStorage.getItem('done-theme');
-    if (theme === 'dark' || (theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark');
+    const theme = localStorage.getItem("done-theme");
+    if (theme === "dark" || (theme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.classList.add("dark");
     }
   } catch (e) {}
 `;
