@@ -4,10 +4,12 @@ import { useEffect, useMemo, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { TaskManager } from "@modules/todo/task-manager";
 import type { Task } from "@models/task";
+import { isUUID, generateUUID } from "@done/utils/src/uuid-utils";
 
 function normalizeTask(task: Task): Task {
   return {
     ...task,
+    id: task.id && isUUID(task.id) ? task.id : generateUUID(),
     notes: task.notes ?? "",
     important: task.important ?? false,
     dueDate: task.dueDate ?? "",
@@ -15,6 +17,7 @@ function normalizeTask(task: Task): Task {
     url: task.url ?? "",
     subtasks: (task.subtasks ?? []).map((subtask) => ({
       ...subtask,
+      id: subtask.id && isUUID(subtask.id) ? subtask.id : generateUUID(),
       done: Boolean(subtask.done),
     })),
     tags: task.tags ?? [],
@@ -23,12 +26,15 @@ function normalizeTask(task: Task): Task {
 
 function hasLegacyFields(task: Task) {
   return (
+    !task.id ||
+    !isUUID(task.id) ||
     task.notes === undefined ||
     task.important === undefined ||
     task.dueDate === undefined ||
     task.dueTime === undefined ||
     task.url === undefined ||
     !Array.isArray(task.subtasks) ||
+    task.subtasks.some((st) => !st.id || !isUUID(st.id)) ||
     !Array.isArray(task.tags)
   );
 }

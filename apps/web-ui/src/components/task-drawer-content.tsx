@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Trash2 } from "lucide-react";
 import type { Task } from "@models/task";
+import { generateUUID } from "@done/utils/src/uuid-utils";
 import { useDebouncedSave } from "../hooks/use-debounced-save";
 import { AutoResizeTextarea } from "./auto-resize-textarea";
 import { TaskToggle } from "./task-toggle";
@@ -44,7 +45,6 @@ export function TaskDrawerContent({
 }: TaskDrawerContentProps) {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const tagInputRef = useRef<HTMLInputElement>(null);
-  const subtaskIdCounterRef = useRef(0);
   const { save, flush } = useDebouncedSave(600);
 
   useEffect(() => {
@@ -94,14 +94,7 @@ export function TaskDrawerContent({
   }
 
   function generateSubtaskId() {
-    if (
-      typeof globalThis.crypto !== "undefined" &&
-      "randomUUID" in globalThis.crypto
-    ) {
-      return globalThis.crypto.randomUUID();
-    }
-    subtaskIdCounterRef.current += 1;
-    return `${Date.now()}-${subtaskIdCounterRef.current}`;
+    return generateUUID();
   }
 
   function updateSubtaskTitle(subtaskId: string, title: string) {

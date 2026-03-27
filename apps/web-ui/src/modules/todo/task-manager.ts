@@ -1,9 +1,10 @@
 import type { Task } from "@models/task";
+import { generateUUID } from "@done/utils/src/uuid-utils";
 
 export class TaskManager {
   constructor(
     private readonly tasks: Task[],
-    private readonly generateId: () => string = () => crypto.randomUUID(),
+    private readonly generateId: () => string = () => generateUUID(),
     private readonly now: () => number = () => Date.now(),
   ) {}
 

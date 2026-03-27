@@ -4,3 +4,4 @@ export {
   generateVerificationCode,
   buildVerificationCodeEmailHtml,
 } from "./verification-code-utils.js";
+export { generateUUID, isUUID } from "./uuid-utils.js";
