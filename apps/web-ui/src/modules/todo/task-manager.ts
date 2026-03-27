@@ -8,7 +8,7 @@ export class TaskManager {
     private readonly now: () => number = () => Date.now(),
   ) {}
 
-  create(content: string): Task[] {
+  create(content: string, params: Partial<Task> = {}): Task[] {
     const value = content.trim();
     if (!value) {
       return this.tasks;
@@ -27,6 +27,7 @@ export class TaskManager {
         url: "",
         subtasks: [],
         tags: [],
+        ...params,
       },
       ...this.tasks,
     ];

@@ -27,6 +27,7 @@ interface TaskDrawerProps {
       | "url"
       | "subtasks"
       | "tags"
+      | "projectId"
     >,
   ) => void;
 }

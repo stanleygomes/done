@@ -5,6 +5,14 @@ import { generateUUID } from "@done/utils/src/uuid-utils";
 import { useDebouncedSave } from "../hooks/use-debounced-save";
 import { AutoResizeTextarea } from "./auto-resize-textarea";
 import { TaskToggle } from "./task-toggle";
+import { useProjects } from "@modules/todo/use-projects";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@done/ui";
 
 interface TaskDrawerContentProps {
   task: Task;
@@ -27,6 +35,7 @@ interface TaskDrawerContentProps {
       | "url"
       | "subtasks"
       | "tags"
+      | "projectId"
     >,
   ) => void;
 }
@@ -46,6 +55,7 @@ export function TaskDrawerContent({
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const tagInputRef = useRef<HTMLInputElement>(null);
   const { save, flush } = useDebouncedSave(600);
+  const { projects } = useProjects();
 
   useEffect(() => {
     if (isEditing) {
@@ -78,6 +88,7 @@ export function TaskDrawerContent({
         | "url"
         | "subtasks"
         | "tags"
+        | "projectId"
       >
     >,
   ) {
@@ -89,6 +100,7 @@ export function TaskDrawerContent({
       url: task.url,
       subtasks: task.subtasks,
       tags: task.tags,
+      projectId: task.projectId,
       ...details,
     });
   }
@@ -168,6 +180,40 @@ export function TaskDrawerContent({
         <span className="text-lg font-bold">
           {task.done ? "Completed" : "Mark as completed"}
         </span>
+      </div>
+
+      <div className="rounded-base border-2 border-black bg-white p-4 shadow-shadow">
+        <label className="mb-2 block text-sm font-black">Project</label>
+        <Select
+          value={task.projectId || "none"}
+          onValueChange={(value) =>
+            patchDetails({ projectId: value === "none" ? undefined : value })
+          }
+        >
+          <SelectTrigger className="w-full bg-[#fffaf0] font-bold outline-none cursor-pointer text-sm py-2 px-3 h-auto">
+            <SelectValue placeholder="No project" />
+          </SelectTrigger>
+          <SelectContent className="bg-[#fffaf0]">
+            <SelectItem value="none" className="font-bold cursor-pointer">
+              No project
+            </SelectItem>
+            {projects.map((p) => (
+              <SelectItem
+                key={p.id}
+                value={p.id}
+                className="font-bold cursor-pointer"
+              >
+                <div className="flex items-center gap-2">
+                  <div
+                    className="w-2.5 h-2.5 rounded-full border border-black"
+                    style={{ backgroundColor: p.color }}
+                  ></div>
+                  <span>{p.name}</span>
+                </div>
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
       <div className="rounded-base border-2 border-black bg-white p-4 shadow-shadow">

@@ -10,6 +10,7 @@ export interface Task {
   url: string;
   subtasks: TaskSubtask[];
   tags: string[];
+  projectId?: string;
 }
 
 export interface TaskSubtask {

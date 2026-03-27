@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import { useProjects } from "@modules/todo/use-projects";
 
 import { useTasks } from "@modules/todo/use-tasks";
 import { AppHeader } from "../components/app-header";
@@ -9,7 +11,15 @@ import { TaskInputBar } from "../components/task-input-bar";
 import { TaskDrawer } from "../components/task-drawer";
 import { Search } from "lucide-react";
 
-export default function Home() {
+function TaskBoard() {
+  const searchParams = useSearchParams();
+  const projectId = searchParams.get("projectId");
+  const filter = searchParams.get("filter");
+  const { projects } = useProjects();
+  const currentProject = projectId
+    ? projects.find((p) => p.id === projectId)
+    : null;
+
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const {
     todoTasks,
@@ -34,7 +44,7 @@ export default function Home() {
     reorderTodoTasks,
     reorderFinishedTasks,
     clearFinishedTasks,
-  } = useTasks();
+  } = useTasks(projectId, filter);
 
   return (
     <main className="min-h-screen bg-[#fef6d9] pb-32">
@@ -65,6 +75,35 @@ export default function Home() {
           </div>
         )}
 
+        {currentProject && (
+          <div className="mb-6 px-1 flex flex-col gap-2">
+            <a
+              href="/projects"
+              className="text-sm font-bold text-gray-500 hover:text-black transition-colors w-fit"
+            >
+              ← Back to Projects
+            </a>
+            <div className="flex items-center gap-2">
+              <div
+                className="w-5 h-5 rounded-full border-2 border-black"
+                style={{ backgroundColor: currentProject.color }}
+              ></div>
+              <h2 className="text-2xl font-black">{currentProject.name}</h2>
+            </div>
+          </div>
+        )}
+        {filter && !currentProject && (
+          <div className="mb-6 px-1 flex flex-col gap-2">
+            <a
+              href="/projects"
+              className="text-sm font-bold text-gray-500 hover:text-black transition-colors w-fit"
+            >
+              ← Back to Projects
+            </a>
+            <h2 className="text-2xl font-black capitalize">{filter} Tasks</h2>
+          </div>
+        )}
+
         <section className="flex flex-col gap-4">
           <TaskList
             tasks={todoTasks}
@@ -78,6 +117,7 @@ export default function Home() {
             onDelete={deleteTask}
             onReorder={reorderTodoTasks}
             onOpenDrawer={openDrawer}
+            showProject={!projectId}
           />
         </section>
 
@@ -104,6 +144,7 @@ export default function Home() {
               onDelete={deleteTask}
               onReorder={reorderFinishedTasks}
               onOpenDrawer={openDrawer}
+              showProject={!projectId}
             />
           </section>
         )}
@@ -112,7 +153,7 @@ export default function Home() {
       <TaskInputBar
         value={newTask}
         onChange={setNewTask}
-        onSubmit={createTask}
+        onSubmit={() => createTask(projectId ? { projectId } : undefined)}
       />
 
       <TaskDrawer
@@ -130,5 +171,13 @@ export default function Home() {
         onUpdateDetails={updateTaskDetails}
       />
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#fef6d9] pb-32" />}>
+      <TaskBoard />
+    </Suspense>
   );
 }

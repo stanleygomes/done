@@ -15,6 +15,7 @@ interface TaskListProps {
   onDelete: (id: string) => void;
   onReorder: (tasks: Task[]) => void;
   onOpenDrawer: (task: Task) => void;
+  showProject?: boolean;
 }
 
 export function TaskList({
@@ -29,6 +30,7 @@ export function TaskList({
   onDelete,
   onReorder,
   onOpenDrawer,
+  showProject,
 }: TaskListProps) {
   if (tasks.length === 0) {
     return <EmptyState />;
@@ -54,6 +56,7 @@ export function TaskList({
           onCloseEdit={onCloseEdit}
           onDelete={onDelete}
           onOpenDrawer={onOpenDrawer}
+          showProject={showProject}
         />
       ))}
     </Reorder.Group>

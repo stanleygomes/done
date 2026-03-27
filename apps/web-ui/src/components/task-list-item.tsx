@@ -2,6 +2,7 @@ import { Reorder, useDragControls } from "framer-motion";
 import { ChevronRight, GripVertical } from "lucide-react";
 import type { Task } from "@models/task";
 import { TaskItemContent } from "./task-item-content";
+import { useProjects } from "@modules/todo/use-projects";
 
 interface TaskListItemProps {
   task: Task;
@@ -14,6 +15,7 @@ interface TaskListItemProps {
   onCloseEdit: () => void;
   onDelete: (id: string) => void;
   onOpenDrawer: (task: Task) => void;
+  showProject?: boolean;
 }
 
 export function TaskListItem({
@@ -27,8 +29,13 @@ export function TaskListItem({
   onCloseEdit,
   onDelete,
   onOpenDrawer,
+  showProject,
 }: TaskListItemProps) {
   const controls = useDragControls();
+  const { projects } = useProjects();
+  const project = task.projectId
+    ? projects.find((p) => p.id === task.projectId)
+    : null;
   const completedSubtasks = task.subtasks.filter(
     (subtask) => subtask.done,
   ).length;
@@ -72,6 +79,18 @@ export function TaskListItem({
             className="mt-2 flex flex-wrap items-center gap-2 text-xs font-bold"
             aria-label="Task metadata"
           >
+            {showProject && project && (
+              <span
+                className="rounded-base border-2 border-black px-2 py-1 flex items-center gap-1 bg-[#fef6d9]"
+                aria-label={`Project: ${project.name}`}
+              >
+                <div
+                  className="w-2.5 h-2.5 rounded-full border border-black"
+                  style={{ backgroundColor: project.color }}
+                />
+                {project.name}
+              </span>
+            )}
             {task.important && (
               <span
                 title="Important task"

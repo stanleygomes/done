@@ -22,6 +22,7 @@ function normalizeTask(task: Task): Task {
       done: Boolean(subtask.done),
     })),
     tags: task.tags ?? [],
+    projectId: task.projectId,
   };
 }
 
@@ -59,7 +60,7 @@ function deriveParentTaskDoneState(
   return currentDone;
 }
 
-export function useTasks() {
+export function useTasks(projectId?: string | null, filter?: string | null) {
   const [tasks, setTasks] = useLocalStorage<Task[]>("todo-tasks", []);
   const [newTask, setNewTask] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -86,8 +87,20 @@ export function useTasks() {
   );
 
   const filteredTasks = useMemo(() => {
-    return SearchRanker.search(normalizedTasks, searchQuery);
-  }, [normalizedTasks, searchQuery]);
+    let result = SearchRanker.search(normalizedTasks, searchQuery);
+    if (projectId) {
+      result = result.filter((t) => t.projectId === projectId);
+    }
+    if (filter === "today") {
+      const today = new Date().toISOString().split("T")[0];
+      result = result.filter((t) => t.dueDate === today);
+    } else if (filter === "scheduled") {
+      result = result.filter((t) => !!t.dueDate);
+    } else if (filter === "important") {
+      result = result.filter((t) => t.important);
+    }
+    return result;
+  }, [normalizedTasks, searchQuery, projectId, filter]);
 
   const { todoTasks, finishedTasks } = useMemo(
     () =>
@@ -107,8 +120,8 @@ export function useTasks() {
     [normalizedTasks, selectedTaskId],
   );
 
-  function createTask() {
-    setTasks(manager.create(newTask));
+  function createTask(additionalFields?: Partial<Task>) {
+    setTasks(manager.create(newTask, additionalFields));
     setNewTask("");
   }
 
@@ -147,6 +160,7 @@ export function useTasks() {
       | "url"
       | "subtasks"
       | "tags"
+      | "projectId"
     >,
   ) {
     setTasks((prev) =>
