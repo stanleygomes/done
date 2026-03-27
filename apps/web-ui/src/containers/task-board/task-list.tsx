@@ -1,7 +1,7 @@
 import { Reorder } from "framer-motion";
 import type { Task } from "@models/task";
 import { EmptyState } from "./empty-state";
-import { TaskListItem } from "./task-list-item";
+import { TaskListItem } from "../task-item";
 
 interface TaskListProps {
   tasks: Task[];

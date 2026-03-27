@@ -78,7 +78,7 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
 
   return (
     <main className="min-h-screen bg-[#fef6d9] pb-32">
-      <div className="mx-auto max-w-2xl px-4">
+      <div className="mx-auto max-w-2xl">
         <AppHeader
           onToggleSearch={() => {
             setIsSearchVisible(!isSearchVisible);

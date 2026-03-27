@@ -3,7 +3,7 @@ import { Task } from "@models/task";
 import { Star, Clock, Tag } from "lucide-react";
 import { AutoResizeTextarea } from "../../components/auto-resize-textarea";
 import { useProjects } from "@modules/todo/use-projects";
-import { ZenBadge } from "../task-board/task-badge";
+import { TaskDetailBadge } from "../../components/task-detail-badge";
 import { ZenSubtasks } from "./zen-subtasks";
 import { ZenNotes } from "./zen-notes";
 import { ZenExitButton } from "./exit-button";
@@ -63,35 +63,35 @@ export function ZenModeView({
 
             <div className="flex flex-wrap items-center justify-center gap-3 text-sm font-bold mt-2">
               {project && (
-                <ZenBadge className="flex items-center gap-2 bg-white">
+                <TaskDetailBadge className="flex items-center gap-2 bg-white">
                   <div
                     className="w-3 h-3 rounded-full border border-black"
                     style={{ backgroundColor: project.color }}
                   />
                   {project.name}
-                </ZenBadge>
+                </TaskDetailBadge>
               )}
               {task.important && (
-                <ZenBadge className="flex items-center gap-2 bg-[#ffe066]">
+                <TaskDetailBadge className="flex items-center gap-2 bg-[#ffe066]">
                   <Star className="w-4 h-4" fill="currentColor" />
                   Important
-                </ZenBadge>
+                </TaskDetailBadge>
               )}
               {hasDueDate && (
-                <ZenBadge className="flex items-center gap-2 bg-white">
+                <TaskDetailBadge className="flex items-center gap-2 bg-white">
                   <Clock className="w-4 h-4" />
                   {dueDateLabel}
-                </ZenBadge>
+                </TaskDetailBadge>
               )}
               {task.tags &&
                 task.tags.map((tag) => (
-                  <ZenBadge
+                  <TaskDetailBadge
                     key={tag}
                     className="flex items-center gap-2 bg-[#cbf0f8]"
                   >
                     <Tag className="w-4 h-4" />
                     {tag}
-                  </ZenBadge>
+                  </TaskDetailBadge>
                 ))}
             </div>
           </div>

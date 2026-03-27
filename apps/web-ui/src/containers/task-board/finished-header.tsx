@@ -10,7 +10,8 @@ export function FinishedHeader({ onClear }: FinishedHeaderProps) {
         onClick={onClear}
         className="text-sm font-bold text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
       >
-        Delete all finished tasks
+        <span className="md:hidden">Clear All</span>
+        <span className="hidden md:inline">Delete all finished tasks</span>
       </button>
     </div>
   );
