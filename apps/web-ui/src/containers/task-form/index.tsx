@@ -1,0 +1,223 @@
+import { useEffect, useRef } from "react";
+import { Trash2 } from "lucide-react";
+import type { Task } from "@models/task";
+import { generateUUID } from "@done/utils/src/uuid-utils";
+import { useDebouncedSave } from "../../hooks/use-debounced-save";
+import { TaskTitle } from "./task-title";
+import { TaskStatusToggle } from "./task-status-toggle";
+import { TaskProject } from "./task-project";
+import { TaskNotes } from "./task-notes";
+import { TaskTags } from "./task-tags";
+import { TaskSubtasks } from "./task-subtasks";
+import { TaskDueDate } from "./task-due-date";
+import { TaskImportant } from "./task-important";
+import { TaskUrl } from "./task-url";
+
+interface TaskFormProps {
+  task: Task;
+  isEditing: boolean;
+  editingContent: string;
+  onEditingContentChange: (value: string) => void;
+  onToggle: (id: string) => void;
+  onStartEdit: (task: Task) => void;
+  onUpdateEdit: (id: string, content: string) => void;
+  onCloseEdit: () => void;
+  onDelete: (id: string) => void;
+  onUpdateDetails: (
+    id: string,
+    details: Pick<
+      Task,
+      | "notes"
+      | "important"
+      | "dueDate"
+      | "dueTime"
+      | "url"
+      | "subtasks"
+      | "tags"
+      | "projectId"
+    >,
+  ) => void;
+}
+
+export function TaskForm({
+  task,
+  isEditing,
+  editingContent,
+  onEditingContentChange,
+  onToggle,
+  onStartEdit,
+  onUpdateEdit,
+  onCloseEdit,
+  onDelete,
+  onUpdateDetails,
+}: TaskFormProps) {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const { save, flush } = useDebouncedSave(600);
+
+  useEffect(() => {
+    if (isEditing) {
+      inputRef.current?.focus();
+    }
+  }, [isEditing]);
+
+  function handleChange(value: string) {
+    onEditingContentChange(value);
+    save(() => {
+      onUpdateEdit(task.id, value);
+    });
+  }
+
+  function handleBlur() {
+    flush(() => {
+      onUpdateEdit(task.id, editingContent);
+    });
+    onCloseEdit();
+  }
+
+  function patchDetails(
+    details: Partial<
+      Pick<
+        Task,
+        | "notes"
+        | "important"
+        | "dueDate"
+        | "dueTime"
+        | "url"
+        | "subtasks"
+        | "tags"
+        | "projectId"
+      >
+    >,
+  ) {
+    onUpdateDetails(task.id, {
+      notes: task.notes,
+      important: task.important,
+      dueDate: task.dueDate,
+      dueTime: task.dueTime,
+      url: task.url,
+      subtasks: task.subtasks,
+      tags: task.tags,
+      projectId: task.projectId,
+      ...details,
+    });
+  }
+
+  function generateSubtaskId() {
+    return generateUUID();
+  }
+
+  function updateSubtaskTitle(subtaskId: string, title: string) {
+    patchDetails({
+      subtasks: task.subtasks.map((subtask) =>
+        subtask.id === subtaskId ? { ...subtask, title } : subtask,
+      ),
+    });
+  }
+
+  function toggleSubtask(subtaskId: string) {
+    patchDetails({
+      subtasks: task.subtasks.map((subtask) =>
+        subtask.id === subtaskId
+          ? { ...subtask, done: !subtask.done }
+          : subtask,
+      ),
+    });
+  }
+
+  function addSubtask() {
+    patchDetails({
+      subtasks: [
+        ...task.subtasks,
+        { id: generateSubtaskId(), title: "", done: false },
+      ],
+    });
+  }
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="w-full">
+        <TaskTitle
+          ref={inputRef}
+          task={task}
+          isEditing={isEditing}
+          editingContent={editingContent}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          onStartEdit={onStartEdit}
+        />
+      </div>
+
+      <div className="flex items-center justify-between rounded-base border-2 border-black bg-white p-4">
+        <div className="flex items-center gap-3">
+          <TaskStatusToggle task={task} onToggle={onToggle} />
+        </div>
+        <div className="flex items-center">
+          <TaskImportant
+            isImportant={task.important}
+            onToggle={() => patchDetails({ important: !task.important })}
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="rounded-base border-2 border-black bg-white p-4">
+          <TaskProject
+            projectId={task.projectId}
+            onUpdateProject={(id) => patchDetails({ projectId: id })}
+          />
+        </div>
+
+        <div className="rounded-base border-2 border-black bg-white p-4">
+          <TaskDueDate
+            dueDate={task.dueDate || ""}
+            dueTime={task.dueTime || ""}
+            onUpdateDate={(date) => patchDetails({ dueDate: date })}
+            onUpdateTime={(time) => patchDetails({ dueTime: time })}
+          />
+        </div>
+      </div>
+
+      <div className="rounded-base border-2 border-black bg-white p-4">
+        <TaskSubtasks
+          subtasks={task.subtasks}
+          onAddSubtask={addSubtask}
+          onToggleSubtask={toggleSubtask}
+          onUpdateSubtaskTitle={updateSubtaskTitle}
+        />
+      </div>
+
+      <div className="rounded-base border-2 border-black bg-white p-4">
+        <TaskNotes
+          notes={task.notes}
+          onUpdateNotes={(notes) => patchDetails({ notes })}
+        />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="rounded-base border-2 border-black bg-white p-4">
+          <TaskTags
+            tags={task.tags}
+            onTagsChange={(tags) => patchDetails({ tags })}
+          />
+        </div>
+
+        <div className="rounded-base border-2 border-black bg-white p-4">
+          <TaskUrl
+            url={task.url}
+            onUpdateUrl={(url) => patchDetails({ url })}
+          />
+        </div>
+      </div>
+
+      <div className="mt-4 flex flex-col gap-3">
+        <button
+          type="button"
+          className="w-full flex items-center justify-center gap-2 rounded-base border-2 border-black bg-[#ff8fab] py-3 text-base font-bold transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none hover:bg-[#ff7597] shadow-shadow"
+          onClick={() => onDelete(task.id)}
+        >
+          <Trash2 className="h-5 w-5" /> Delete Task
+        </button>
+      </div>
+    </div>
+  );
+}

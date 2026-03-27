@@ -23,7 +23,7 @@ export default function ProjectList({
         projects.map((project) => (
           <div
             key={project.id}
-            className="flex items-center justify-between bg-white border-2 border-black rounded-xl p-4 shadow-sm"
+            className="group flex items-center justify-between bg-white border-2 border-black rounded-xl p-4 shadow-sm hover:bg-gray-50 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all cursor-pointer"
           >
             <Link
               href={`/?projectId=${project.id}`}

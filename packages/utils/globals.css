@@ -85,7 +85,7 @@
   }
 
   a:hover {
-    @apply text-main underline;
+    @apply underline;
   }
 }
 

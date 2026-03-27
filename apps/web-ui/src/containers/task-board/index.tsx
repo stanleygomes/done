@@ -9,6 +9,7 @@ import { CreateTaskInput } from "../create-task-input";
 import { TaskDrawer } from "../../components/task-drawer";
 import { ZenModeView } from "../../components/zen-mode-view";
 import { Search } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface TaskBoardProps {
   projectId?: string | null;
@@ -16,6 +17,7 @@ interface TaskBoardProps {
 }
 
 export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
+  const router = useRouter();
   const { projects } = useProjects();
   const currentProject = projectId
     ? projects.find((p) => p.id === projectId)
@@ -195,6 +197,7 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
         onDelete={deleteTask}
         onEnterZenMode={enterZenMode}
         onUpdateDetails={updateTaskDetails}
+        onOpenFullPage={(id) => router.push(`/task/${id}`)}
       />
     </main>
   );
