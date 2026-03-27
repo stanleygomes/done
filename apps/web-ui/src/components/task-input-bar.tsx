@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, KeyboardEvent, useState } from "react";
+import { FormEvent, useEffect, KeyboardEvent, useState, useRef } from "react";
 import { format, parseISO, isValid } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import {
@@ -49,11 +49,18 @@ export function TaskInputBar({
 
   const dueDate = dueDateStr ? parseISO(dueDateStr) : undefined;
 
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+
   useEffect(() => {
     if (draft && !value) {
       onChange(draft);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    // Focus the input when the page loads
+    inputRef.current?.focus();
   }, []);
 
   function handleChange(newValue: string) {
@@ -121,6 +128,7 @@ export function TaskInputBar({
         <div className="flex flex-col overflow-hidden rounded-xl border-2 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all">
           <div className="flex bg-white z-10">
             <AutoResizeTextarea
+              ref={inputRef}
               value={value}
               onChange={(event) => handleChange(event.target.value)}
               onKeyDown={handleKeyDown}
