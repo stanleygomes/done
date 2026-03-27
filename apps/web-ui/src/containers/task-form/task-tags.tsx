@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { FormField } from "./form-field";
 
 interface TaskTagsProps {
   tags: string[];
@@ -24,8 +25,7 @@ export function TaskTags({ tags, onTagsChange }: TaskTagsProps) {
   }
 
   return (
-    <>
-      <label className="mb-2 block text-sm font-black">Tags</label>
+    <FormField label="Tags">
       <div className="flex flex-wrap gap-2 mb-2">
         {tags?.map((tag) => (
           <span
@@ -51,6 +51,6 @@ export function TaskTags({ tags, onTagsChange }: TaskTagsProps) {
         rows={2}
         className="w-full rounded-base border-2 border-black bg-[#fffaf0] px-3 py-2 text-sm outline-none resize-none"
       />
-    </>
+    </FormField>
   );
 }

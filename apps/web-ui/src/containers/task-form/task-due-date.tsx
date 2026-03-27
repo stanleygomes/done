@@ -1,5 +1,6 @@
 import { TaskDatePicker } from "../../components/task-date-picker";
 import { TaskTimeInput } from "../../components/task-time-input";
+import { FormField } from "./form-field";
 
 interface TaskDueDateProps {
   dueDate: string;
@@ -15,8 +16,7 @@ export function TaskDueDate({
   onUpdateTime,
 }: TaskDueDateProps) {
   return (
-    <>
-      <h3 className="mb-2 text-sm font-black">Due date</h3>
+    <FormField label="Due date">
       <div className="flex flex-col gap-2">
         <TaskDatePicker
           dueDateStr={dueDate}
@@ -29,6 +29,6 @@ export function TaskDueDate({
           className="bg-[#fffaf0] w-full px-3 py-2"
         />
       </div>
-    </>
+    </FormField>
   );
 }

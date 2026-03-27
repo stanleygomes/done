@@ -160,53 +160,38 @@ export function TaskForm({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="rounded-base border-2 border-black bg-white p-4">
-          <TaskProject
-            projectId={task.projectId}
-            onUpdateProject={(id) => patchDetails({ projectId: id })}
-          />
-        </div>
+        <TaskProject
+          projectId={task.projectId}
+          onUpdateProject={(id) => patchDetails({ projectId: id })}
+        />
 
-        <div className="rounded-base border-2 border-black bg-white p-4">
-          <TaskDueDate
-            dueDate={task.dueDate || ""}
-            dueTime={task.dueTime || ""}
-            onUpdateDate={(date) => patchDetails({ dueDate: date })}
-            onUpdateTime={(time) => patchDetails({ dueTime: time })}
-          />
-        </div>
-      </div>
-
-      <div className="rounded-base border-2 border-black bg-white p-4">
-        <TaskSubtasks
-          subtasks={task.subtasks}
-          onAddSubtask={addSubtask}
-          onToggleSubtask={toggleSubtask}
-          onUpdateSubtaskTitle={updateSubtaskTitle}
+        <TaskDueDate
+          dueDate={task.dueDate || ""}
+          dueTime={task.dueTime || ""}
+          onUpdateDate={(date) => patchDetails({ dueDate: date })}
+          onUpdateTime={(time) => patchDetails({ dueTime: time })}
         />
       </div>
 
-      <div className="rounded-base border-2 border-black bg-white p-4">
-        <TaskNotes
-          notes={task.notes}
-          onUpdateNotes={(notes) => patchDetails({ notes })}
-        />
-      </div>
+      <TaskSubtasks
+        subtasks={task.subtasks}
+        onAddSubtask={addSubtask}
+        onToggleSubtask={toggleSubtask}
+        onUpdateSubtaskTitle={updateSubtaskTitle}
+      />
+
+      <TaskNotes
+        notes={task.notes}
+        onUpdateNotes={(notes) => patchDetails({ notes })}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="rounded-base border-2 border-black bg-white p-4">
-          <TaskTags
-            tags={task.tags}
-            onTagsChange={(tags) => patchDetails({ tags })}
-          />
-        </div>
+        <TaskTags
+          tags={task.tags}
+          onTagsChange={(tags) => patchDetails({ tags })}
+        />
 
-        <div className="rounded-base border-2 border-black bg-white p-4">
-          <TaskUrl
-            url={task.url}
-            onUpdateUrl={(url) => patchDetails({ url })}
-          />
-        </div>
+        <TaskUrl url={task.url} onUpdateUrl={(url) => patchDetails({ url })} />
       </div>
 
       <div className="mt-4 flex flex-col gap-3">

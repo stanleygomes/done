@@ -1,4 +1,5 @@
 import { TaskImportantToggle } from "../../components/task-important-toggle";
+import { FormField } from "./form-field";
 
 interface TaskImportantProps {
   isImportant: boolean;
@@ -7,15 +8,12 @@ interface TaskImportantProps {
 
 export function TaskImportant({ isImportant, onToggle }: TaskImportantProps) {
   return (
-    <div className="mb-3 flex flex-col items-start justify-between">
-      <label className="text-sm font-black" htmlFor="important-task">
-        Is it an important task?
-      </label>
+    <FormField label="Is it an important task?" noBox={true}>
       <TaskImportantToggle
         isImportant={isImportant}
         onToggle={onToggle}
         className="bg-[#fffaf0]"
       />
-    </div>
+    </FormField>
   );
 }

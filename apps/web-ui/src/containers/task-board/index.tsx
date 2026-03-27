@@ -7,7 +7,7 @@ import { AppHeader } from "./task-header";
 import { TaskList } from "./task-list";
 import { CreateTaskInput } from "../create-task-input";
 import { TaskDrawer } from "./task-drawer";
-import { ZenModeView } from "./zen-mode-view";
+import { ZenModeView } from "../zen-mode";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import type { Task } from "@models/task";
+import { FormField } from "./form-field";
 
 interface TaskSubtasksProps {
   subtasks: Task["subtasks"];
@@ -27,10 +28,11 @@ export function TaskSubtasks({
     }
     lastSubtaskCount.current = subtasks.length;
   }, [subtasks.length]);
+
   return (
-    <>
-      <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-sm font-black">Subtasks</h3>
+    <FormField
+      label="Subtasks"
+      action={
         <button
           type="button"
           className="rounded-base border-2 border-black bg-[#ffe066] px-2 py-1 text-xs font-bold shadow-shadow transition-all active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
@@ -38,8 +40,8 @@ export function TaskSubtasks({
         >
           Add subtask
         </button>
-      </div>
-
+      }
+    >
       <div ref={listContainerRef} className="flex flex-col gap-2">
         {subtasks.map((subtask) => (
           <div key={subtask.id} className="flex items-center gap-2">
@@ -72,6 +74,6 @@ export function TaskSubtasks({
           </div>
         ))}
       </div>
-    </>
+    </FormField>
   );
 }

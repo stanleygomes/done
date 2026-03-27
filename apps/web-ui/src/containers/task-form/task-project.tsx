@@ -1,4 +1,5 @@
 import { TaskProjectSelector } from "../../components/task-project-selector";
+import { FormField } from "./form-field";
 
 interface TaskProjectProps {
   projectId?: string;
@@ -7,8 +8,7 @@ interface TaskProjectProps {
 
 export function TaskProject({ projectId, onUpdateProject }: TaskProjectProps) {
   return (
-    <>
-      <label className="mb-2 block text-sm font-black">Project</label>
+    <FormField label="Project">
       <TaskProjectSelector
         value={projectId || "none"}
         onChange={(value) =>
@@ -17,6 +17,6 @@ export function TaskProject({ projectId, onUpdateProject }: TaskProjectProps) {
         isVisible={true}
         className="bg-[#fffaf0] w-full"
       />
-    </>
+    </FormField>
   );
 }
