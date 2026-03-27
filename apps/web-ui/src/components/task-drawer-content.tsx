@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
-import { Trash2, Maximize2 } from "lucide-react";
+import { format, parseISO, isValid } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import { Trash2, Maximize2, CalendarIcon } from "lucide-react";
 import type { Task } from "@models/task";
 import { generateUUID } from "@done/utils/src/uuid-utils";
 import { useDebouncedSave } from "../hooks/use-debounced-save";
@@ -12,6 +14,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  Calendar,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
 } from "@done/ui";
 
 interface TaskDrawerContentProps {
@@ -105,6 +111,28 @@ export function TaskDrawerContent({
       projectId: task.projectId,
       ...details,
     });
+  }
+
+  function handleTimeChange(newValue: string) {
+    let value = newValue.replace(/\D/g, "");
+    if (value.length > 4) value = value.slice(0, 4);
+
+    if (value.length >= 3) {
+      value = value.slice(0, 2) + ":" + value.slice(2);
+    }
+
+    // Validate HH range (00-23)
+    if (value.length >= 2) {
+      const hh = parseInt(value.slice(0, 2));
+      if (hh > 23) value = "23" + value.slice(2);
+    }
+    // Validate mm range (00-59)
+    if (value.length >= 5) {
+      const mm = parseInt(value.slice(3, 5));
+      if (mm > 59) value = value.slice(0, 3) + "59";
+    }
+
+    patchDetails({ dueTime: value });
   }
 
   function generateSubtaskId() {
@@ -301,17 +329,39 @@ export function TaskDrawerContent({
       <div className="rounded-base border-2 border-black bg-white p-4 shadow-shadow">
         <h3 className="mb-2 text-sm font-black">Due date</h3>
         <div className="grid grid-cols-2 gap-2">
+          <Popover>
+            <PopoverTrigger asChild>
+              <button
+                type="button"
+                className="flex items-center gap-2 rounded-base border-2 border-black bg-[#fffaf0] px-3 py-2 text-sm font-bold outline-none"
+              >
+                <CalendarIcon className="h-4 w-4" />
+                {task.dueDate && isValid(parseISO(task.dueDate))
+                  ? format(parseISO(task.dueDate), "dd/MM/yyyy")
+                  : "Set date"}
+              </button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white">
+              <Calendar
+                mode="single"
+                selected={task.dueDate ? parseISO(task.dueDate) : undefined}
+                onSelect={(date) =>
+                  patchDetails({
+                    dueDate: date ? format(date, "yyyy-MM-dd") : "",
+                  })
+                }
+                initialFocus
+                locale={ptBR}
+              />
+            </PopoverContent>
+          </Popover>
           <input
-            type="date"
-            value={task.dueDate}
-            onChange={(e) => patchDetails({ dueDate: e.target.value })}
-            className="rounded-base border-2 border-black bg-[#fffaf0] px-2 py-1 text-sm outline-none"
-          />
-          <input
-            type="time"
+            type="text"
             value={task.dueTime}
-            onChange={(e) => patchDetails({ dueTime: e.target.value })}
-            className="rounded-base border-2 border-black bg-[#fffaf0] px-2 py-1 text-sm outline-none"
+            onChange={(e) => handleTimeChange(e.target.value)}
+            placeholder="HH:mm"
+            className="rounded-base border-2 border-black bg-[#fffaf0] px-2 py-1 text-sm font-bold outline-none placeholder:text-gray-300"
+            maxLength={5}
           />
         </div>
       </div>

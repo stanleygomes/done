@@ -1,5 +1,13 @@
 import { FormEvent, useEffect, KeyboardEvent, useState } from "react";
-import { Rocket, Star, Calendar, Clock, Folder } from "lucide-react";
+import { format, parseISO, isValid } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import {
+  Rocket,
+  Star,
+  Calendar as CalendarIcon,
+  Clock,
+  Folder,
+} from "lucide-react";
 import { useLocalStorage } from "usehooks-ts";
 import { useDebouncedSave } from "../hooks/use-debounced-save";
 import { AutoResizeTextarea } from "./auto-resize-textarea";
@@ -11,6 +19,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  Calendar,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
 } from "@done/ui";
 
 interface TaskInputBarProps {
@@ -31,9 +43,11 @@ export function TaskInputBar({
   const { projects } = useProjects();
 
   const [isImportant, setIsImportant] = useState(false);
-  const [dueDate, setDueDate] = useState("");
+  const [dueDateStr, setDueDateStr] = useState("");
   const [dueTime, setDueTime] = useState("");
   const [selectedProjectId, setSelectedProjectId] = useState<string>("none");
+
+  const dueDate = dueDateStr ? parseISO(dueDateStr) : undefined;
 
   useEffect(() => {
     if (draft && !value) {
@@ -56,17 +70,39 @@ export function TaskInputBar({
     }
   }
 
+  function handleTimeChange(newValue: string) {
+    let value = newValue.replace(/\D/g, "");
+    if (value.length > 4) value = value.slice(0, 4);
+
+    if (value.length >= 3) {
+      value = value.slice(0, 2) + ":" + value.slice(2);
+    }
+
+    // Validate HH range (00-23)
+    if (value.length >= 2) {
+      const hh = parseInt(value.slice(0, 2));
+      if (hh > 23) value = "23" + value.slice(2);
+    }
+    // Validate mm range (00-59)
+    if (value.length >= 5) {
+      const mm = parseInt(value.slice(3, 5));
+      if (mm > 59) value = value.slice(0, 3) + "59";
+    }
+
+    setDueTime(value);
+  }
+
   function handleSubmitAction() {
     clear();
     removeDraft();
     onSubmit({
       important: isImportant,
-      dueDate,
+      dueDate: dueDateStr,
       dueTime,
       projectId: selectedProjectId !== "none" ? selectedProjectId : undefined,
     });
     setIsImportant(false);
-    setDueDate("");
+    setDueDateStr("");
     setDueTime("");
     setSelectedProjectId("none");
   }
@@ -117,23 +153,47 @@ export function TaskInputBar({
               />
             </button>
 
-            <div className="flex items-center gap-1 rounded-base border-2 border-black bg-white px-2 py-1 shadow-sm text-gray-500 hover:text-black transition-colors focus-within:text-black">
-              <Calendar className="h-4 w-4" />
-              <input
-                type="date"
-                value={dueDate}
-                onChange={(e) => setDueDate(e.target.value)}
-                className="bg-transparent outline-none text-xs font-bold w-[100px] cursor-pointer"
-              />
-            </div>
+            <Popover>
+              <PopoverTrigger asChild>
+                <button
+                  type="button"
+                  className={`flex items-center gap-1 rounded-base border-2 border-black bg-white px-2 py-1 shadow-sm transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${
+                    dueDateStr ? "text-black" : "text-gray-400"
+                  }`}
+                  title="Set due date"
+                >
+                  <CalendarIcon className="h-4 w-4 shrink-0" />
+                  <span className="text-xs font-bold truncate max-w-[100px]">
+                    {dueDate && isValid(dueDate)
+                      ? format(dueDate, "dd/MM/yy")
+                      : "Date"}
+                  </span>
+                </button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white">
+                <Calendar
+                  mode="single"
+                  selected={dueDate}
+                  onSelect={(date) =>
+                    setDueDateStr(date ? format(date, "yyyy-MM-dd") : "")
+                  }
+                  initialFocus
+                  locale={ptBR}
+                />
+              </PopoverContent>
+            </Popover>
 
-            <div className="flex items-center gap-1 rounded-base border-2 border-black bg-white px-2 py-1 shadow-sm text-gray-500 hover:text-black transition-colors focus-within:text-black">
-              <Clock className="h-4 w-4" />
+            <div
+              className={`flex items-center gap-1 rounded-base border-2 border-black bg-white px-2 py-1 shadow-sm transition-colors focus-within:text-black ${dueTime ? "text-black" : "text-gray-400"}`}
+            >
+              <Clock className="h-4 w-4 shrink-0" />
               <input
-                type="time"
+                type="text"
                 value={dueTime}
-                onChange={(e) => setDueTime(e.target.value)}
-                className="bg-transparent outline-none text-xs font-bold w-[76px] cursor-pointer"
+                onChange={(e) => handleTimeChange(e.target.value)}
+                placeholder="HH:mm"
+                className="bg-transparent outline-none text-xs font-bold w-[45px] cursor-pointer placeholder:text-gray-300"
+                maxLength={5}
               />
             </div>
 
