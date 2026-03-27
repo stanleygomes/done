@@ -30,7 +30,7 @@ export function TaskProjectSelector({
         className={`flex items-center gap-2 rounded-base border-2 border-black px-2 py-1 h-auto text-xs font-bold shadow-sm outline-none hover:bg-gray-50 focus:ring-0 ${className}`}
       >
         {value === "none" && (
-          <Folder className="h-4 w-4 shrink-0 text-gray-400" />
+          <Folder className="h-4 w-4 shrink-0 text-gray-700" />
         )}
         <SelectValue placeholder="Project..." className="truncate" />
       </SelectTrigger>
@@ -39,7 +39,7 @@ export function TaskProjectSelector({
           value="none"
           className="font-bold cursor-pointer hover:bg-black/5"
         >
-          No project
+          <span className="text-gray-700">No project</span>
         </SelectItem>
         {projects.map((p) => (
           <SelectItem

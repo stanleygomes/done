@@ -8,8 +8,10 @@ import { TaskList } from "./task-list";
 import { CreateTaskInput } from "../create-task-input";
 import { TaskDrawer } from "./task-drawer";
 import { ZenModeView } from "../zen-mode";
-import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { TaskSearch } from "./task-search";
+import { BoardHeader } from "./board-header";
+import { FinishedHeader } from "./finished-header";
 
 interface TaskBoardProps {
   projectId?: string | null;
@@ -88,48 +90,18 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
         />
 
         {isSearchVisible && (
-          <div className="mb-8 relative">
-            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-              <Search className="w-5 h-5 text-gray-400" />
-            </div>
-            <input
-              type="text"
-              placeholder="Search tasks..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border-2 border-black rounded-xl pl-12 pr-4 py-3 text-lg font-bold placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-black/90 transition-shadow outline-none"
-              autoFocus
-            />
-          </div>
+          <TaskSearch query={searchQuery} onQueryChange={setSearchQuery} />
         )}
 
         {currentProject && (
-          <div className="mb-6 px-1 flex flex-col gap-2">
-            <a
-              href="/projects"
-              className="text-sm font-bold text-gray-500 hover:text-black transition-colors w-fit"
-            >
-              ← Back to Projects
-            </a>
-            <div className="flex items-center gap-2">
-              <div
-                className="w-5 h-5 rounded-full border-2 border-black"
-                style={{ backgroundColor: currentProject.color }}
-              ></div>
-              <h2 className="text-2xl font-black">{currentProject.name}</h2>
-            </div>
-          </div>
+          <BoardHeader
+            title={currentProject.name}
+            color={currentProject.color}
+          />
         )}
+
         {filter && !currentProject && (
-          <div className="mb-6 px-1 flex flex-col gap-2">
-            <a
-              href="/projects"
-              className="text-sm font-bold text-gray-500 hover:text-black transition-colors w-fit"
-            >
-              ← Back to Projects
-            </a>
-            <h2 className="text-2xl font-black capitalize">{filter} Tasks</h2>
-          </div>
+          <BoardHeader title={filter} isFilter={true} />
         )}
 
         <section className="flex flex-col gap-4">
@@ -152,15 +124,7 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
 
         {finishedTasks.length > 0 && (
           <section className="flex flex-col gap-4 mt-10">
-            <div className="flex items-center justify-between px-1">
-              <h2 className="text-2xl font-black text-black">Finished</h2>
-              <button
-                onClick={clearFinishedTasks}
-                className="text-sm font-bold text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
-              >
-                Delete all finished tasks
-              </button>
-            </div>
+            <FinishedHeader onClear={clearFinishedTasks} />
             <TaskList
               tasks={finishedTasks}
               editingTaskId={editingTaskId}

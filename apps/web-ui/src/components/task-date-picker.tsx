@@ -22,7 +22,7 @@ export function TaskDatePicker({
         <button
           type="button"
           className={`flex items-center gap-1 rounded-base border-2 border-black px-2 py-1 shadow-sm transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${
-            dueDateStr ? "text-black" : "text-gray-400"
+            dueDateStr ? "text-black" : "text-gray-700"
           } ${className}`}
           title="Set due date"
         >

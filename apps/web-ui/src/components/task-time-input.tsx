@@ -40,7 +40,7 @@ export function TaskTimeInput({ value, onChange, className }: TimeInputProps) {
         value={value}
         onChange={(e) => handleTimeChange(e.target.value)}
         placeholder="HH:mm"
-        className="bg-transparent outline-none text-xs font-bold w-[45px] cursor-pointer placeholder:text-gray-300"
+        className="bg-transparent outline-none text-xs font-bold w-[45px] cursor-pointer placeholder:text-gray-700"
         maxLength={5}
       />
     </div>
