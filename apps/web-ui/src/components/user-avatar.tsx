@@ -1,22 +1,46 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useUser } from "@modules/user/use-user";
+import Image from "next/image";
 
-export function UserAvatar() {
-  const { user } = useUser();
-  const initial = user?.name?.[0]?.toUpperCase() ?? "G";
-  const label = user?.name ?? "Guest";
+const AVATARS = [
+  "/images/face-cool.png",
+  "/images/face-happy.png",
+  "/images/face-laugh.png",
+  "/images/face-smart.png",
+  "/images/face-look.png",
+  "/images/face-shocked.png",
+  "/images/face-surprised.png",
+];
+
+interface UserAvatarProps {
+  className?: string;
+}
+
+export function UserAvatar({ className }: UserAvatarProps) {
+  const [avatar, setAvatar] = useState<string | null>(null);
+
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * AVATARS.length);
+    const selectedAvatar = AVATARS[randomIndex];
+    if (selectedAvatar) {
+      setAvatar(selectedAvatar);
+    }
+  }, []);
+
+  if (!avatar) return null;
 
   return (
     <Link
       href="/settings"
-      className="flex items-center gap-2 rounded-base border-2 border-black bg-white px-3 py-1.5 text-sm font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
+      className="group flex items-center justify-center rounded-full"
     >
-      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-black text-xs font-black text-[#fef6d9]">
-        {initial}
+      <div
+        className={`relative overflow-hidden rounded-full bg-black transition-all group-hover:scale-110 group-hover:rotate-3 group-active:scale-95 shadow-sm group-hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:group-hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)] ${className}`}
+      >
+        <Image src={avatar} alt="Avatar" fill className="object-cover" />
       </div>
-      <span>{label}</span>
     </Link>
   );
 }

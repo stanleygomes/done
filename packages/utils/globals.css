@@ -81,11 +81,11 @@
   }
 
   a {
-    @apply transition-colors underline;
+    @apply transition-colors;
   }
 
   a:hover {
-    @apply text-main;
+    @apply text-main underline;
   }
 }
 
