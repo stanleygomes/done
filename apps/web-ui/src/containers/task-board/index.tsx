@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useProjects } from "@modules/todo/use-projects";
 import { useTasks } from "@modules/todo/use-tasks";
 import { AppHeader } from "../../components/app-header";
@@ -23,7 +23,12 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
     ? projects.find((p) => p.id === projectId)
     : null;
 
+  const [mounted, setMounted] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const {
     todoTasks,
     finishedTasks,
@@ -51,6 +56,10 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
     enterZenMode,
     exitZenMode,
   } = useTasks(projectId, filter);
+
+  if (!mounted) {
+    return null;
+  }
 
   if (zenModeTask) {
     return (

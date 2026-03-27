@@ -1,7 +1,7 @@
 import type { Viewport, Metadata } from "next";
 import { pixelify, geistSans, geistMono } from "@config/font";
 import { Providers } from "./providers";
-import "@done/utils/globals.css";
+import "@done/ui/globals.css";
 
 export const metadata: Metadata = {
   title: "EssenceTube",

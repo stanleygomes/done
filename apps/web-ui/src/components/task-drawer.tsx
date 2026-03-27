@@ -1,6 +1,12 @@
 "use client";
 
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@done/ui";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerDescription,
+} from "@done/ui";
 import { Maximize2 } from "lucide-react";
 import type { Task } from "@models/task";
 import { TaskForm } from "../containers/task-form";
@@ -65,6 +71,9 @@ export function TaskDrawer({
       <DrawerContent className="bg-[#fef6d9] flex flex-col sm:!max-w-2xl w-full">
         <DrawerHeader className="border-b-2 border-black px-6 py-4 text-left shrink-0">
           <DrawerTitle className="text-xl font-black">Task Details</DrawerTitle>
+          <DrawerDescription className="sr-only">
+            View and edit the details of your task here.
+          </DrawerDescription>
         </DrawerHeader>
 
         {task && (

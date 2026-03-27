@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "@done/utils/globals.css";
+import "@done/ui/globals.css";
 import { Providers } from "./providers";
 import Menu from "src/containers/menu";
 

@@ -17,7 +17,9 @@
       "@styles/*": ["src/styles/*"],
       "@models/*": ["src/models/*"],
       "@done/ui": ["../../packages/ui/src"],
-      "@done/utils": ["../../packages/utils"]
+      "@done/ui/*": ["../../packages/ui/src/*"],
+      "@done/utils": ["../../packages/utils/src"],
+      "@done/utils/*": ["../../packages/utils/src/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", ".next/types/**/*.ts"],

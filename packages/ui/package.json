@@ -10,7 +10,8 @@
     "./card": "./src/components/ui/card.tsx",
     "./icon": "./src/components/ui/icon.tsx",
     "./avatar": "./src/components/ui/avatar.tsx",
-    "./accordion": "./src/components/ui/accordion.tsx"
+    "./accordion": "./src/components/ui/accordion.tsx",
+    "./globals.css": "./src/globals.css"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
