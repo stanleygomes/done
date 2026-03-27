@@ -1,0 +1,47 @@
+import { Clock } from "lucide-react";
+
+interface TimeInputProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export function TimeInput({ value, onChange }: TimeInputProps) {
+  function handleTimeChange(newValue: string) {
+    let formattedValue = newValue.replace(/\D/g, "");
+    if (formattedValue.length > 4) formattedValue = formattedValue.slice(0, 4);
+
+    if (formattedValue.length >= 3) {
+      formattedValue =
+        formattedValue.slice(0, 2) + ":" + formattedValue.slice(2);
+    }
+
+    // Validate HH range (00-23)
+    if (formattedValue.length >= 2) {
+      const hh = parseInt(formattedValue.slice(0, 2));
+      if (hh > 23) formattedValue = "23" + formattedValue.slice(2);
+    }
+    // Validate mm range (00-59)
+    if (formattedValue.length >= 5) {
+      const mm = parseInt(formattedValue.slice(3, 5));
+      if (mm > 59) formattedValue = formattedValue.slice(0, 3) + "59";
+    }
+
+    onChange(formattedValue);
+  }
+
+  return (
+    <div
+      className={`flex items-center gap-1 rounded-base border-2 border-black bg-white px-2 py-1 shadow-sm transition-colors focus-within:text-black ${value ? "text-black" : "text-gray-400"}`}
+    >
+      <Clock className="h-4 w-4 shrink-0" />
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => handleTimeChange(e.target.value)}
+        placeholder="HH:mm"
+        className="bg-transparent outline-none text-xs font-bold w-[45px] cursor-pointer placeholder:text-gray-300"
+        maxLength={5}
+      />
+    </div>
+  );
+}

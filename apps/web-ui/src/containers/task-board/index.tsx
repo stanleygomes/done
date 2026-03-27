@@ -5,7 +5,7 @@ import { useProjects } from "@modules/todo/use-projects";
 import { useTasks } from "@modules/todo/use-tasks";
 import { AppHeader } from "../../components/app-header";
 import { TaskList } from "../../components/task-list";
-import { TaskInputBar } from "../../components/task-input-bar";
+import { CreateTaskInput } from "../create-task-input";
 import { TaskDrawer } from "../../components/task-drawer";
 import { ZenModeView } from "../../components/zen-mode-view";
 import { Search } from "lucide-react";
@@ -169,7 +169,7 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
         )}
       </div>
 
-      <TaskInputBar
+      <CreateTaskInput
         value={newTask}
         onChange={setNewTask}
         onSubmit={(fields) =>
