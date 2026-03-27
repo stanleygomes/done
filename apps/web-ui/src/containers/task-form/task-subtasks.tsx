@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import type { Task } from "@models/task";
 
 interface TaskSubtasksProps {
@@ -13,6 +14,19 @@ export function TaskSubtasks({
   onToggleSubtask,
   onUpdateSubtaskTitle,
 }: TaskSubtasksProps) {
+  const lastSubtaskCount = useRef(subtasks.length);
+  const listContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (subtasks.length > lastSubtaskCount.current) {
+      const inputs = listContainerRef.current?.querySelectorAll("input");
+      if (inputs && inputs.length > 0) {
+        const lastInput = inputs[inputs.length - 1] as HTMLInputElement;
+        lastInput.focus();
+      }
+    }
+    lastSubtaskCount.current = subtasks.length;
+  }, [subtasks.length]);
   return (
     <>
       <div className="mb-3 flex items-center justify-between">
@@ -26,7 +40,7 @@ export function TaskSubtasks({
         </button>
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div ref={listContainerRef} className="flex flex-col gap-2">
         {subtasks.map((subtask) => (
           <div key={subtask.id} className="flex items-center gap-2">
             <button
@@ -46,6 +60,12 @@ export function TaskSubtasks({
             <input
               value={subtask.title}
               onChange={(e) => onUpdateSubtaskTitle(subtask.id, e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  onAddSubtask();
+                }
+              }}
               className="w-full rounded-base border-2 border-black bg-[#fffaf0] px-2 py-1 text-sm outline-none"
               placeholder="Subtask title"
             />
