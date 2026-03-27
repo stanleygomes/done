@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Task } from "@models/task";
 import { Minimize2, Check } from "lucide-react";
-import { AutoResizeTextarea } from "./auto-resize-textarea";
+import { AutoResizeTextarea } from "../../components/auto-resize-textarea";
 import { useProjects } from "@modules/todo/use-projects";
 
 interface ZenModeViewProps {
@@ -27,10 +27,7 @@ export function ZenModeView({
     setEditingContent(task.content);
   }, [task.content]);
 
-  // Prevent scrolling on the body while in Zen mode
   useEffect(() => {
-    // Only hidden on body if we want everything inside to scroll smoothly?
-    // Actually, letting body scroll is fine or we can put overflow-y-auto in the fixed div.
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "";

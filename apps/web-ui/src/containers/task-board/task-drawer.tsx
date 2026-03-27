@@ -9,7 +9,7 @@ import {
 } from "@done/ui";
 import { Maximize2 } from "lucide-react";
 import type { Task } from "@models/task";
-import { TaskForm } from "../containers/task-form";
+import { TaskForm } from "../task-form";
 
 interface TaskDrawerProps {
   task: Task | null;

@@ -12,10 +12,8 @@ export const AutoResizeTextarea = forwardRef<
 >(({ value, ...props }, ref) => {
   const internalRef = useRef<HTMLTextAreaElement>(null);
 
-  // Forward the internal ref to the parent
   useImperativeHandle(ref, () => internalRef.current as HTMLTextAreaElement);
 
-  // Auto-resize logic based on value or internal state
   useEffect(() => {
     const textarea = internalRef.current;
     if (textarea) {

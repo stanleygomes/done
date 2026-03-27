@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import { useProjects } from "@modules/todo/use-projects";
 import { useTasks } from "@modules/todo/use-tasks";
-import { AppHeader } from "../../components/app-header";
-import { TaskList } from "../../components/task-list";
+import { AppHeader } from "./task-header";
+import { TaskList } from "./task-list";
 import { CreateTaskInput } from "../create-task-input";
-import { TaskDrawer } from "../../components/task-drawer";
-import { ZenModeView } from "../../components/zen-mode-view";
+import { TaskDrawer } from "./task-drawer";
+import { ZenModeView } from "./zen-mode-view";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 

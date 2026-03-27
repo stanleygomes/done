@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useUser } from "@modules/user/use-user";
-import { UserProfileCard } from "../../components/user-profile-card";
-import { GuestCard } from "../../components/guest-card";
-import { ThemeSelector } from "../../components/theme-selector";
+import { UserProfileCard } from "./user-profile-card";
+import { GuestCard } from "./guest-card";
+import { ThemeSelector } from "./theme-selector";
 
 export default function Settings() {
   const { user } = useUser();

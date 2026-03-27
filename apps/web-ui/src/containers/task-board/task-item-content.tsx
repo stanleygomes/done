@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import type { Task } from "@models/task";
-import { useDebouncedSave } from "../hooks/use-debounced-save";
-import { AutoResizeTextarea } from "./auto-resize-textarea";
-import { TaskToggle } from "./task-toggle";
+import { useDebouncedSave } from "../../hooks/use-debounced-save";
+import { AutoResizeTextarea } from "../../components/auto-resize-textarea";
+import { TaskToggle } from "../../components/task-toggle";
 
 interface TaskItemContentProps {
   task: Task;
