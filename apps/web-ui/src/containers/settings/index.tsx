@@ -1,11 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useUser } from "@modules/user/use-user";
 import { UserProfileCard } from "./user-profile-card";
 import { GuestCard } from "./guest-card";
 import { ThemeSelector } from "./theme-selector";
 import { NotificationSettings } from "./notification-settings";
+import { LegalSection } from "./legal-section";
+import { SettingsHeader } from "./settings-header";
 
 export default function Settings() {
   const { user } = useUser();
@@ -13,15 +14,7 @@ export default function Settings() {
   return (
     <main className="min-h-screen bg-background pb-32">
       <div className="mx-auto max-w-2xl px-4 pt-24">
-        <Link
-          href="/"
-          className="mb-8 inline-flex items-center gap-1 text-sm font-bold text-foreground/50 transition-colors hover:text-foreground"
-        >
-          ← Back
-        </Link>
-        <h1 className="mb-8 text-4xl font-black tracking-tight text-foreground">
-          Settings
-        </h1>
+        <SettingsHeader />
 
         <div className="flex flex-col gap-10">
           <section className="flex flex-col gap-4">
@@ -39,6 +32,10 @@ export default function Settings() {
               Notifications
             </h2>
             <NotificationSettings />
+          </section>
+
+          <section className="flex flex-col gap-4">
+            <LegalSection />
           </section>
         </div>
       </div>
