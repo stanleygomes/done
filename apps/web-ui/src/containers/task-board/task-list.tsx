@@ -2,6 +2,7 @@ import { Reorder } from "framer-motion";
 import type { Task } from "@models/task";
 import { EmptyState } from "./empty-state";
 import { TaskListItem } from "../task-item";
+import { Skeleton } from "@done/ui";
 
 interface TaskListProps {
   tasks: Task[];
@@ -18,6 +19,7 @@ interface TaskListProps {
   onUpdateDetails: (id: string, details: any) => void;
   onEnterZenMode?: (id: string) => void;
   showProject?: boolean;
+  isLoading?: boolean;
 }
 
 export function TaskList({
@@ -35,7 +37,18 @@ export function TaskList({
   onUpdateDetails,
   onEnterZenMode,
   showProject,
+  isLoading,
 }: TaskListProps) {
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-3 pb-10">
+        {[1, 2, 3].map((i) => (
+          <Skeleton key={i} className="h-[52px] w-full" />
+        ))}
+      </div>
+    );
+  }
+
   if (tasks.length === 0) {
     return <EmptyState />;
   }

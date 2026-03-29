@@ -48,3 +48,4 @@ export {
   PopoverContent,
 } from "./components/ui/popover";
 export { Toaster, toast } from "./components/ui/sonner";
+export { Skeleton } from "./components/ui/skeleton";

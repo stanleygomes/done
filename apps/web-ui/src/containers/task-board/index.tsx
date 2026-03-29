@@ -57,6 +57,7 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
     zenModeTask,
     enterZenMode,
     exitZenMode,
+    isLoading,
   } = useTasks(projectId, filter);
 
   if (!mounted) {
@@ -120,6 +121,7 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
             onUpdateDetails={updateTaskDetails}
             onEnterZenMode={enterZenMode}
             showProject={!projectId}
+            isLoading={isLoading}
           />
         </section>
 
@@ -141,6 +143,7 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
               onUpdateDetails={updateTaskDetails}
               onEnterZenMode={enterZenMode}
               showProject={!projectId}
+              isLoading={isLoading}
             />
           </section>
         )}
