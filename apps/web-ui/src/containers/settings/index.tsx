@@ -5,6 +5,7 @@ import { useUser } from "@modules/user/use-user";
 import { UserProfileCard } from "./user-profile-card";
 import { GuestCard } from "./guest-card";
 import { ThemeSelector } from "./theme-selector";
+import { NotificationSettings } from "./notification-settings";
 
 export default function Settings() {
   const { user } = useUser();
@@ -31,6 +32,13 @@ export default function Settings() {
           <section className="flex flex-col gap-4">
             <h2 className="text-lg font-black text-foreground">Theme</h2>
             <ThemeSelector />
+          </section>
+
+          <section className="flex flex-col gap-4">
+            <h2 className="text-lg font-black text-foreground">
+              Notifications
+            </h2>
+            <NotificationSettings />
           </section>
         </div>
       </div>
