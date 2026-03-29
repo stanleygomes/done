@@ -11,6 +11,7 @@
     "./icon": "./src/components/ui/icon.tsx",
     "./avatar": "./src/components/ui/avatar.tsx",
     "./accordion": "./src/components/ui/accordion.tsx",
+    "./sonner": "./src/components/ui/sonner.tsx",
     "./globals.css": "./src/globals.css"
   },
   "scripts": {

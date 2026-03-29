@@ -6,6 +6,7 @@ import { TaskManager } from "@modules/todo/task-manager";
 import type { Task } from "@models/task";
 import { isUUID, generateUUID } from "@done/utils/src/uuid-utils";
 import { SearchRanker } from "@done/search-ranker";
+import { toast } from "@done/ui";
 
 function normalizeTask(task: Task): Task {
   return {
@@ -130,10 +131,22 @@ export function useTasks(projectId?: string | null, filter?: string | null) {
   }
 
   function toggleTask(id: string) {
+    const task = normalizedTasks.find((t) => t.id === id);
+    if (task) {
+      if (!task.done) {
+        toast.success(`Task "${task.content}" resolved`);
+      } else {
+        toast(`Task "${task.content}" unresolved`);
+      }
+    }
     setTasks(manager.toggle(id));
   }
 
   function deleteTask(id: string) {
+    const task = normalizedTasks.find((t) => t.id === id);
+    if (task) {
+      toast(`Task "${task.content}" deleted`);
+    }
     setTasks(manager.remove(id));
     if (editingTaskId === id) {
       setEditingTaskId(null);

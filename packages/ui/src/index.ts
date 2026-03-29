@@ -47,3 +47,4 @@ export {
   PopoverTrigger,
   PopoverContent,
 } from "./components/ui/popover";
+export { Toaster, toast } from "./components/ui/sonner";
