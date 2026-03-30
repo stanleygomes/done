@@ -1,7 +1,7 @@
 "use client";
 
 import { Drawer, DrawerContent } from "@done/ui";
-import type { Task } from "@models/task";
+import type { Task } from "@done/entities";
 import { TaskForm } from "../task-form";
 import { TaskDrawerZenButton } from "./zen-button";
 import { TaskDrawerFullPageButton } from "./full-page-button";

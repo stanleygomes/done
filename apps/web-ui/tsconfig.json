@@ -15,7 +15,6 @@
       "@services/*": ["src/services/*"],
       "@config/*": ["src/config/*"],
       "@styles/*": ["src/styles/*"],
-      "@models/*": ["src/models/*"],
       "@containers/*": ["src/containers/*"],
       "@constants/*": ["src/constants/*"],
       "@done/ui": ["../../packages/ui/src"],

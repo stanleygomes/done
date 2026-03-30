@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { TaskManager } from "@modules/todo/task-manager";
-import type { Task } from "@models/task";
+import type { Task } from "@done/entities";
 import { isUUID, generateUUID } from "@done/utils";
 import { SearchRanker } from "@done/search-ranker";
 import { toast } from "@done/ui";

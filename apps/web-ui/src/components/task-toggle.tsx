@@ -1,4 +1,4 @@
-import type { Task } from "@models/task";
+import type { Task } from "@done/entities";
 
 interface TaskToggleProps {
   task: Task;

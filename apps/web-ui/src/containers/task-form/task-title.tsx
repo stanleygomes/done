@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import type { Task } from "@models/task";
+import type { Task } from "@done/entities";
 import { AutoResizeTextarea } from "../../components/auto-resize-textarea";
 
 interface TaskTitleProps {

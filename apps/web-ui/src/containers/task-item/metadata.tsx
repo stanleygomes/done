@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
-import type { Task } from "@models/task";
-import type { Project } from "@models/project";
+import type { Task, Project } from "@done/entities";
 import { Clock, Globe, FileText, CheckCircle2, Tag, X } from "lucide-react";
 import { TaskDetailBadge } from "../../components/task-detail-badge";
 import { TaskProjectSelector as ProjectSelector } from "../../components/task-project-selector";

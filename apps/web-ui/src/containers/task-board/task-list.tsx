@@ -1,5 +1,5 @@
 import { Reorder } from "framer-motion";
-import type { Task } from "@models/task";
+import type { Task } from "@done/entities";
 import { EmptyState } from "./empty-state";
 import { TaskListItem } from "../task-item";
 import { Skeleton } from "@done/ui";

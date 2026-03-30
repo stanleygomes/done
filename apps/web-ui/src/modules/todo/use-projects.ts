@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocalStorage } from "usehooks-ts";
-import { Project } from "@models/project";
+import { Project } from "@done/entities";
 import { generateUUID } from "@done/utils";
 
 export function useProjects() {

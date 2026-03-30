@@ -1,11 +1,11 @@
-import type { User } from "@models/user";
+import type { User } from "@done/entities";
 
 interface UserProfileCardProps {
   user: User;
 }
 
 export function UserProfileCard({ user }: UserProfileCardProps) {
-  const initial = user.name[0]?.toUpperCase() ?? "?";
+  const initial = user.name?.[0]?.toUpperCase() ?? "?";
 
   return (
     <div className="rounded-base border-2 border-border bg-secondary-background p-6 shadow-shadow">

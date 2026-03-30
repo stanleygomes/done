@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Project } from "@models/project";
+import { Project } from "@done/entities";
 
 export function SidebarProjectList({
   projects,

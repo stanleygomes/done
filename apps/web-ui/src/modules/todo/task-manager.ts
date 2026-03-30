@@ -1,4 +1,4 @@
-import type { Task } from "@models/task";
+import type { Task } from "@done/entities";
 import { generateUUID } from "@done/utils";
 
 export class TaskManager {

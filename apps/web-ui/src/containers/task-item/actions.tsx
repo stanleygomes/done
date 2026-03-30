@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Trash2, Maximize2, ChevronRight, RotateCcw } from "lucide-react";
-import type { Task } from "@models/task";
+import type { Task } from "@done/entities";
 import {
   Tooltip,
   TooltipContent,

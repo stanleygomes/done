@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
-import type { User } from "@models/user";
+import type { User } from "@done/entities";
 
 export function useUser() {
   const [user] = useLocalStorage<User | null>("done-user", null);

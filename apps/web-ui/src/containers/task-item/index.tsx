@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Reorder, useDragControls } from "framer-motion";
-import type { Task } from "@models/task";
+import type { Task } from "@done/entities";
 import { useProjects } from "@modules/todo/use-projects";
 import { useDebouncedSave } from "../../hooks/use-debounced-save";
 import { TaskToggle } from "../../components/task-toggle";

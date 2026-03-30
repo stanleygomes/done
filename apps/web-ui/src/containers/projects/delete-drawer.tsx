@@ -1,6 +1,6 @@
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@done/ui";
 import { AlertCircle } from "lucide-react";
-import { Project } from "@models/project";
+import { Project } from "@done/entities";
 import { useTranslation } from "react-i18next";
 
 interface ProjectDeleteDrawerProps {
