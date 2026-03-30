@@ -314,6 +314,8 @@
   "landing": {
     "menu": {
       "features": "Features",
+      "comparison": "Why Done?",
+      "preview": "In Action",
       "testimonials": "Testimonials",
       "pricing": "Pricing",
       "login": "Login"
@@ -345,6 +347,21 @@
           "description": "Get gentle nudges that keep you moving forward. We handle the reminders so you can keep your focus where it belongs: on the task."
         }
       }
+    },
+    "comparison": {
+      "title": "From Chaos to Clarity.",
+      "before": {
+        "title": "Before Done.",
+        "subtitle": "Scattered thoughts, missed deadlines, and total mental clutter."
+      },
+      "after": {
+        "title": "With Done.",
+        "subtitle": "Laser focus, clear priorities, and the peace of a finished list."
+      }
+    },
+    "preview": {
+      "title": "Everything in its place.",
+      "subtitle": "A clean, distract-free environment built for modern focus."
     },
     "pricing": {
       "title": "Choose Focus.",
@@ -385,23 +402,28 @@
       "button": "Join now"
     },
     "testimonials": {
-      "title": "Focus-Seekers Choice.",
-      "subtitle": "Join thousands of users who simplified their life this week.",
+      "title": "They chose to focus.",
+      "subtitle": "Join those who are already simplifying their lives this week.",
       "items": {
-        "marcos": {
-          "name": "Marcos Oliveira",
-          "role": "Software Engineer",
-          "content": "The clean UI helps me reach deep focus in seconds. No more distraction-heavy todo apps."
+        "joander": {
+          "name": "Joander Santos",
+          "role": "AI UX Designer Manager",
+          "content": "Apple Reminders is life. I don't believe anyone will use this app."
         },
-        "juliana": {
-          "name": "Juliana Souza",
-          "role": "Freelance Designer",
-          "content": "Projects and importance flags changed my game. Simple hierarchy for a complex workflow."
+        "marcotulio": {
+          "name": "Marco Túlio",
+          "role": "AI Tech Lead and Co-founder",
+          "content": "In the AI era, and this app wants to organize tasks? HAHAHAHAHAH"
         },
-        "ricardo": {
-          "name": "Ricardo Lima",
-          "role": "Final Year Student",
-          "content": "PWA notifications on my Android phone ensure I never miss an assignment. Simple and works."
+        "pablo": {
+          "name": "Pablo Alves",
+          "role": "Senior Software Engineer for AI",
+          "content": "The aesthetic of this app matches exactly what I don't need."
+        },
+        "thiago": {
+          "name": "Thiago Cantuário",
+          "role": "Senior AI Product Manager",
+          "content": "I can manage all my projects in Notion and Google Keep."
         }
       }
     },

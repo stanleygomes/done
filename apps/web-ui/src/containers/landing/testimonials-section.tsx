@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { TestimonialCard } from "./testimonial-card";
+import { motion } from "framer-motion";
 
 export function TestimonialsSection() {
   const { t } = useTranslation();
@@ -21,30 +22,22 @@ export function TestimonialsSection() {
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          <TestimonialCard
-            name={t("landing.testimonials.items.marcos.name")}
-            role={t("landing.testimonials.items.marcos.role")}
-            content={t("landing.testimonials.items.marcos.content")}
-            avatarColor="bg-orange-400"
-          />
-          <TestimonialCard
-            name={t("landing.testimonials.items.juliana.name")}
-            role={t("landing.testimonials.items.juliana.role")}
-            content={t("landing.testimonials.items.juliana.content")}
-            avatarColor="bg-blue-400"
-          />
-          <TestimonialCard
-            name={t("landing.testimonials.items.ricardo.name")}
-            role={t("landing.testimonials.items.ricardo.role")}
-            content={t("landing.testimonials.items.ricardo.content")}
-            avatarColor="bg-yellow-400"
-          />
-          <TestimonialCard
-            name={t("landing.testimonials.items.ricardo.name")}
-            role={t("landing.testimonials.items.ricardo.role")}
-            content={t("landing.testimonials.items.ricardo.content")}
-            avatarColor="bg-yellow-400"
-          />
+          {["joander", "marcotulio", "pablo", "thiago"].map((id, index) => (
+            <motion.div
+              key={id}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+            >
+              <TestimonialCard
+                name={t(`landing.testimonials.items.${id}.name`)}
+                role={t(`landing.testimonials.items.${id}.role`)}
+                content={t(`landing.testimonials.items.${id}.content`)}
+                avatarUrl={`/images/testimonial-${id}.png`}
+              />
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

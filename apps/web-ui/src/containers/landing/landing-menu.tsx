@@ -24,6 +24,18 @@ export function LandingMenu() {
 
         <div className="hidden md:flex items-center gap-8 text-sm font-black uppercase tracking-wider">
           <a
+            href="#why"
+            className="text-foreground/60 hover:text-foreground hover:no-underline transition-colors"
+          >
+            {t("landing.menu.comparison")}
+          </a>
+          <a
+            href="#app"
+            className="text-foreground/60 hover:text-foreground hover:no-underline transition-colors"
+          >
+            {t("landing.menu.preview")}
+          </a>
+          <a
             href="#features"
             className="text-foreground/60 hover:text-foreground hover:no-underline transition-colors"
           >

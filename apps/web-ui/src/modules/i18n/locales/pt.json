@@ -313,7 +313,9 @@
   },
   "landing": {
     "menu": {
-      "features": "Recursos",
+      "features": "Funcionalidades",
+      "comparison": "Por que?",
+      "preview": "App",
       "testimonials": "Depoimentos",
       "pricing": "Preços",
       "login": "Entrar"
@@ -345,6 +347,21 @@
           "description": "Receba lembretes sutis que o mantêm avançando. Nós cuidamos dos lembretes para que você possa manter seu foco onde ele pertence: na tarefa."
         }
       }
+    },
+    "comparison": {
+      "title": "Do Caos à Clareza.",
+      "before": {
+        "title": "Antes do Done.",
+        "subtitle": "Pensamentos dispersos, prazos perdidos e caos mental total."
+      },
+      "after": {
+        "title": "Com o Done.",
+        "subtitle": "Foco total, prioridades claras e a paz de uma lista finalizada."
+      }
+    },
+    "preview": {
+      "title": "Tudo no seu devido lugar.",
+      "subtitle": "Um ambiente limpo e sem distrações construído para o foco moderno."
     },
     "pricing": {
       "title": "Escolha o Foco.",
@@ -385,23 +402,28 @@
       "button": "Crie sua conta"
     },
     "testimonials": {
-      "title": "A Escolha do Foco.",
-      "subtitle": "Junte-se a milhares de usuários que simplificaram a vida esta semana.",
+      "title": "Eles escolheram focar.",
+      "subtitle": "Junte-se a quem já está simplificando a vida esta semana.",
       "items": {
-        "marcos": {
-          "name": "Marcos Oliveira",
-          "role": "Engenheiro de Software",
-          "content": "A interface limpa me ajuda a alcançar o foco profundo em segundos. Chega de apps de tarefas cheios de distrações."
+        "joander": {
+          "name": "Joander Santos",
+          "role": "AI UX Designer Manager",
+          "content": "Apple reminders é vida. Não acredito que alguém vai usar esse app."
         },
-        "juliana": {
-          "name": "Juliana Souza",
-          "role": "Designer Freelancer",
-          "content": "Projetos e flags de importância mudaram meu jogo. Hierarquia simples para um fluxo de trabalho complexo."
+        "marcotulio": {
+          "name": "Marco Túlio",
+          "role": "AI Tech Lead and Co-founder",
+          "content": "Na era da AI, e esse app querendo organizar tasks? HAHAHAHAHAH"
         },
-        "ricardo": {
-          "name": "Ricardo Lima",
-          "role": "Estudante de Graduação",
-          "content": "As notificações PWA no meu celular Android garantem que eu nunca perca uma entrega. Simples e funciona."
+        "pablo": {
+          "name": "Pablo Alves",
+          "role": "Senior Software Engineer for AI",
+          "content": "A estética desse app combina exatamente com o que não preciso."
+        },
+        "thiago": {
+          "name": "Thiago Cantuário",
+          "role": "Senior AI Product Manager",
+          "content": "Eu consigo gerenciar todos meus projetos no notion e no google keep."
         }
       }
     },
