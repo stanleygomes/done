@@ -20,6 +20,8 @@ export class TaskManager {
         content: value,
         done: false,
         createdAt: this.now(),
+        updatedAt: this.now(),
+        deletedAt: null,
         notes: "",
         important: false,
         dueDate: "",
@@ -35,7 +37,9 @@ export class TaskManager {
 
   toggle(id: string): Task[] {
     return this.tasks.map((task) =>
-      task.id === id ? { ...task, done: !task.done } : task,
+      task.id === id
+        ? { ...task, done: !task.done, updatedAt: this.now() }
+        : task,
     );
   }
 
@@ -47,19 +51,30 @@ export class TaskManager {
     }
 
     return this.tasks.map((task) =>
-      task.id === id ? { ...task, content: value } : task,
+      task.id === id
+        ? { ...task, content: value, updatedAt: this.now() }
+        : task,
     );
   }
 
   softRemove(id: string): Task[] {
     return this.tasks.map((task) =>
-      task.id === id ? { ...task, isDeleted: true } : task,
+      task.id === id
+        ? {
+            ...task,
+            isDeleted: true,
+            deletedAt: this.now(),
+            updatedAt: this.now(),
+          }
+        : task,
     );
   }
 
   restore(id: string): Task[] {
     return this.tasks.map((task) =>
-      task.id === id ? { ...task, isDeleted: false } : task,
+      task.id === id
+        ? { ...task, isDeleted: false, deletedAt: null, updatedAt: this.now() }
+        : task,
     );
   }
 

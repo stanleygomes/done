@@ -3,6 +3,7 @@ export interface Task {
   content: string;
   done: boolean;
   createdAt: number;
+  updatedAt: number;
   notes: string;
   important: boolean;
   dueDate: string;
@@ -12,6 +13,7 @@ export interface Task {
   tags: string[];
   projectId?: string;
   isDeleted?: boolean;
+  deletedAt?: number | null;
 }
 
 export interface TaskSubtask {

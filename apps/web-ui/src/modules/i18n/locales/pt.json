@@ -171,6 +171,11 @@
       "remove_tag": "Remover tag {{tag}}",
       "mark_subtask_done": "Marcar subtarefa como concluída",
       "mark_subtask_undone": "Marcar subtarefa como não concluída"
+    },
+    "metadata": {
+      "created_at": "Criado em",
+      "updated_at": "Atualizado em",
+      "deleted_at": "Excluído em"
     }
   },
   "common": {

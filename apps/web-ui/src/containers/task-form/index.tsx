@@ -12,6 +12,7 @@ import { TaskDueDate } from "./task-due-date";
 import { TaskImportant } from "./task-important";
 import { TaskUrl } from "./task-url";
 import { TaskDelete } from "./task-delete";
+import { TaskMetadata } from "./task-metadata";
 
 interface TaskFormProps {
   task: Task;
@@ -197,6 +198,8 @@ export function TaskForm({
 
         <TaskUrl url={task.url} onUpdateUrl={(url) => patchDetails({ url })} />
       </div>
+
+      <TaskMetadata task={task} />
 
       <TaskDelete
         onDelete={() => onDelete(task.id)}

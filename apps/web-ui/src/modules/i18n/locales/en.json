@@ -171,6 +171,11 @@
       "remove_tag": "Remove tag {{tag}}",
       "mark_subtask_done": "Mark subtask as done",
       "mark_subtask_undone": "Mark subtask as not done"
+    },
+    "metadata": {
+      "created_at": "Created at",
+      "updated_at": "Updated at",
+      "deleted_at": "Deleted at"
     }
   },
   "common": {

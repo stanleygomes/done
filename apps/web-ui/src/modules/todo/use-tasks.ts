@@ -12,6 +12,9 @@ function normalizeTask(task: Task): Task {
   return {
     ...task,
     id: task.id && isUUID(task.id) ? task.id : generateUUID(),
+    createdAt: task.createdAt ?? Date.now(),
+    updatedAt: task.updatedAt ?? task.createdAt ?? Date.now(),
+    deletedAt: task.deletedAt ?? (task.isDeleted ? Date.now() : null),
     notes: task.notes ?? "",
     important: task.important ?? false,
     dueDate: task.dueDate ?? "",
@@ -32,6 +35,9 @@ function hasLegacyFields(task: Task) {
   return (
     !task.id ||
     !isUUID(task.id) ||
+    task.createdAt === undefined ||
+    task.updatedAt === undefined ||
+    (task.isDeleted && task.deletedAt === undefined) ||
     task.notes === undefined ||
     task.important === undefined ||
     task.dueDate === undefined ||
@@ -229,6 +235,7 @@ export function useTasks(projectId?: string | null, filter?: string | null) {
           ...normalizedTask,
           ...details,
           done,
+          updatedAt: Date.now(),
         };
       }),
     );

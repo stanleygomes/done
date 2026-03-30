@@ -45,3 +45,16 @@ export const formatTime = (timeStr: string): string => {
     return timeStr;
   }
 };
+
+export const formatDateTime = (timestamp: number | Date): string => {
+  try {
+    const date =
+      typeof timestamp === "number" ? new Date(timestamp) : timestamp;
+    return new Intl.DateTimeFormat(navigator.language, {
+      dateStyle: "medium",
+      timeStyle: "short",
+    }).format(date);
+  } catch (e) {
+    return String(timestamp);
+  }
+};
