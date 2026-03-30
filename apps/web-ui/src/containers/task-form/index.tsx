@@ -23,6 +23,7 @@ interface TaskFormProps {
   onUpdateEdit: (id: string, content: string) => void;
   onCloseEdit: () => void;
   onDelete: (id: string) => void;
+  onRestore?: (id: string) => void;
   onUpdateDetails: (
     id: string,
     details: Pick<
@@ -37,6 +38,7 @@ interface TaskFormProps {
       | "projectId"
     >,
   ) => void;
+  isRecentlyDeleted?: boolean;
 }
 
 export function TaskForm({
@@ -49,7 +51,9 @@ export function TaskForm({
   onUpdateEdit,
   onCloseEdit,
   onDelete,
+  onRestore,
   onUpdateDetails,
+  isRecentlyDeleted,
 }: TaskFormProps) {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const { save, flush } = useDebouncedSave(600);
@@ -194,7 +198,11 @@ export function TaskForm({
         <TaskUrl url={task.url} onUpdateUrl={(url) => patchDetails({ url })} />
       </div>
 
-      <TaskDelete onDelete={() => onDelete(task.id)} />
+      <TaskDelete
+        onDelete={() => onDelete(task.id)}
+        onRestore={onRestore ? () => onRestore(task.id) : undefined}
+        isRecentlyDeleted={isRecentlyDeleted}
+      />
     </div>
   );
 }

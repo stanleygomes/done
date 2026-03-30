@@ -11,6 +11,7 @@ export interface Task {
   subtasks: TaskSubtask[];
   tags: string[];
   projectId?: string;
+  isDeleted?: boolean;
 }
 
 export interface TaskSubtask {

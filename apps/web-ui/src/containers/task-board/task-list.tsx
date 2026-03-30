@@ -14,12 +14,14 @@ interface TaskListProps {
   onUpdateEdit: (id: string, content: string) => void;
   onCloseEdit: () => void;
   onDelete: (id: string) => void;
+  onRestore?: (id: string) => void;
   onReorder: (tasks: Task[]) => void;
   onOpenDrawer: (task: Task) => void;
   onUpdateDetails: (id: string, details: any) => void;
   onEnterZenMode?: (id: string) => void;
   showProject?: boolean;
   isLoading?: boolean;
+  isRecentlyDeleted?: boolean;
 }
 
 export function TaskList({
@@ -32,12 +34,14 @@ export function TaskList({
   onUpdateEdit,
   onCloseEdit,
   onDelete,
+  onRestore,
   onReorder,
   onOpenDrawer,
   onUpdateDetails,
   onEnterZenMode,
   showProject,
   isLoading,
+  isRecentlyDeleted,
 }: TaskListProps) {
   if (isLoading) {
     return (
@@ -72,10 +76,12 @@ export function TaskList({
           onUpdateEdit={onUpdateEdit}
           onCloseEdit={onCloseEdit}
           onDelete={onDelete}
+          onRestore={onRestore}
           onOpenDrawer={onOpenDrawer}
           onUpdateTaskDetails={onUpdateDetails}
           onEnterZenMode={onEnterZenMode}
           showProject={showProject}
+          isRecentlyDeleted={isRecentlyDeleted}
         />
       ))}
     </Reorder.Group>

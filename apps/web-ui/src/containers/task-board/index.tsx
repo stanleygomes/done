@@ -46,6 +46,7 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
     createTask,
     toggleTask,
     deleteTask,
+    restoreTask,
     startEdit,
     updateEdit,
     updateTaskDetails,
@@ -60,6 +61,8 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
     exitZenMode,
     isLoading,
   } = useTasks(projectId, filter);
+
+  const isRecentlyDeleted = filter === "recently-deleted";
 
   useEffect(() => {
     if (!isSearchVisible && searchQuery !== "") {
@@ -115,12 +118,14 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
             onUpdateEdit={updateEdit}
             onCloseEdit={closeEdit}
             onDelete={deleteTask}
+            onRestore={restoreTask}
             onReorder={reorderTodoTasks}
             onOpenDrawer={openDrawer}
             onUpdateDetails={updateTaskDetails}
             onEnterZenMode={enterZenMode}
             showProject={!projectId}
             isLoading={isLoading}
+            isRecentlyDeleted={isRecentlyDeleted}
           />
         </section>
 
@@ -137,12 +142,14 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
               onUpdateEdit={updateEdit}
               onCloseEdit={closeEdit}
               onDelete={deleteTask}
+              onRestore={restoreTask}
               onReorder={reorderFinishedTasks}
               onOpenDrawer={openDrawer}
               onUpdateDetails={updateTaskDetails}
               onEnterZenMode={enterZenMode}
               showProject={!projectId}
               isLoading={isLoading}
+              isRecentlyDeleted={isRecentlyDeleted}
             />
           </section>
         )}
@@ -172,9 +179,11 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
         onUpdateEdit={updateEdit}
         onCloseEdit={closeEdit}
         onDelete={deleteTask}
+        onRestore={restoreTask}
         onEnterZenMode={enterZenMode}
         onUpdateDetails={updateTaskDetails}
         onOpenFullPage={(id) => router.push(`/task/${id}`)}
+        isRecentlyDeleted={isRecentlyDeleted}
       />
     </main>
   );

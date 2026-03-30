@@ -19,6 +19,7 @@ interface TaskDrawerProps {
   onUpdateEdit: (id: string, content: string) => void;
   onCloseEdit: () => void;
   onDelete: (id: string) => void;
+  onRestore?: (id: string) => void;
   onEnterZenMode?: (id: string) => void;
   onUpdateDetails: (
     id: string,
@@ -35,6 +36,7 @@ interface TaskDrawerProps {
     >,
   ) => void;
   onOpenFullPage?: (id: string) => void;
+  isRecentlyDeleted?: boolean;
 }
 
 export function TaskDrawer({
@@ -49,9 +51,11 @@ export function TaskDrawer({
   onUpdateEdit,
   onCloseEdit,
   onDelete,
+  onRestore,
   onEnterZenMode,
   onUpdateDetails,
   onOpenFullPage,
+  isRecentlyDeleted,
 }: TaskDrawerProps) {
   function handleDelete(id: string) {
     onDelete(id);
@@ -79,7 +83,9 @@ export function TaskDrawer({
               onUpdateEdit={onUpdateEdit}
               onCloseEdit={onCloseEdit}
               onDelete={handleDelete}
+              onRestore={onRestore}
               onUpdateDetails={onUpdateDetails}
+              isRecentlyDeleted={isRecentlyDeleted}
             />
 
             <div className="mt-4 flex flex-col gap-3">

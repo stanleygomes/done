@@ -51,6 +51,18 @@ export class TaskManager {
     );
   }
 
+  softRemove(id: string): Task[] {
+    return this.tasks.map((task) =>
+      task.id === id ? { ...task, isDeleted: true } : task,
+    );
+  }
+
+  restore(id: string): Task[] {
+    return this.tasks.map((task) =>
+      task.id === id ? { ...task, isDeleted: false } : task,
+    );
+  }
+
   remove(id: string): Task[] {
     return this.tasks.filter((task) => task.id !== id);
   }

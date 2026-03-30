@@ -66,7 +66,8 @@
       "today": "Hoje",
       "scheduled": "Agendado",
       "all": "Todas Tarefas",
-      "important": "Importante"
+      "important": "Importante",
+      "recently-deleted": "Excluídos Recentemente"
     }
   },
   "privacy": {
@@ -158,7 +159,8 @@
     },
     "buttons": {
       "add_subtask": "Adicionar subtarefa",
-      "delete_task": "Excluir Tarefa"
+      "delete_task": "Excluir Tarefa",
+      "restore_task": "Restaurar Tarefa"
     },
     "placeholders": {
       "subtask_title": "Título da subtarefa",
@@ -218,6 +220,7 @@
   "task_item": {
     "actions": {
       "delete": "Excluir tarefa",
+      "restore": "Restaurar tarefa",
       "zen_mode": "Entrar em Modo Zen",
       "details": "Abrir detalhes da tarefa"
     },
@@ -280,7 +283,7 @@
       "saved": "Salvo ✓"
     },
     "footer": {
-      "keyboard_hint": "Digite e pressione <kbd>Ctrl + Enter</kbd> para adicionar uma tarefa"
+      "keyboard_hint": "Digite e pressione Ctrl + Enter para adicionar uma tarefa"
     }
   },
   "sidebar": {
@@ -293,7 +296,8 @@
       "today": "Hoje",
       "scheduled": "Agendadas",
       "all": "Todas as Tarefas",
-      "important": "Importante"
+      "important": "Importante",
+      "recently-deleted": "Excluídas Recentemente"
     },
     "buttons": {
       "manage_projects": "Gerenciar Projetos"

@@ -30,10 +30,12 @@ interface TaskListItemProps {
   onUpdateEdit: (id: string, content: string) => void;
   onCloseEdit: () => void;
   onDelete: (id: string) => void;
+  onRestore?: (id: string) => void;
   onOpenDrawer: (task: Task) => void;
   onUpdateTaskDetails: (id: string, details: any) => void;
   onEnterZenMode?: (id: string) => void;
   showProject?: boolean;
+  isRecentlyDeleted?: boolean;
 }
 
 import { SwipeableActionItem } from "../../components/swipe-to-complete";
@@ -48,10 +50,12 @@ export function TaskListItem({
   onUpdateEdit,
   onCloseEdit,
   onDelete,
+  onRestore,
   onOpenDrawer,
   onUpdateTaskDetails,
   onEnterZenMode,
   showProject,
+  isRecentlyDeleted,
 }: TaskListItemProps) {
   const controls = useDragControls();
   const { projects } = useProjects();
@@ -84,6 +88,14 @@ export function TaskListItem({
     onCloseEdit();
   }
 
+  function handleSoftDelete() {
+    if (isRecentlyDeleted) {
+      setShowDeleteConfirm(true);
+    } else {
+      onDelete(task.id);
+    }
+  }
+
   return (
     <Reorder.Item
       value={task}
@@ -95,7 +107,7 @@ export function TaskListItem({
     >
       <SwipeableActionItem
         onComplete={() => onToggle(task.id)}
-        onDelete={() => setShowDeleteConfirm(true)}
+        onDelete={handleSoftDelete}
         className="h-full w-full"
       >
         <div className="bg-secondary-background p-4 flex items-start gap-3">
@@ -121,9 +133,11 @@ export function TaskListItem({
 
               <TaskItemActions
                 task={task}
-                onDelete={onDelete}
+                onDelete={handleSoftDelete}
+                onRestore={onRestore}
                 onEnterZenMode={onEnterZenMode}
                 onOpenDrawer={onOpenDrawer}
+                isRecentlyDeleted={isRecentlyDeleted}
               />
             </div>
 

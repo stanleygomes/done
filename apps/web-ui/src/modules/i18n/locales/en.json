@@ -66,7 +66,8 @@
       "today": "Today",
       "scheduled": "Scheduled",
       "all": "All Tasks",
-      "important": "Important"
+      "important": "Important",
+      "recently-deleted": "Recently Deleted"
     }
   },
   "privacy": {
@@ -158,7 +159,8 @@
     },
     "buttons": {
       "add_subtask": "Add subtask",
-      "delete_task": "Delete Task"
+      "delete_task": "Delete Task",
+      "restore_task": "Restore Task"
     },
     "placeholders": {
       "subtask_title": "Subtask title",
@@ -218,6 +220,7 @@
   "task_item": {
     "actions": {
       "delete": "Delete task",
+      "restore": "Restore task",
       "zen_mode": "Enter Zen Mode",
       "details": "Open Task Details"
     },
@@ -293,7 +296,8 @@
       "today": "Today",
       "scheduled": "Scheduled",
       "all": "All Tasks",
-      "important": "Important"
+      "important": "Important",
+      "recently-deleted": "Recently Deleted"
     },
     "buttons": {
       "manage_projects": "Manage Projects"

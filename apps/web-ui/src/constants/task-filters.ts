@@ -3,6 +3,7 @@ import {
   ListTodo,
   Layers,
   AlertCircle,
+  Trash2,
   LucideIcon,
 } from "lucide-react";
 
@@ -42,5 +43,12 @@ export const PROJECT_FILTERS: FilterItem[] = [
     href: "/?filter=important",
     icon: AlertCircle,
     color: "text-red-500",
+  },
+  {
+    id: "recently-deleted",
+    name: "Recently Deleted",
+    href: "/?filter=recently-deleted",
+    icon: Trash2,
+    color: "text-gray-500",
   },
 ];

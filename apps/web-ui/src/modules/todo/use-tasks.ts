@@ -24,6 +24,7 @@ function normalizeTask(task: Task): Task {
     })),
     tags: task.tags ?? [],
     projectId: task.projectId,
+    isDeleted: task.isDeleted ?? false,
   };
 }
 
@@ -112,6 +113,13 @@ export function useTasks(projectId?: string | null, filter?: string | null) {
     } else if (filter === "important") {
       result = result.filter((t) => t.important);
     }
+
+    if (filter === "recently-deleted") {
+      result = result.filter((t) => t.isDeleted);
+    } else {
+      result = result.filter((t) => !t.isDeleted);
+    }
+
     return result;
   }, [normalizedTasks, searchQuery, projectId, filter]);
 
@@ -153,9 +161,20 @@ export function useTasks(projectId?: string | null, filter?: string | null) {
   function deleteTask(id: string) {
     const task = normalizedTasks.find((t) => t.id === id);
     if (task) {
-      toast(`Task "${task.content}" deleted`);
+      if (filter === "recently-deleted") {
+        setTasks(manager.remove(id));
+        toast.success(`Task "${task.content}" permanently deleted`);
+      } else {
+        setTasks(manager.softRemove(id));
+        toast(`Task "${task.content}" deleted`, {
+          action: {
+            label: "Undo",
+            onClick: () => restoreTask(id),
+          },
+        });
+      }
     }
-    setTasks(manager.remove(id));
+
     if (editingTaskId === id) {
       setEditingTaskId(null);
       setEditingContent("");
@@ -163,6 +182,11 @@ export function useTasks(projectId?: string | null, filter?: string | null) {
     if (selectedTaskId === id) {
       setSelectedTaskId(null);
     }
+  }
+
+  function restoreTask(id: string) {
+    setTasks(manager.restore(id));
+    toast.success("Task restored");
   }
 
   function startEdit(task: Task) {
@@ -250,6 +274,7 @@ export function useTasks(projectId?: string | null, filter?: string | null) {
     createTask,
     toggleTask,
     deleteTask,
+    restoreTask,
     startEdit,
     updateEdit,
     updateTaskDetails,
