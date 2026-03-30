@@ -1,5 +1,5 @@
 import type { Task } from "@models/task";
-import { generateUUID } from "@done/utils/src/uuid-utils";
+import { generateUUID } from "@done/utils";
 
 export class TaskManager {
   constructor(

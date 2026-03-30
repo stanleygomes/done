@@ -454,6 +454,19 @@
       "errors": {
         "invalid_email": "Por favor, insira um e-mail válido"
       }
+    },
+    "otp": {
+      "title_new": "Crie sua conta",
+      "title_existing": "Bem-vindo de volta!",
+      "message_new": "Reparei que você é novo por aqui! Enviamos um código de 6 dígitos para <0>{{email}}</0> para validar seu email e começar sua configuração.",
+      "message_existing": "Enviamos um código de 6 dígitos para <0>{{email}}</0>. Insira-o abaixo para acessar sua conta.",
+      "submit_new": "Criar conta",
+      "submit_existing": "Entrar",
+      "change_email": "E-mail errado? Altere aqui"
+    },
+    "errors": {
+      "send_code": "Erro ao enviar o código. Tente novamente.",
+      "verify_code": "Código inválido ou expirado. Verifique e tente novamente."
     }
   },
   "hints": {

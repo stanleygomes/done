@@ -32,8 +32,12 @@ export class AuthController {
       { schema: sendCodeSchema },
       async (request, reply) => {
         const validatedData = validateSendCode(request.body);
-        await this.sendEmailCodeService.execute(validatedData.email);
-        reply.send({ message: "Verification code sent" });
+
+        const { isRegistered } = await this.sendEmailCodeService.execute(
+          validatedData.email,
+        );
+
+        reply.send({ message: "Verification code sent", isRegistered });
       },
     );
 

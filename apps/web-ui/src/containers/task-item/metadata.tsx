@@ -5,7 +5,7 @@ import { Clock, Globe, FileText, CheckCircle2, Tag, X } from "lucide-react";
 import { TaskDetailBadge } from "../../components/task-detail-badge";
 import { TaskProjectSelector as ProjectSelector } from "../../components/task-project-selector";
 import { TaskImportantToggle as ImportantToggle } from "../../components/task-important-toggle";
-import { formatDate, formatTime } from "@done/utils/src/date-utils";
+import { formatDate, formatTime } from "@done/utils";
 import {
   Tooltip,
   TooltipContent,

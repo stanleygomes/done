@@ -28,6 +28,7 @@ const jwtService = new JwtService(
 
 const sendEmailCodeService = new SendEmailCodeService(
   verificationCodeRepository,
+  userRepository,
   emailService,
 );
 

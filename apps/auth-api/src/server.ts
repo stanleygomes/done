@@ -1,5 +1,6 @@
 import "dotenv/config";
 import Fastify, { FastifyInstance } from "fastify";
+import cors from "@fastify/cors";
 import rateLimit from "@fastify/rate-limit";
 import { AppRouter } from "./router.js";
 import { PinoLogger } from "./config/pino.logger.js";
@@ -19,6 +20,12 @@ export class AppServer {
       global: true,
       max: 10,
       timeWindow: 60 * 1000, // 1 minute
+    });
+
+    this.fastify.register(cors, {
+      origin: config.app.cors.allowedOrigin,
+      methods: config.app.cors.allowedMethods.split(","),
+      allowedHeaders: config.app.cors.allowedHeaders.split(","),
     });
 
     setupErrorHandler(this.fastify);

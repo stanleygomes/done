@@ -454,6 +454,19 @@
       "errors": {
         "invalid_email": "Please enter a valid email address"
       }
+    },
+    "otp": {
+      "title_new": "Create your account",
+      "title_existing": "Welcome back!",
+      "message_new": "We noticed you're new! We've sent a 6-digit code to <0>{{email}}</0> to verify your email and start your setup.",
+      "message_existing": "We've sent a 6-digit code to <0>{{email}}</0>. Please enter it below to access your account.",
+      "submit_new": "Create account",
+      "submit_existing": "Sign in",
+      "change_email": "Wrong email? Change it here"
+    },
+    "errors": {
+      "send_code": "Error sending code. Please try again.",
+      "verify_code": "Invalid or expired code. Please check and try again."
     }
   },
   "hints": {

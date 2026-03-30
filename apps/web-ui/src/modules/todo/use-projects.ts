@@ -2,7 +2,7 @@
 
 import { useLocalStorage } from "usehooks-ts";
 import { Project } from "@models/project";
-import { generateUUID } from "@done/utils/src/uuid-utils";
+import { generateUUID } from "@done/utils";
 
 export function useProjects() {
   const [projects, setProjects] = useLocalStorage<Project[]>(

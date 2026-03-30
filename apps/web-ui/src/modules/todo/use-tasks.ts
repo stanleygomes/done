@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { TaskManager } from "@modules/todo/task-manager";
 import type { Task } from "@models/task";
-import { isUUID, generateUUID } from "@done/utils/src/uuid-utils";
+import { isUUID, generateUUID } from "@done/utils";
 import { SearchRanker } from "@done/search-ranker";
 import { toast } from "@done/ui";
 

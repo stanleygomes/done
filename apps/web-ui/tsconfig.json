@@ -21,7 +21,9 @@
       "@done/ui": ["../../packages/ui/src"],
       "@done/ui/*": ["../../packages/ui/src/*"],
       "@done/utils": ["../../packages/utils/src"],
-      "@done/utils/*": ["../../packages/utils/src/*"]
+      "@done/utils/*": ["../../packages/utils/src/*"],
+      "@done/http": ["../../packages/http/src"],
+      "@done/http/*": ["../../packages/http/src/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", ".next/types/**/*.ts"],

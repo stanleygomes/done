@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@done/eslint-config": "file:../../packages/eslint-config",
+    "@done/http": "file:../../packages/http",
     "@done/search-ranker": "file:../../packages/search-ranker",
     "@done/typescript-config": "file:../../packages/typescript-config",
     "@done/ui": "file:../../packages/ui",

@@ -2,14 +2,15 @@ import { EmailService } from "@done/email";
 import {
   buildVerificationCodeEmailHtml,
   generateVerificationCode,
-  loadTemplateFile,
 } from "@done/utils";
+import { loadTemplateFile } from "@done/node-utils";
 import { VerificationCodeRepository } from "../repositories/verification-code.repository.js";
+import { UserRepository } from "../repositories/user.repository.js";
 import { PinoLogger } from "../config/pino.logger.js";
 import { config } from "../config/environment.js";
 
 const CODE_LENGTH = 6;
-const EXPIRES_IN_MINUTES = 15;
+const EXPIRES_IN_MINUTES = 30;
 
 const logger = PinoLogger.getLogger();
 
@@ -21,12 +22,17 @@ const verificationCodeTemplate = loadTemplateFile(
 export class SendEmailCodeService {
   constructor(
     private readonly verificationCodeRepository: VerificationCodeRepository,
+    private readonly userRepository: UserRepository,
     private readonly emailService: EmailService,
   ) {}
 
-  async execute(email: string): Promise<void> {
+  async execute(email: string): Promise<{ isRegistered: boolean }> {
+    const user = await this.userRepository.findByEmail(email);
+    const isRegistered = !!user;
+
     const code = generateVerificationCode(CODE_LENGTH);
     const expiresAt = new Date(Date.now() + EXPIRES_IN_MINUTES * 60 * 1000);
+
     const html = buildVerificationCodeEmailHtml(
       verificationCodeTemplate,
       code,
@@ -35,12 +41,15 @@ export class SendEmailCodeService {
     );
 
     await this.verificationCodeRepository.create(email, code, expiresAt);
+
     await this.emailService.sendVerificationCode(
-      "Your verification code",
+      `Your verification code is ${code}`,
       email,
       html,
     );
 
     logger.info(`Verification code sent to ${email}`);
+
+    return { isRegistered };
   }
 }
