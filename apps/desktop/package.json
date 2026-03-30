@@ -1,0 +1,16 @@
+{
+  "name": "desktop",
+  "version": "1.0.0",
+  "private": true,
+  "main": "main.cjs",
+  "scripts": {
+    "dev": "npm run electron:dev",
+    "electron:dev": "wait-on http://localhost:3001 && electron .",
+    "electron:start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^35.0.0",
+    "electron-is-dev": "^3.0.1",
+    "wait-on": "^9.0.4"
+  }
+}
