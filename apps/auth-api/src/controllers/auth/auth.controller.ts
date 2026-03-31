@@ -18,6 +18,8 @@ import {
   sendCodeSchema,
   tokenSchema,
   verifyCodeSchema,
+  getProfileSchema,
+  updateProfileSchema,
 } from "./auth.doc.js";
 
 export class AuthController {
@@ -104,7 +106,7 @@ export class AuthController {
 
     fastify.get(
       `${prefix}/v1/auth/me`,
-      { preHandler: [AuthMiddleware.authorize] },
+      { preHandler: [AuthMiddleware.authorize], schema: getProfileSchema },
       async (request, reply) => {
         const { id } = (request as any).user as UserAuth;
         const result = await this.getProfileService.execute(id);
@@ -114,7 +116,7 @@ export class AuthController {
 
     fastify.patch<{ Body: { name: string } }>(
       `${prefix}/v1/auth/me`,
-      { preHandler: [AuthMiddleware.authorize] },
+      { preHandler: [AuthMiddleware.authorize], schema: updateProfileSchema },
       async (request, reply) => {
         const { id } = (request as any).user as UserAuth;
         const result = await this.updateProfileService.execute(

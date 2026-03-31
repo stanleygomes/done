@@ -1,5 +1,12 @@
 import { FastifyInstance, FastifyRequest } from "fastify";
 import { createTaskSchema, updateTaskSchema } from "@done/entities";
+import {
+  createTaskSchemaDoc,
+  deleteTaskSchema,
+  getTaskSchema,
+  listTasksSchema,
+  updateTaskSchemaDoc,
+} from "./task.doc.js";
 import type { Task } from "@done/entities";
 import { TaskService } from "../../services/task.service.js";
 import { AuthMiddleware, UserAuth } from "../../middlewares/auth.middleware.js";
@@ -14,7 +21,7 @@ export class TaskController {
   registerRoutes(fastify: FastifyInstance, prefix = "") {
     fastify.post<{ Body: Partial<Task> }>(
       `${prefix}/v1/tasks`,
-      { preHandler: AuthMiddleware.authorize },
+      { preHandler: AuthMiddleware.authorize, schema: createTaskSchemaDoc },
       async (request, reply) => {
         const authRequest = request as AuthenticatedRequest;
         const validatedData = createTaskSchema.parse(request.body);
@@ -30,7 +37,7 @@ export class TaskController {
 
     fastify.get<{ Querystring: { since?: string } }>(
       `${prefix}/v1/tasks`,
-      { preHandler: AuthMiddleware.authorize },
+      { preHandler: AuthMiddleware.authorize, schema: listTasksSchema },
       async (request, reply) => {
         const authRequest = request as AuthenticatedRequest;
         const since = request.query.since
@@ -44,7 +51,7 @@ export class TaskController {
 
     fastify.get<{ Params: { id: string } }>(
       `${prefix}/v1/tasks/:id`,
-      { preHandler: AuthMiddleware.authorize },
+      { preHandler: AuthMiddleware.authorize, schema: getTaskSchema },
       async (request, reply) => {
         const authRequest = request as AuthenticatedRequest;
 
@@ -59,7 +66,7 @@ export class TaskController {
 
     fastify.put<{ Params: { id: string }; Body: Partial<Task> }>(
       `${prefix}/v1/tasks/:id`,
-      { preHandler: AuthMiddleware.authorize },
+      { preHandler: AuthMiddleware.authorize, schema: updateTaskSchemaDoc },
       async (request, reply) => {
         const authRequest = request as AuthenticatedRequest;
         const validatedData = updateTaskSchema.partial().parse(request.body);
@@ -76,7 +83,7 @@ export class TaskController {
 
     fastify.delete<{ Params: { id: string } }>(
       `${prefix}/v1/tasks/:id`,
-      { preHandler: AuthMiddleware.authorize },
+      { preHandler: AuthMiddleware.authorize, schema: deleteTaskSchema },
       async (request, reply) => {
         const authRequest = request as AuthenticatedRequest;
 

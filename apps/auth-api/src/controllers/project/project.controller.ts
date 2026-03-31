@@ -1,5 +1,12 @@
 import { FastifyInstance, FastifyRequest } from "fastify";
 import { createProjectSchema, updateProjectSchema } from "@done/entities";
+import {
+  createProjectSchemaDoc,
+  deleteProjectSchema,
+  getProjectSchema,
+  listProjectsSchema,
+  updateProjectSchemaDoc,
+} from "./project.doc.js";
 import type { Project } from "@done/entities";
 import { ProjectService } from "../../services/project.service.js";
 import { AuthMiddleware, UserAuth } from "../../middlewares/auth.middleware.js";
@@ -14,7 +21,7 @@ export class ProjectController {
   registerRoutes(fastify: FastifyInstance, prefix = "") {
     fastify.post<{ Body: Partial<Project> }>(
       `${prefix}/v1/projects`,
-      { preHandler: AuthMiddleware.authorize },
+      { preHandler: AuthMiddleware.authorize, schema: createProjectSchemaDoc },
       async (request, reply) => {
         const authRequest = request as AuthenticatedRequest;
         const validatedData = createProjectSchema.parse(request.body);
@@ -30,7 +37,7 @@ export class ProjectController {
 
     fastify.get(
       `${prefix}/v1/projects`,
-      { preHandler: AuthMiddleware.authorize },
+      { preHandler: AuthMiddleware.authorize, schema: listProjectsSchema },
       async (request, reply) => {
         const authRequest = request as AuthenticatedRequest;
         const projects = await this.projectService.list(authRequest.user.id);
@@ -41,7 +48,7 @@ export class ProjectController {
 
     fastify.get<{ Params: { id: string } }>(
       `${prefix}/v1/projects/:id`,
-      { preHandler: AuthMiddleware.authorize },
+      { preHandler: AuthMiddleware.authorize, schema: getProjectSchema },
       async (request, reply) => {
         const authRequest = request as AuthenticatedRequest;
         const project = await this.projectService.get(
@@ -55,7 +62,7 @@ export class ProjectController {
 
     fastify.put<{ Params: { id: string }; Body: Partial<Project> }>(
       `${prefix}/v1/projects/:id`,
-      { preHandler: AuthMiddleware.authorize },
+      { preHandler: AuthMiddleware.authorize, schema: updateProjectSchemaDoc },
       async (request, reply) => {
         const authRequest = request as AuthenticatedRequest;
         const validatedData = updateProjectSchema.partial().parse(request.body);
@@ -72,7 +79,7 @@ export class ProjectController {
 
     fastify.delete<{ Params: { id: string } }>(
       `${prefix}/v1/projects/:id`,
-      { preHandler: AuthMiddleware.authorize },
+      { preHandler: AuthMiddleware.authorize, schema: deleteProjectSchema },
       async (request, reply) => {
         const authRequest = request as AuthenticatedRequest;
         const project = await this.projectService.softDelete(

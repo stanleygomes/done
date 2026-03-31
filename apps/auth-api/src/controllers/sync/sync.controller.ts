@@ -1,5 +1,6 @@
 import { FastifyInstance, FastifyRequest } from "fastify";
 import { bulkSyncTasksSchema, bulkSyncProjectsSchema } from "@done/entities";
+import { syncSchema } from "./sync.doc.js";
 import type { Task, Project } from "@done/entities";
 import { SyncService } from "../../services/sync.service.js";
 import { AuthMiddleware, UserAuth } from "../../middlewares/auth.middleware.js";
@@ -18,6 +19,7 @@ export class SyncController {
       `${prefix}/v1/sync`,
       {
         preHandler: AuthMiddleware.authorize,
+        schema: syncSchema,
       },
       async (request, reply) => {
         const authRequest = request as AuthenticatedRequest;
