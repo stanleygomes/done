@@ -57,6 +57,7 @@ export class SyncService {
   ): Promise<Task[]> {
     const serverTasks = await this.taskRepository.findByUser(userId);
     const serverTasksMap = new Map(serverTasks.map((task) => [task.id, task]));
+    const clientTasksMap = new Map(clientTasks.map((task) => [task.id, task]));
 
     const tasksToUpsert: Task[] = [];
     const tasksToReturn: Task[] = [];
@@ -77,8 +78,7 @@ export class SyncService {
     }
 
     for (const serverTask of serverTasks) {
-      const clientHasTask = clientTasks.some((t) => t.id === serverTask.id);
-      if (!clientHasTask) {
+      if (!clientTasksMap.has(serverTask.id)) {
         tasksToReturn.push(TaskMapper.toDomain(serverTask));
       }
     }
@@ -98,6 +98,9 @@ export class SyncService {
     const serverProjects = await this.projectRepository.findByUser(userId);
     const serverProjectsMap = new Map(
       serverProjects.map((project) => [project.id, project]),
+    );
+    const clientProjectsMap = new Map(
+      clientProjects.map((project) => [project.id, project]),
     );
 
     const projectsToUpsert: Project[] = [];
@@ -121,10 +124,7 @@ export class SyncService {
     }
 
     for (const serverProject of serverProjects) {
-      const clientHasProject = clientProjects.some(
-        (p) => p.id === serverProject.id,
-      );
-      if (!clientHasProject) {
+      if (!clientProjectsMap.has(serverProject.id)) {
         projectsToReturn.push(ProjectMapper.toDomain(serverProject));
       }
     }

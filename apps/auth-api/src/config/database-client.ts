@@ -13,8 +13,8 @@ export const db = drizzle(pool, { schema });
 
 const logger = PinoLogger.getLogger();
 
-export function runMigrations() {
+export async function runMigrations() {
   logger.info("Running database migrations...");
-  migrate(db, { migrationsFolder: config.database.migrationsFolder });
+  await migrate(db, { migrationsFolder: config.database.migrationsFolder });
   logger.info("Database migrations completed");
 }

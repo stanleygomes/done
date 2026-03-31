@@ -1,4 +1,4 @@
-import { and, eq, gte } from "drizzle-orm";
+import { and, eq, gte, sql } from "drizzle-orm";
 import { db } from "../config/database-client.js";
 import { tasks } from "../schemas/database/index.js";
 
@@ -30,35 +30,35 @@ export class TaskRepository {
   async bulkUpsert(userId: string, tasksData: DbTaskInsert[]): Promise<void> {
     if (tasksData.length === 0) return;
 
-    for (const task of tasksData) {
-      const now = new Date();
-      await db
-        .insert(tasks)
-        .values({
-          ...task,
-          user_id: userId,
-          created_at: task.created_at ?? now,
-          updated_at: task.updated_at ?? now,
-        })
-        .onConflictDoUpdate({
-          target: tasks.id,
-          set: {
-            content: task.content,
-            done: task.done,
-            updated_at: task.updated_at,
-            notes: task.notes,
-            important: task.important,
-            due_date: task.due_date,
-            due_time: task.due_time,
-            url: task.url,
-            subtasks: task.subtasks,
-            tags: task.tags,
-            project_id: task.project_id,
-            is_deleted: task.is_deleted,
-            deleted_at: task.deleted_at,
-          },
-        });
-    }
+    const now = new Date();
+    const values = tasksData.map((task) => ({
+      ...task,
+      user_id: userId,
+      created_at: task.created_at ?? now,
+      updated_at: task.updated_at ?? now,
+    }));
+
+    await db
+      .insert(tasks)
+      .values(values)
+      .onConflictDoUpdate({
+        target: tasks.id,
+        set: {
+          content: sql`excluded.content`,
+          done: sql`excluded.done`,
+          updated_at: sql`excluded.updated_at`,
+          notes: sql`excluded.notes`,
+          important: sql`excluded.important`,
+          due_date: sql`excluded.due_date`,
+          due_time: sql`excluded.due_time`,
+          url: sql`excluded.url`,
+          subtasks: sql`excluded.subtasks`,
+          tags: sql`excluded.tags`,
+          project_id: sql`excluded.project_id`,
+          is_deleted: sql`excluded.is_deleted`,
+          deleted_at: sql`excluded.deleted_at`,
+        },
+      });
   }
 
   async findByUser(userId: string, since?: number): Promise<DbTask[]> {

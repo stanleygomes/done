@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { db } from "../config/database-client.js";
 import { projects } from "../schemas/database/index.js";
 
@@ -25,27 +25,27 @@ export class ProjectRepository {
   ): Promise<void> {
     if (projectsData.length === 0) return;
 
-    for (const project of projectsData) {
-      const now = new Date();
-      await db
-        .insert(projects)
-        .values({
-          ...project,
-          user_id: userId,
-          created_at: project.created_at ?? now,
-          updated_at: project.updated_at ?? now,
-        })
-        .onConflictDoUpdate({
-          target: projects.id,
-          set: {
-            name: project.name,
-            color: project.color,
-            updated_at: project.updated_at,
-            is_deleted: project.is_deleted,
-            deleted_at: project.deleted_at,
-          },
-        });
-    }
+    const now = new Date();
+    const values = projectsData.map((project) => ({
+      ...project,
+      user_id: userId,
+      created_at: project.created_at ?? now,
+      updated_at: project.updated_at ?? now,
+    }));
+
+    await db
+      .insert(projects)
+      .values(values)
+      .onConflictDoUpdate({
+        target: projects.id,
+        set: {
+          name: sql`excluded.name`,
+          color: sql`excluded.color`,
+          updated_at: sql`excluded.updated_at`,
+          is_deleted: sql`excluded.is_deleted`,
+          deleted_at: sql`excluded.deleted_at`,
+        },
+      });
   }
 
   async findByUser(userId: string): Promise<DbProject[]> {

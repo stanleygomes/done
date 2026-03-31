@@ -18,7 +18,7 @@ type AuthenticatedRequest = FastifyRequest & {
 };
 
 export class AuthMiddleware {
-  static authorize(request: FastifyRequest): void {
+  static async authorize(request: FastifyRequest): Promise<void> {
     const authHeader = request.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {

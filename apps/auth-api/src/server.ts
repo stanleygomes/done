@@ -37,7 +37,7 @@ export class AppServer {
 
   public async start() {
     try {
-      runMigrations();
+      await runMigrations();
     } catch (error) {
       this.logger.error(error, "Migration failed");
       process.exit(1);
