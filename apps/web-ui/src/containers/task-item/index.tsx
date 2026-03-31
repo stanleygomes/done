@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { Reorder, useDragControls } from "framer-motion";
 import type { Task } from "@done/entities";
 import { useProjects } from "@modules/todo/use-projects";

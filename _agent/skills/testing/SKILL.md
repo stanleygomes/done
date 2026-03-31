@@ -44,7 +44,7 @@ Keywords: `test`, `unit test`, `spec`, `coverage`, `vitest`, `jest`, `AAA`
 ## Example
 
 ```typescript
-// src/application/usecases/get-video.usecase.test.ts
+// apps/auth-api/src/application/usecases/get-video.usecase.test.ts
 
 describe("GetVideoUseCase", () => {
   it("should return video when id is valid", async () => {

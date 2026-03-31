@@ -1,6 +1,6 @@
 ---
 name: monorepo-architecture
-description: Workspace layout, app boundaries, and dependency rules for the EssenceTube Turborepo monorepo.
+description: Workspace layout, app boundaries, and dependency rules for the Done Turborepo monorepo.
 ---
 
 ## When to apply
@@ -18,22 +18,22 @@ Keywords: `monorepo`, `turborepo`, `workspace`, `package`, `boundary`, `dependen
 ## Workspace layout
 
 ```
-logos/
+done/
 ├── apps/
-│   ├── api/          # Backend API — Fastify/Express, MongoDB, Redis
-│   ├── auth-api/     # Auth service — Fastify, SQLite/Drizzle, Resend, RS256 JWT
-│   ├── core-ai/   # AI-powered service — Fastify, Google AI Studio
-│   ├── ui/           # Primary frontend — Next.js 16, React 19, TailwindCSS 4
-│   └── core-ai-ui/      # Alternative frontend — Next.js 16, Hero UI
+│   ├── auth-api/     # Auth service — Fastify, SQLite/Drizzle/PostgreSQL, Resend, RS256 JWT
+│   ├── core-ai-api/  # AI-powered service — Fastify, Google AI Studio
+│   ├── desktop/      # Desktop application — Electron
+│   └── web-ui/       # Primary frontend — Next.js 16, React 19, TailwindCSS 4
 ├── packages/
+│   ├── entities/           # @done/entities — shared domain entities and types
 │   ├── eslint-config/      # @done/eslint-config — shared ESLint rules
 │   ├── typescript-config/  # @done/typescript-config — shared tsconfig bases
-│   ├── ui/                 # @done/ui — shared React components
-│   ├── utils/              # @done/utils — date formatting and other utilities
-│   ├── logger/             # @done/logger — Pino wrapper
-│   ├── jwt/                # @done/jwt — RS256 JWT signing/verification
-│   ├── email/              # @done/email — email sending abstraction
-│   └── http/               # @done/http — HTTP client abstraction
+│   ├── ui/                 # @done/ui — shared Neobrutalism UI components
+│   ├── utils/              # @done/utils — shared general utilities
+│   ├── node-utils/         # @done/node-utils — Node.js specific utilities
+│   ├── search-ranker/      # @done/search-ranker — ranking logic
+│   ├── http/               # @done/http — HTTP client abstraction
+│   └── ...
 ```
 
 ## Dependency rules
@@ -75,9 +75,9 @@ npm run dev
 
 # Run a single app
 npm run app:auth       # auth-api
-npm run app:core-ai # core-ai
-npm run app:core-ai       # core-ai-ui
-npm run ui             # ui
+npm run app:core-ai    # core-ai-api
+npm run app:web        # web-ui
+npm run app:desktop    # desktop
 
 # Build everything
 npm run build

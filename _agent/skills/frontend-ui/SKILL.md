@@ -7,7 +7,7 @@ description: Rules for structuring Next.js/React UI code in this monorepo (small
 
 Apply this skill whenever you are asked to:
 
-- Build or modify UI in any Next.js app (`apps/*-ui`, `apps/web-ui`, `apps/ui`, etc.)
+- Build or modify UI in any Next.js app (`apps/web-ui`, etc.)
 - Create or change `src/app/**/page.tsx` (or `layout.tsx`)
 - Implement a new screen/page, form, list, or interactive UI
 - Refactor frontend code for readability/maintainability

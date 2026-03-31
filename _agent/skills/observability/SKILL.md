@@ -16,13 +16,13 @@ Keywords: `log`, `logger`, `logging`, `pino`, `observability`, `tracing`, `metri
 
 ## Stack
 
-| App             | Logger                                        |
-| --------------- | --------------------------------------------- |
-| `apps/api`      | `pino` + `pino-pretty` (direct)               |
-| `apps/auth-api` | `@done/logger` (shared package wrapping Pino) |
-| `apps/core-ai`  | `@done/logger` (shared package wrapping Pino) |
+| App             | Logger                                            |
+| --------------- | ------------------------------------------------- |
+| `apps/auth-api` | `@done/node-utils` (shared package wrapping Pino) |
+| `apps/core-ai`  | `@done/node-utils` (shared package wrapping Pino) |
+| `apps/web-ui`   | `pino` (browser-side if enabled)                  |
 
-The `@done/logger` package lives at `packages/logger/` and re-exports a configured Pino instance.
+The shared logger utility lives at `packages/node-utils/src/logger`.
 
 ## Environment variables
 
