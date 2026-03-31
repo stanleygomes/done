@@ -7,15 +7,20 @@ interface TaskSubtasksProps {
   onAddSubtask: () => void;
   onToggleSubtask: (id: string) => void;
   onUpdateSubtaskContent: (id: string, content: string) => void;
+  onSuggestSubtasks?: () => void;
+  isSuggesting?: boolean;
 }
 
 import { useTranslation } from "react-i18next";
+import { Sparkles } from "lucide-react";
 
 export function TaskSubtasks({
   subtasks,
   onAddSubtask,
   onToggleSubtask,
   onUpdateSubtaskContent,
+  onSuggestSubtasks,
+  isSuggesting,
 }: TaskSubtasksProps) {
   const { t } = useTranslation();
   const lastSubtaskCount = useRef(subtasks.length);
@@ -36,13 +41,29 @@ export function TaskSubtasks({
     <FormField
       label={t("task_form.labels.subtasks")}
       action={
-        <button
-          type="button"
-          className="rounded-base cursor-pointer border-2 border-border bg-main text-main-foreground px-2 py-1 text-xs font-bold shadow-shadow transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none"
-          onClick={onAddSubtask}
-        >
-          {t("task_form.buttons.add_subtask")}
-        </button>
+        <div className="flex items-center gap-2">
+          {onSuggestSubtasks && (
+            <button
+              type="button"
+              className={`rounded-base cursor-pointer border-2 border-border bg-violet-500 dark:bg-violet-600/60 text-white flex items-center justify-center gap-1.5 px-3 h-7 shadow-shadow transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none disabled:opacity-50 disabled:cursor-not-allowed text-xs font-bold ring-violet-500/30 focus:ring-2`}
+              onClick={onSuggestSubtasks}
+              disabled={isSuggesting}
+              title={t("task_form.buttons.breakdown_tooltip")}
+            >
+              <Sparkles
+                className={`h-3.5 w-3.5 ${isSuggesting ? "animate-pulse" : ""}`}
+              />
+              <span>{t("task_form.buttons.breakdown")}</span>
+            </button>
+          )}
+          <button
+            type="button"
+            className="rounded-base cursor-pointer border-2 border-border bg-main text-main-foreground px-2 py-1 text-xs font-bold shadow-shadow transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none"
+            onClick={onAddSubtask}
+          >
+            {t("task_form.buttons.add_subtask")}
+          </button>
+        </div>
       }
     >
       <div ref={listContainerRef} className="flex flex-col gap-2">

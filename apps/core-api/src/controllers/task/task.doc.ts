@@ -116,3 +116,25 @@ export const deleteTaskSchema = {
     200: taskResponseSchema,
   },
 };
+
+export const suggestSubtasksSchema = {
+  description: "Suggest subtasks via AI for a given task",
+  tags: ["Task"],
+  params: {
+    type: "object",
+    properties: {
+      id: { type: "string" },
+    },
+  },
+  response: {
+    200: {
+      type: "object",
+      properties: {
+        subtasks: {
+          type: "array",
+          items: { type: "string" },
+        },
+      },
+    },
+  },
+};

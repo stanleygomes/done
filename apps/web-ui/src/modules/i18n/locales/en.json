@@ -162,6 +162,8 @@
     },
     "buttons": {
       "add_subtask": "Add subtask",
+      "breakdown": "Breakdown",
+      "breakdown_tooltip": "Use AI to break this task into smaller subtasks",
       "delete_task": "Delete Task",
       "restore_task": "Restore Task"
     },

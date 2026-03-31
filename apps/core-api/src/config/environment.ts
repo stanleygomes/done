@@ -16,6 +16,7 @@ const {
   DATABASE_MIGRATIONS_FOLDER,
   LOG_LEVEL,
   LOG_TRANSPORT,
+  AI_API_URL,
 } = process.env;
 
 export interface Environment {
@@ -56,6 +57,9 @@ export interface Environment {
     resend: {
       apiKey: string;
       fromEmail: string;
+    };
+    ai: {
+      url: string;
     };
   };
 }
@@ -100,6 +104,9 @@ export const config: Environment = {
     resend: {
       apiKey: RESEND_API_KEY || "",
       fromEmail: RESEND_FROM_EMAIL || "noreply@example.com",
+    },
+    ai: {
+      url: AI_API_URL || "http://localhost:5003/api",
     },
   },
 };

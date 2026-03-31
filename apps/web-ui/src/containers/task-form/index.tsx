@@ -39,6 +39,8 @@ interface TaskFormProps {
       | "projectId"
     >,
   ) => void;
+  onSuggestSubtasks?: (id: string) => void;
+  isSuggestingSubtasks?: boolean;
   isRecentlyDeleted?: boolean;
 }
 
@@ -54,6 +56,8 @@ export function TaskForm({
   onDelete,
   onRestore,
   onUpdateDetails,
+  onSuggestSubtasks,
+  isSuggestingSubtasks,
   isRecentlyDeleted,
 }: TaskFormProps) {
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -197,6 +201,10 @@ export function TaskForm({
         onAddSubtask={addSubtask}
         onToggleSubtask={toggleSubtask}
         onUpdateSubtaskContent={updateSubtaskContent}
+        onSuggestSubtasks={
+          onSuggestSubtasks ? () => onSuggestSubtasks(task.id) : undefined
+        }
+        isSuggesting={isSuggestingSubtasks}
       />
 
       <TaskNotes

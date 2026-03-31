@@ -50,6 +50,8 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
     startEdit,
     updateEdit,
     updateTaskDetails,
+    suggestSubtasks,
+    isSuggestingSubtasks,
     closeEdit,
     openDrawer,
     closeDrawer,
@@ -182,6 +184,8 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
         onRestore={restoreTask}
         onEnterZenMode={enterZenMode}
         onUpdateDetails={updateTaskDetails}
+        onSuggestSubtasks={suggestSubtasks}
+        isSuggestingSubtasks={isSuggestingSubtasks}
         onOpenFullPage={(id) => router.push(`/task/${id}`)}
         isRecentlyDeleted={isRecentlyDeleted}
       />

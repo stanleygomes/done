@@ -37,6 +37,8 @@ interface TaskDrawerProps {
   ) => void;
   onOpenFullPage?: (id: string) => void;
   isRecentlyDeleted?: boolean;
+  onSuggestSubtasks?: (id: string) => void;
+  isSuggestingSubtasks?: boolean;
 }
 
 export function TaskDrawer({
@@ -56,6 +58,8 @@ export function TaskDrawer({
   onUpdateDetails,
   onOpenFullPage,
   isRecentlyDeleted,
+  onSuggestSubtasks,
+  isSuggestingSubtasks,
 }: TaskDrawerProps) {
   function handleDelete(id: string) {
     onDelete(id);
@@ -85,6 +89,8 @@ export function TaskDrawer({
               onDelete={handleDelete}
               onRestore={onRestore}
               onUpdateDetails={onUpdateDetails}
+              onSuggestSubtasks={onSuggestSubtasks}
+              isSuggestingSubtasks={isSuggestingSubtasks}
               isRecentlyDeleted={isRecentlyDeleted}
             />
 

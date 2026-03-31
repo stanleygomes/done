@@ -50,4 +50,17 @@ export const taskApiService = {
       },
     });
   },
+
+  async suggestSubtasks(token: string, taskId: string): Promise<string[]> {
+    const response = await httpClient.post<{ subtasks: string[] }>(
+      `${CORE_API_URL}/v1/tasks/${taskId}/suggest-subtasks`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response.data.subtasks;
+  },
 };

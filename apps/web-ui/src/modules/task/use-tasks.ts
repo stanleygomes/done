@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
+import { taskApiService } from "./task-api.service";
+import { useAuth } from "@modules/auth/use-auth";
 import { TaskManager } from "@modules/task/task-manager";
 import type { Task } from "@done/entities";
 import { isUUID, generateUUID } from "@done/utils";
@@ -278,11 +280,59 @@ export function useTasks(projectId?: string | null, filter?: string | null) {
     setTimeout(performSync, 1000);
   }
 
+  const { token } = useAuth();
+  const [isSuggestingSubtasks, setIsSuggestingSubtasks] = useState(false);
+
+  async function suggestSubtasks(taskId: string) {
+    if (!token) return;
+
+    setIsSuggestingSubtasks(true);
+    try {
+      const suggestions = await taskApiService.suggestSubtasks(token, taskId);
+
+      const newSubtasks: Task[] = suggestions.map((content) => ({
+        id: generateUUID(),
+        content,
+        done: false,
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+        notes: "",
+        important: false,
+        dueDate: "",
+        dueTime: "",
+        url: "",
+        subtasks: [],
+        tags: [],
+        parentId: taskId,
+      }));
+
+      setTasks((prev) =>
+        prev.map((task) => {
+          if (task.id !== taskId) return task;
+          return {
+            ...task,
+            subtasks: [...task.subtasks, ...newSubtasks],
+            updatedAt: Date.now(),
+          };
+        }),
+      );
+
+      toast.success(`${suggestions.length} subtasks suggested by AI`);
+      setTimeout(performSync, 1000);
+    } catch (error) {
+      toast.error("Failed to suggest subtasks");
+      console.error(error);
+    } finally {
+      setIsSuggestingSubtasks(false);
+    }
+  }
+
   return {
     todoTasks,
     finishedTasks,
     isLoading,
     isSyncing,
+    isSuggestingSubtasks,
     searchQuery,
     setSearchQuery,
     newTask,
@@ -298,6 +348,7 @@ export function useTasks(projectId?: string | null, filter?: string | null) {
     startEdit,
     updateEdit,
     updateTaskDetails,
+    suggestSubtasks,
     closeEdit,
     openDrawer,
     closeDrawer,

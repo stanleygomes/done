@@ -18,6 +18,8 @@ export default function TaskDetails({ id }: TaskDetailsProps) {
     updateTaskDetails,
     toggleTask,
     deleteTask,
+    suggestSubtasks,
+    isSuggestingSubtasks,
   } = useTasks();
 
   const allTasks = [...todoTasks, ...finishedTasks];
@@ -62,6 +64,8 @@ export default function TaskDetails({ id }: TaskDetailsProps) {
               router.push("/");
             }}
             onUpdateDetails={updateTaskDetails}
+            onSuggestSubtasks={suggestSubtasks}
+            isSuggestingSubtasks={isSuggestingSubtasks}
           />
         </div>
       </div>

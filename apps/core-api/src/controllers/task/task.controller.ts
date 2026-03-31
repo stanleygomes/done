@@ -5,6 +5,7 @@ import {
   deleteTaskSchema,
   getTaskSchema,
   listTasksSchema,
+  suggestSubtasksSchema,
   updateTaskSchemaDoc,
 } from "./task.doc.js";
 import type { Task } from "@done/entities";
@@ -93,6 +94,26 @@ export class TaskController {
         );
 
         reply.send(task);
+      },
+    );
+
+    fastify.post<{ Params: { id: string } }>(
+      `${prefix}/v1/tasks/:id/suggest-subtasks`,
+      {
+        preHandler: AuthMiddleware.authorize,
+        schema: suggestSubtasksSchema,
+      },
+      async (request, reply) => {
+        const authRequest = request as AuthenticatedRequest;
+        const token = request.headers.authorization;
+
+        const subtasks = await this.taskService.suggestSubtasks(
+          authRequest.user.id,
+          request.params.id,
+          token,
+        );
+
+        reply.send({ subtasks });
       },
     );
   }
