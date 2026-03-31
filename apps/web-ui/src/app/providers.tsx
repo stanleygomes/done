@@ -9,16 +9,19 @@ import { Toaster } from "@done/ui";
 import { NotificationWatcher } from "@containers/notifications/watcher";
 
 import { SidebarProvider } from "../hooks/use-sidebar";
+import { SyncProvider } from "../modules/todo/sync-provider";
 
 export function Providers({ children }: { children: ReactNode }) {
   useTheme();
   return (
-    <SidebarProvider>
-      <TooltipProvider>
-        <NotificationWatcher />
-        {children}
-        <Toaster />
-      </TooltipProvider>
-    </SidebarProvider>
+    <SyncProvider>
+      <SidebarProvider>
+        <TooltipProvider>
+          <NotificationWatcher />
+          {children}
+          <Toaster />
+        </TooltipProvider>
+      </SidebarProvider>
+    </SyncProvider>
   );
 }

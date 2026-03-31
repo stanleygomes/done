@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { Project } from "@done/entities";
 import { generateUUID } from "@done/utils";
@@ -12,10 +11,6 @@ export function useProjects() {
     [],
   );
   const { isSyncing, performSync } = useSync();
-
-  useEffect(() => {
-    performSync();
-  }, [performSync]);
 
   function createProject(name: string, color: string) {
     const newProject: Project = {

@@ -91,12 +91,6 @@ export function useTasks(projectId?: string | null, filter?: string | null) {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    if (!isLoading && !isSyncing) {
-      performSync();
-    }
-  }, [isLoading, isSyncing, performSync]);
-
   const hasLegacyTasks = useMemo(() => tasks.some(hasLegacyFields), [tasks]);
   const normalizedTasks = useMemo(
     () => (hasLegacyTasks ? tasks.map(normalizeTask) : tasks),
