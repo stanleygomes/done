@@ -9,7 +9,7 @@ import { Toaster } from "@done/ui";
 import { NotificationWatcher } from "@containers/notifications/watcher";
 
 import { SidebarProvider } from "../hooks/use-sidebar";
-import { SyncProvider } from "../modules/todo/sync-provider";
+import { SyncProvider } from "../modules/sync/sync-provider";
 
 export function Providers({ children }: { children: ReactNode }) {
   useTheme();

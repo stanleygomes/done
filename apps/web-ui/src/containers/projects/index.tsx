@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useProjects } from "@modules/todo/use-projects";
+import { useProjects } from "@modules/project/use-projects";
 import ProjectFormDrawer from "./form-drawer";
 import ProjectDeleteDrawer from "./delete-drawer";
 import { Project } from "@done/entities";

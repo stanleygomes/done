@@ -6,7 +6,7 @@ import OtpForm from "./otp-form";
 import LoginLinks from "./login-links";
 import LoginHeader from "./login-header";
 import LoginFooter from "./login-footer";
-import { authService } from "../../modules/auth/auth.service";
+import { authService } from "../../modules/auth/auth-api.service";
 import { useAuth } from "../../modules/auth/use-auth";
 import { useRouter } from "next/navigation";
 import { toast } from "@done/ui";

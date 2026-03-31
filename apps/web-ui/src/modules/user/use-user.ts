@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import type { User } from "@done/entities";
 import { useAuth } from "../auth/use-auth";
-import { authService } from "../auth/auth.service";
+import { authService } from "../auth/auth-api.service";
 
 export function useUser() {
   const [user, setUser] = useLocalStorage<User | null>("done-user", null);

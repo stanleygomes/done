@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { useAuth } from "@modules/auth/use-auth";
-import { syncApiService } from "./services/sync-api.service";
+import { syncApiService } from "./sync-api.service";
 import { SyncManager } from "./sync-manager";
 import type { Task, Project } from "@done/entities";
 import { toast } from "@done/ui";

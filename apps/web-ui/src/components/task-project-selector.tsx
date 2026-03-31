@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Folder } from "lucide-react";
-import { useProjects } from "@modules/todo/use-projects";
+import { useProjects } from "@modules/project/use-projects";
 import {
   Select,
   SelectContent,

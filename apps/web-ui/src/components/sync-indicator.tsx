@@ -1,6 +1,6 @@
 "use client";
 
-import { useSync } from "@modules/todo/use-sync";
+import { useSync } from "@modules/sync/use-sync";
 import { Cloud, CloudOff, RefreshCw, AlertCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { formatDistanceToNow } from "date-fns";

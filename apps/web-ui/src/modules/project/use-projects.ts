@@ -3,7 +3,7 @@
 import { useLocalStorage } from "usehooks-ts";
 import { Project } from "@done/entities";
 import { generateUUID } from "@done/utils";
-import { useSync } from "./use-sync";
+import { useSync } from "../sync/use-sync";
 
 export function useProjects() {
   const [projects, setProjects] = useLocalStorage<Project[]>(

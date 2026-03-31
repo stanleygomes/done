@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
-import { TaskManager } from "@modules/todo/task-manager";
+import { TaskManager } from "@modules/task/task-manager";
 import type { Task } from "@done/entities";
 import { isUUID, generateUUID } from "@done/utils";
 import { SearchRanker } from "@done/search-ranker";
@@ -68,7 +68,7 @@ function deriveParentTaskDoneState(
   return currentDone;
 }
 
-import { useSync } from "./use-sync";
+import { useSync } from "../sync/use-sync";
 
 export function useTasks(projectId?: string | null, filter?: string | null) {
   const [tasks, setTasks] = useLocalStorage<Task[]>("todo-tasks", []);

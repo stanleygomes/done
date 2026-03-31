@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useProjects } from "@modules/todo/use-projects";
-import { useTasks } from "@modules/todo/use-tasks";
+import { useProjects } from "@modules/project/use-projects";
+import { useTasks } from "@modules/task/use-tasks";
 import { TaskList } from "./task-list";
 import { CreateTaskInput } from "../create-task-input";
 import { TaskDrawer } from "../task-drawer";

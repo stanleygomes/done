@@ -1,5 +1,5 @@
 import { httpClient } from "@done/http";
-import { CORE_API_URL } from "../../../config/api-config";
+import { CORE_API_URL } from "../../config/api-config";
 import type { Task } from "@done/entities";
 
 export const taskApiService = {

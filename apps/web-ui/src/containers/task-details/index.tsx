@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useTasks } from "src/modules/todo/use-tasks";
+import { useTasks } from "@modules/task/use-tasks";
 import { TaskForm } from "src/containers/task-form";
 import TaskDetailsNotFound from "./not-found";
 

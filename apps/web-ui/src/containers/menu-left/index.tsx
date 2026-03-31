@@ -1,6 +1,6 @@
 "use client";
 
-import { useProjects } from "@modules/todo/use-projects";
+import { useProjects } from "@modules/project/use-projects";
 import { useSidebar } from "src/hooks/use-sidebar";
 import { SidebarToggle } from "./sidebar-toggle";
 import { AppLogo } from "./app-logo";

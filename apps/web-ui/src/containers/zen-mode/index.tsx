@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Task } from "@done/entities";
 import { Star, Clock, Tag } from "lucide-react";
 import { AutoResizeTextarea } from "../../components/auto-resize-textarea";
-import { useProjects } from "@modules/todo/use-projects";
+import { useProjects } from "@modules/project/use-projects";
 import { TaskDetailBadge } from "../../components/task-detail-badge";
 import { ZenSubtasks } from "./zen-subtasks";
 import { ZenNotes } from "./zen-notes";

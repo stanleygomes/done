@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useTasks } from "@modules/todo/use-tasks";
+import { useTasks } from "@modules/task/use-tasks";
 import { NotificationManager } from "@modules/notifications/manager";
 import { parseISO, isAfter } from "date-fns";
 
