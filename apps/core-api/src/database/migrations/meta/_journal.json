@@ -15,6 +15,13 @@
       "when": 1,
       "tag": "0001_api_clients",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1774901628842,
+      "tag": "0002_tasks_and_projects",
+      "breakpoints": true
     }
   ]
 }

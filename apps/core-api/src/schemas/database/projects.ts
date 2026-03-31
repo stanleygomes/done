@@ -1,13 +1,10 @@
 import { boolean, index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
-import { users } from "./users";
 
 export const projects = pgTable(
   "projects",
   {
     id: text("id").primaryKey(),
-    user_id: text("user_id")
-      .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
+    user_id: text("user_id").notNull(),
     name: text("name").notNull(),
     color: text("color").notNull(),
     created_at: timestamp("created_at", { mode: "date" }).notNull(),

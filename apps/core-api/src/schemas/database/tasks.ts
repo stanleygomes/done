@@ -6,16 +6,13 @@ import {
   text,
   timestamp,
 } from "drizzle-orm/pg-core";
-import { users } from "./users";
 import { projects } from "./projects";
 
 export const tasks = pgTable(
   "tasks",
   {
     id: text("id").primaryKey(),
-    user_id: text("user_id")
-      .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
+    user_id: text("user_id").notNull(),
     content: text("content").notNull(),
     done: boolean("done").notNull().default(false),
     created_at: timestamp("created_at", { mode: "date" }).notNull(),
