@@ -16,10 +16,10 @@
     "@": "src"
   },
   "dependencies": {
+    "@done/node-utils": "^0.0.0",
     "@fastify/swagger": "^9.5.1",
     "@fastify/swagger-ui": "^5.2.3",
     "@libsql/client": "^0.15.15",
-    "@done/node-utils": "^0.0.0",
     "dotenv": "^16.5.0",
     "drizzle-orm": "^0.45.1",
     "fastify": "^5.4.0",
@@ -32,6 +32,7 @@
     "@vercel/node": "^5.6.6",
     "drizzle-kit": "^0.31.9",
     "eslint": "^9.39.1",
+    "pino": "^9.14.0",
     "prettier": "^3.5.3",
     "ts-node": "^10.9.1",
     "typescript": "5.9.2"

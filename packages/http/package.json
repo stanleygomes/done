@@ -12,7 +12,7 @@
     "axios": "^1.13.6"
   },
   "devDependencies": {
-    "@done/typescript-config": "file:../typescript-config",
+    "@done/typescript-config": "workspace:*",
     "typescript": "5.9.2"
   }
 }

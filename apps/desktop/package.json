@@ -4,7 +4,7 @@
   "private": true,
   "main": "main.cjs",
   "scripts": {
-    "dev": "npm run electron:dev",
+    "dev": "pnpm run electron:dev",
     "electron:dev": "wait-on http://localhost:3001 && electron .",
     "electron:start": "electron ."
   },
