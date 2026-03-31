@@ -1,7 +1,5 @@
 import { httpClient } from "@done/http";
-
-const AUTH_API_URL =
-  process.env.NEXT_PUBLIC_AUTH_API_URL || "http://localhost:5000/api";
+import { AUTH_API_URL } from "../../config/api-config";
 
 export interface SendCodeResponse {
   message: string;

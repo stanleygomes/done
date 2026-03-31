@@ -1,5 +1,5 @@
 import { httpClient } from "@done/http";
-import { API_URL } from "../../../config/api-config";
+import { CORE_API_URL } from "../../../config/api-config";
 import type { Task, Project } from "@done/entities";
 
 export interface SyncRequest {
@@ -19,7 +19,7 @@ export const syncApiService = {
     projects: Project[],
   ): Promise<SyncResponse> {
     const response = await httpClient.post<SyncResponse>(
-      `${API_URL}/v1/sync`,
+      `${CORE_API_URL}/v1/sync`,
       {
         tasks,
         projects,
