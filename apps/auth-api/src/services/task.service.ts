@@ -1,5 +1,5 @@
 import type { Task } from "@done/entities";
-import { Logger } from "@done/logger";
+import { Logger } from "@done/node-utils";
 import type { Logger as PinoLogger } from "pino";
 import { generateUUID } from "@done/utils";
 import { TaskRepository } from "../repositories/task.repository.js";

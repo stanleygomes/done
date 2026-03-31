@@ -1,4 +1,4 @@
-import { JwtService } from "@done/jwt";
+import { JwtService } from "@done/node-utils";
 import { FastifyRequest } from "fastify";
 import { AuthError } from "../errors/AuthError.js";
 import { config } from "../config/environment.js";

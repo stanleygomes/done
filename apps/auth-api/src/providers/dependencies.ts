@@ -1,5 +1,5 @@
-import { EmailService } from "@done/email";
-import { JwtService } from "@done/jwt";
+import { EmailService } from "@done/node-utils";
+import { JwtService } from "@done/node-utils";
 import type { SignOptions } from "jsonwebtoken";
 import { config } from "../config/environment.js";
 import { UserRepository } from "../repositories/user.repository.js";

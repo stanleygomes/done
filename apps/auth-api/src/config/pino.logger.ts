@@ -1,4 +1,4 @@
-import { Logger as LogosLogger } from "@done/logger";
+import { Logger as LogosLogger } from "@done/node-utils";
 import type { Logger as PinoLoggerType } from "pino";
 import { config } from "./environment.js";
 

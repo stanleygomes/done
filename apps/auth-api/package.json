@@ -20,10 +20,6 @@
     "@": "src"
   },
   "dependencies": {
-    "@done/email": "^0.0.0",
-    "@done/entities": "^0.0.0",
-    "@done/jwt": "^0.0.0",
-    "@done/logger": "^0.0.0",
     "@done/node-utils": "^0.0.0",
     "@done/utils": "^0.0.0",
     "@fastify/cors": "^10.1.0",

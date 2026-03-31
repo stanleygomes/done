@@ -1,5 +1,5 @@
 import type { Project, Task } from "@done/entities";
-import { Logger } from "@done/logger";
+import { Logger } from "@done/node-utils";
 import type { Logger as PinoLogger } from "pino";
 import { TaskRepository } from "../repositories/task.repository.js";
 import { ProjectRepository } from "../repositories/project.repository.js";
