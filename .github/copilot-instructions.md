@@ -20,7 +20,7 @@ lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor inc
 ### Project Structure
 
 ```
-essence-tube/
+done/
 ├── apps/
 │   ├── api/                          # Backend API
 │   │   └── src/

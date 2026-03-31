@@ -37,4 +37,27 @@ export const authService = {
 
     return response.data;
   },
+  async getMe(token: string): Promise<any> {
+    const response = await httpClient.get(`${AUTH_API_URL}/v1/auth/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  },
+
+  async updateMe(token: string, data: { name: string }): Promise<any> {
+    const response = await httpClient.patch(
+      `${AUTH_API_URL}/v1/auth/me`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return response.data;
+  },
 };

@@ -4,6 +4,9 @@ import { VerifyEmailCodeService } from "../../services/verify-email-code.service
 import { RefreshTokenService } from "../../services/refresh-token.service.js";
 import { ClientCredentialsService } from "../../services/client-credentials.service.js";
 import { CreateApiClientService } from "../../services/create-api-client.service.js";
+import { GetProfileService } from "../../services/get-profile.service.js";
+import { UpdateProfileService } from "../../services/update-profile.service.js";
+import { AuthMiddleware, UserAuth } from "../../middlewares/auth.middleware.js";
 import { validateSendCode } from "../../schemas/validators/send-code.validator.js";
 import { validateVerifyCode } from "../../schemas/validators/verify-code.validator.js";
 import { validateRefreshToken } from "../../schemas/validators/refresh-token.validator.js";
@@ -24,6 +27,8 @@ export class AuthController {
     private readonly refreshTokenService: RefreshTokenService,
     private readonly clientCredentialsService: ClientCredentialsService,
     private readonly createApiClientService: CreateApiClientService,
+    private readonly getProfileService: GetProfileService,
+    private readonly updateProfileService: UpdateProfileService,
   ) {}
 
   registerRoutes(fastify: FastifyInstance, prefix = "") {
@@ -94,6 +99,29 @@ export class AuthController {
           validatedData.name,
         );
         reply.status(201).send(result);
+      },
+    );
+
+    fastify.get(
+      `${prefix}/v1/auth/me`,
+      { preHandler: [AuthMiddleware.authorize] },
+      async (request, reply) => {
+        const { id } = (request as any).user as UserAuth;
+        const result = await this.getProfileService.execute(id);
+        reply.send(result);
+      },
+    );
+
+    fastify.patch<{ Body: { name: string } }>(
+      `${prefix}/v1/auth/me`,
+      { preHandler: [AuthMiddleware.authorize] },
+      async (request, reply) => {
+        const { id } = (request as any).user as UserAuth;
+        const result = await this.updateProfileService.execute(
+          id,
+          request.body,
+        );
+        reply.send(result);
       },
     );
   }

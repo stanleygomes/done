@@ -18,7 +18,7 @@ export class AppServer {
 
     this.fastify.register(rateLimit, {
       global: true,
-      max: 10,
+      max: 100,
       timeWindow: 60 * 1000, // 1 minute
     });
 

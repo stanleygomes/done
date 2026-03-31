@@ -12,6 +12,8 @@ import { VerifyEmailCodeService } from "../services/verify-email-code.service.js
 import { RefreshTokenService } from "../services/refresh-token.service.js";
 import { ClientCredentialsService } from "../services/client-credentials.service.js";
 import { CreateApiClientService } from "../services/create-api-client.service.js";
+import { GetProfileService } from "../services/get-profile.service.js";
+import { UpdateProfileService } from "../services/update-profile.service.js";
 import { SyncService } from "../services/sync.service.js";
 import { TaskService } from "../services/task.service.js";
 import { ProjectService } from "../services/project.service.js";
@@ -55,6 +57,8 @@ const clientCredentialsService = new ClientCredentialsService(
   jwtService,
 );
 const createApiClientService = new CreateApiClientService(apiClientRepository);
+const getProfileService = new GetProfileService(userRepository);
+const updateProfileService = new UpdateProfileService(userRepository);
 const syncService = new SyncService(taskRepository, projectRepository);
 const taskService = new TaskService(taskRepository);
 const projectService = new ProjectService(projectRepository);
@@ -65,6 +69,8 @@ export const authController = new AuthController(
   refreshTokenService,
   clientCredentialsService,
   createApiClientService,
+  getProfileService,
+  updateProfileService,
 );
 
 export const syncController = new SyncController(syncService);

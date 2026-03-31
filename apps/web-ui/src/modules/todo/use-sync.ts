@@ -81,14 +81,22 @@ export function useSync() {
     }
   }, [token, isSyncing, setLastSyncAt, setProjects, setTasks]);
 
+  const hasSyncedRef = useRef(false);
+  const isAuthenticatedRef = useRef(isAuthenticated);
+  isAuthenticatedRef.current = isAuthenticated;
+
   useEffect(() => {
-    if (isAuthenticated && token && !isSyncing) {
+    if (isAuthenticated && token && !isSyncing && !hasSyncedRef.current) {
       performSync();
+      hasSyncedRef.current = true;
     }
   }, [isAuthenticated, token, isSyncing, performSync]);
 
   useEffect(() => {
-    if (!token) return;
+    if (!token) {
+      hasSyncedRef.current = false;
+      return;
+    }
 
     const interval = setInterval(
       () => {
