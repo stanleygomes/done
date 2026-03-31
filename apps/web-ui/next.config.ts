@@ -1,11 +1,10 @@
 import type { NextConfig } from "next";
-import withPWAInit from "next-pwa";
+import withSerwistInit from "@serwist/next";
 
-const withPWA = withPWAInit({
-  dest: "public",
+const withSerwist = withSerwistInit({
+  swSrc: "src/sw.ts",
+  swDest: "public/sw.js",
   disable: process.env.NODE_ENV === "development",
-  register: true,
-  skipWaiting: true,
 });
 
 const nextConfig: NextConfig = {
@@ -22,5 +21,4 @@ const nextConfig: NextConfig = {
   turbopack: {},
 };
 
-// @ts-expect-error - next-pwa types are incompatible with the latest Next.js version
-export default withPWA(nextConfig) as NextConfig;
+export default withSerwist(nextConfig);

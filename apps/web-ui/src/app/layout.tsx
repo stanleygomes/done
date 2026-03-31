@@ -3,6 +3,7 @@ import "@done/ui/globals.css";
 import { Providers } from "./providers";
 import MenuRight from "@containers/menu-right";
 import MenuLeft from "@containers/menu-left";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Done.",
@@ -49,8 +50,12 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <Providers>
-          <MenuRight />
-          <MenuLeft />
+          <Suspense fallback={null}>
+            <MenuRight />
+          </Suspense>
+          <Suspense fallback={null}>
+            <MenuLeft />
+          </Suspense>
           <MainWrapper>{children}</MainWrapper>
         </Providers>
       </body>

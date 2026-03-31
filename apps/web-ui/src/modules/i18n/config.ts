@@ -13,20 +13,25 @@ const resources = {
   },
 };
 
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    resources,
-    supportedLngs: ["en", "pt"],
-    fallbackLng: "en",
-    interpolation: {
-      escapeValue: false,
-    },
-    detection: {
-      order: ["localStorage", "navigator"],
-      caches: ["localStorage"],
-    },
-  });
+const isBrowser = typeof window !== "undefined";
+
+if (isBrowser) {
+  i18n.use(LanguageDetector);
+}
+
+i18n.use(initReactI18next).init({
+  resources,
+  supportedLngs: ["en", "pt"],
+  fallbackLng: "en",
+  interpolation: {
+    escapeValue: false,
+  },
+  detection: isBrowser
+    ? {
+        order: ["localStorage", "navigator"],
+        caches: ["localStorage"],
+      }
+    : undefined,
+});
 
 export default i18n;

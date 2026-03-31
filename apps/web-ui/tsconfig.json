@@ -1,6 +1,7 @@
 {
   "extends": "@done/typescript-config/nextjs.json",
   "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext", "webworker"],
     "plugins": [
       {
         "name": "next"

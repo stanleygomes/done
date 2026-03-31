@@ -1,20 +1,58 @@
 services:
-  postgres:
+  auth-db:
     image: postgres:17-alpine
     container_name: done-auth-postgres
     environment:
       POSTGRES_USER: database_user
       POSTGRES_PASSWORD: database_password
-      POSTGRES_DB: database_name
+      POSTGRES_DB: auth_db
     volumes:
-      - auth-api-postgres-data:/var/lib/postgresql/data
+      - auth-db-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     networks:
       - done-network
+    restart: always
+
+  core-db:
+    image: postgres:17-alpine
+    container_name: done-core-postgres
+    environment:
+      POSTGRES_USER: database_user
+      POSTGRES_PASSWORD: database_password
+      POSTGRES_DB: core_db
+    volumes:
+      - core-db-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - done-network
+    restart: always
+
+  ai-db:
+    image: ghcr.io/tursodatabase/libsql-server:latest
+    container_name: done-ai-libsql
+    command:
+      [
+        "sqld",
+        "--http-listen-addr",
+        "0.0.0.0:8080",
+        "--db-path",
+        "/var/lib/sqld",
+      ]
+    volumes:
+      - ai-db-data:/var/lib/sqld
+    ports:
+      - "8080:8080"
+    networks:
+      - done-network
+    restart: always
 
 networks:
   done-network:
+    driver: bridge
 
 volumes:
-  auth-api-postgres-data:
+  auth-db-data:
+  core-db-data:
+  ai-db-data:
