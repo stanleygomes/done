@@ -1,0 +1,31 @@
+{
+  "extends": "@paul/typescript-config/nextjs.json",
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext", "webworker"],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["src/app/*"],
+      "@modules/*": ["src/modules/*"],
+      "@lib/*": ["src/lib/*"],
+      "@shared/*": ["src/shared/*"],
+      "@services/*": ["src/services/*"],
+      "@config/*": ["src/config/*"],
+      "@styles/*": ["src/styles/*"],
+      "@containers/*": ["src/containers/*"],
+      "@constants/*": ["src/constants/*"],
+      "@paul/ui": ["../../packages/ui/src"],
+      "@paul/ui/*": ["../../packages/ui/src/*"],
+      "@paul/utils": ["../../packages/utils/src"],
+      "@paul/utils/*": ["../../packages/utils/src/*"],
+      "@paul/http": ["../../packages/http/src"],
+      "@paul/http/*": ["../../packages/http/src/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
