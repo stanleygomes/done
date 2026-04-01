@@ -11,11 +11,6 @@ permissions:
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-  # Required project secrets:
-  # - VERCEL_AUTH_API_PROJECT_ID
-  # - VERCEL_CORE_API_PROJECT_ID
-  # - VERCEL_AI_API_PROJECT_ID
-  # - VERCEL_UI_PROJECT_ID
 
 jobs:
   deploy-apps:
@@ -25,20 +20,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - app: auth-api
-            project_id: ${{ secrets.VERCEL_AUTH_API_PROJECT_ID }}
-          - app: core-api
-            project_id: ${{ secrets.VERCEL_CORE_API_PROJECT_ID }}
-          - app: ai-api
-            project_id: ${{ secrets.VERCEL_AI_API_PROJECT_ID }}
-          - app: web-ui
-            project_id: ${{ secrets.VERCEL_UI_PROJECT_ID }}
-    env:
-      VERCEL_PROJECT_ID: ${{ matrix.project_id }}
+        app: [auth-api, core-api, ai-api, web-ui]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Set Vercel Project ID
+        run: |
+          case "${{ matrix.app }}" in
+            "auth-api") echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_AUTH_API_PROJECT_ID }}" >> $GITHUB_ENV ;;
+            "core-api") echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_CORE_API_PROJECT_ID }}" >> $GITHUB_ENV ;;
+            "ai-api")   echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_AI_API_PROJECT_ID }}"   >> $GITHUB_ENV ;;
+            "web-ui")   echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_UI_PROJECT_ID }}"       >> $GITHUB_ENV ;;
+          esac
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -48,8 +42,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
-          cache: 'pnpm'
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
