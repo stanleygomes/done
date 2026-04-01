@@ -18,8 +18,8 @@ export function InputFooter({ saveStatus }: InputFooterProps) {
       </p>
       <p className="hidden sm:block text-center text-xs text-foreground/50">
         <Trans i18nKey="create_task.footer.keyboard_hint">
-          Type and press <kbd className="font-semibold">Ctrl + Enter</kbd> to
-          add a task
+          Type and press <strong className="font-semibold">Ctrl + Enter</strong>{" "}
+          to add a task
         </Trans>
       </p>
       <div className="w-16" />

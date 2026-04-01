@@ -202,6 +202,14 @@
       },
       "user_avatar": {
         "alt": "User Avatar"
+      },
+      "chat": {
+        "clear": "Clear Chat",
+        "create_task": "Create Task",
+        "thinking": "Thinking...",
+        "input_placeholder": "Type your plan...",
+        "empty_state": "Start planning your next big thing.",
+        "footer_hint": "Plan your project, one message at a time."
       }
     }
   },
@@ -293,7 +301,7 @@
       "saved": "Saved ✓"
     },
     "footer": {
-      "keyboard_hint": "Type and press <kbd>Ctrl + Enter</kbd> to add a task"
+      "keyboard_hint": "Type and press <strong>Ctrl + Enter</strong> to add a task"
     }
   },
   "sidebar": {
@@ -318,7 +326,8 @@
     "mobile_toggle": "Menu",
     "links": {
       "tasks": "Tasks",
-      "projects": "Projects"
+      "projects": "Projects",
+      "plan mode": "Plan Mode"
     }
   },
   "landing": {

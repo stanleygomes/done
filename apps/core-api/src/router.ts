@@ -3,6 +3,7 @@ import {
   syncController,
   taskController,
   projectController,
+  planningController,
 } from "./providers/dependencies.js";
 
 export class AppRouter {
@@ -10,5 +11,6 @@ export class AppRouter {
     syncController.registerRoutes(fastify, prefix);
     taskController.registerRoutes(fastify, prefix);
     projectController.registerRoutes(fastify, prefix);
+    planningController.registerRoutes(fastify, prefix);
   }
 }

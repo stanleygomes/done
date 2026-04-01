@@ -12,7 +12,9 @@ interface GoogleAiStudioResponse {
 }
 
 export class GoogleAiStudioService {
-  async executePrompt(prompt: string): Promise<string> {
+  async executePrompt(
+    contents: Array<{ role: string; parts: Array<{ text: string }> }>,
+  ): Promise<string> {
     if (!config.services.googleAiStudio.apiKey) {
       throw new BusinessError("Google AI Studio API key is not configured");
     }
@@ -26,7 +28,7 @@ export class GoogleAiStudioService {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
+        contents,
       }),
     });
 

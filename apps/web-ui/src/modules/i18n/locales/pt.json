@@ -202,6 +202,14 @@
       },
       "user_avatar": {
         "alt": "Avatar do Usuário"
+      },
+      "chat": {
+        "clear": "Limpar Chat",
+        "create_task": "Criar Tarefa",
+        "thinking": "Pensando...",
+        "input_placeholder": "Digite seu plano...",
+        "empty_state": "Comece a planejar seu próximo grande objetivo.",
+        "footer_hint": "Planeje seu projeto, uma mensagem por vez."
       }
     }
   },
@@ -318,7 +326,8 @@
     "mobile_toggle": "Menu",
     "links": {
       "tasks": "Tarefas",
-      "projects": "Projetos"
+      "projects": "Projetos",
+      "plan mode": "Modo Plano"
     }
   },
   "landing": {

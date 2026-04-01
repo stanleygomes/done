@@ -1,9 +1,28 @@
 export const executePromptDoc = {
   body: {
     type: "object",
-    required: ["prompt"],
+    required: ["contents"],
     properties: {
-      prompt: { type: "string", minLength: 1, maxLength: 5000 },
+      contents: {
+        type: "array",
+        items: {
+          type: "object",
+          required: ["role", "parts"],
+          properties: {
+            role: { type: "string" },
+            parts: {
+              type: "array",
+              items: {
+                type: "object",
+                required: ["text"],
+                properties: {
+                  text: { type: "string" },
+                },
+              },
+            },
+          },
+        },
+      },
     },
   },
   response: {

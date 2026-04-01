@@ -1,11 +1,12 @@
 import { z } from "zod";
 
 export const executePromptSchema = z.object({
-  prompt: z
-    .string()
-    .trim()
-    .min(1, "Prompt is required")
-    .max(5000, "Prompt is too long"),
+  contents: z.array(
+    z.object({
+      role: z.string(),
+      parts: z.array(z.object({ text: z.string() })),
+    }),
+  ),
 });
 
 export type ExecutePromptInput = z.infer<typeof executePromptSchema>;

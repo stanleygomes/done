@@ -6,7 +6,7 @@ import { AuthMiddleware } from "../../middlewares/auth.middleware.js";
 import type { UserAuth } from "../../middlewares/auth.middleware.js";
 
 interface ExecutePromptBody {
-  prompt: string;
+  contents: Array<{ role: string; parts: Array<{ text: string }> }>;
 }
 
 type AuthenticatedRequest = FastifyRequest & {
@@ -36,7 +36,7 @@ export class PromptController {
     const validatedData = validateExecutePrompt(request.body);
     const user = (request as AuthenticatedRequest).user;
     const result = await this.promptExecutionService.execute(
-      validatedData.prompt,
+      validatedData.contents,
       user,
     );
 
