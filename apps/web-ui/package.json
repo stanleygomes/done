@@ -45,7 +45,7 @@
     "@paul/ui": "workspace:*",
     "@paul/utils": "workspace:*",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^22.15.3",
+    "@types/node": "^25.5.0",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "eslint": "^9.39.1",

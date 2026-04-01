@@ -10,7 +10,7 @@ applyTo: "**"
 
 - **Language**: TypeScript 5.9.2
 - **Monorepo**: Turborepo 2.8
-- **Runtime**: Node.js 22+
+- **Runtime**: Node.js 24+
 - **Backend**: Fastify 5.4 / Express 5.1 (Auth API)
 - **Frontend**: Next.js 16.1.6 (React 19) + TailwindCSS 4
 - **ORM**: Drizzle ORM (PostgreSQL for Auth, LibSQL/SQLite for Core AI)

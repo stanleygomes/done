@@ -36,7 +36,7 @@ Each app/package is 100% [TypeScript](https://www.typescriptlang.org/).
 
 ### Prerequisites
 
-- Node.js v22.x
+- Node.js v24.x
 - npm
 
 ### Scripts
