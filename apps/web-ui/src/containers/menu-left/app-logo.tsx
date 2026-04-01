@@ -10,7 +10,7 @@ export function AppLogo() {
         D
       </div>
       <span className="text-xl font-black leading-none tracking-tight text-foreground hidden sm:inline">
-        Done.
+        Paul
       </span>
     </Link>
   );

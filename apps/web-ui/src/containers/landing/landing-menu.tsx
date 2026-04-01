@@ -18,7 +18,7 @@ export function LandingMenu() {
             D.
           </div>
           <span className="text-xl font-black tracking-tighter uppercase text-foreground">
-            Done.
+            Paul
           </span>
         </Link>
 
