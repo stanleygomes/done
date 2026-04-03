@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "7ccd931e-10ff-4f77-aee1-346c02497f43",
+  "id": "c13a14c5-7118-4387-ade5-64d13566ec80",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "prompt_logs": {
@@ -50,7 +50,22 @@
           "autoincrement": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "prompt_logs_user_id_idx": {
+          "name": "prompt_logs_user_id_idx",
+          "columns": [
+            "user_id"
+          ],
+          "isUnique": false
+        },
+        "prompt_logs_created_at_idx": {
+          "name": "prompt_logs_created_at_idx",
+          "columns": [
+            "created_at"
+          ],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},

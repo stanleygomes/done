@@ -7,6 +7,7 @@ export const tasks = pgTable(
     id: text("id").primaryKey(),
     user_id: text("user_id").notNull(),
     content: text("content").notNull(),
+    title: text("title").notNull().default(""),
     done: boolean("done").notNull().default(false),
     created_at: timestamp("created_at", { mode: "date" }).notNull(),
     updated_at: timestamp("updated_at", { mode: "date" }).notNull(),

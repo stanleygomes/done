@@ -1,9 +1,16 @@
-import { pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
-export const users = pgTable("users", {
-  id: text("id").primaryKey(),
-  name: text("name"),
-  email: text("email").notNull().unique(),
-  created_at: timestamp("created_at", { mode: "date" }),
-  updated_at: timestamp("updated_at", { mode: "date" }),
-});
+export const users = pgTable(
+  "users",
+  {
+    id: text("id").primaryKey(),
+    name: text("name"),
+    email: text("email").notNull().unique(),
+    created_at: timestamp("created_at", { mode: "date" }),
+    updated_at: timestamp("updated_at", { mode: "date" }),
+  },
+  (table) => [
+    index("users_email_idx").on(table.email),
+    index("users_created_at_idx").on(table.created_at),
+  ],
+);

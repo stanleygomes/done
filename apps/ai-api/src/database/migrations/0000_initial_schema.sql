@@ -6,3 +6,6 @@ CREATE TABLE `prompt_logs` (
 	`response` text NOT NULL,
 	`created_at` integer NOT NULL
 );
+--> statement-breakpoint
+CREATE INDEX `prompt_logs_user_id_idx` ON `prompt_logs` (`user_id`);--> statement-breakpoint
+CREATE INDEX `prompt_logs_created_at_idx` ON `prompt_logs` (`created_at`);

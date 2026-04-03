@@ -16,7 +16,8 @@ export class TaskService {
     const now = Date.now();
     const task: Task = {
       id: generateUUID(),
-      content: taskData.content || "",
+      content: "",
+      title: "",
       done: false,
       createdAt: now,
       updatedAt: now,
@@ -30,7 +31,10 @@ export class TaskService {
       isDeleted: false,
       deletedAt: null,
       ...taskData,
-    };
+    } as Task;
+
+    if (!task.content) task.content = "";
+    if (!task.title) task.title = task.content || "";
 
     const dbTask = TaskMapper.toDatabase(task, userId);
     await this.taskRepository.bulkUpsert(userId, [dbTask]);

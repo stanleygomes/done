@@ -6,6 +6,7 @@ export class TaskMapper {
     return {
       id: dbRow.id,
       content: dbRow.content,
+      title: dbRow.title,
       done: dbRow.done,
       createdAt: dbRow.created_at.getTime(),
       updatedAt: dbRow.updated_at.getTime(),
@@ -28,6 +29,7 @@ export class TaskMapper {
       id: task.id,
       user_id: userId,
       content: task.content,
+      title: task.title,
       done: task.done,
       created_at: new Date(task.createdAt),
       updated_at: new Date(task.updatedAt),

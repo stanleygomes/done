@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 0,
-      "tag": "0000_initial",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1,
-      "tag": "0001_api_clients",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1774901628842,
-      "tag": "0002_tasks_and_projects",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1775022296860,
-      "tag": "0003_memories_planning_messages",
+      "when": 1775212264434,
+      "tag": "0000_initial_schema",
       "breakpoints": true
     }
   ]

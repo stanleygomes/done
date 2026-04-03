@@ -6,6 +6,7 @@ export interface DbTask {
   id: string;
   user_id: string;
   content: string;
+  title: string;
   done: boolean;
   created_at: Date;
   updated_at: Date;
@@ -45,6 +46,7 @@ export class TaskRepository {
         target: tasks.id,
         set: {
           content: sql`excluded.content`,
+          title: sql`excluded.title`,
           done: sql`excluded.done`,
           updated_at: sql`excluded.updated_at`,
           notes: sql`excluded.notes`,
