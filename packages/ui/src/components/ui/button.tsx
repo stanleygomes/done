@@ -32,24 +32,45 @@ const buttonVariants = cva(
   },
 );
 
+import { Icon } from "./icon";
+
 function Button({
   className,
   variant,
   size,
   asChild = false,
+  isLoading = false,
+  children,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
+    isLoading?: boolean;
   }) {
   const Comp = asChild ? Slot : "button";
 
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      disabled={isLoading || props.disabled}
+      className={cn(
+        buttonVariants({ variant, size, className }),
+        isLoading && "cursor-not-allowed opacity-50",
+      )}
       {...props}
-    />
+    >
+      {isLoading ? (
+        <div className="flex items-center gap-2">
+          <Icon
+            icon="svg-spinners:ring-resize"
+            className="size-4 animate-spin"
+          />
+          {children}
+        </div>
+      ) : (
+        children
+      )}
+    </Comp>
   );
 }
 
