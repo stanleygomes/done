@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useProjects } from "@modules/project/use-projects";
 import { useTasks } from "@modules/task/use-tasks";
 import { TaskList } from "./task-list";
@@ -11,6 +11,10 @@ import { useSearchParams } from "next/navigation";
 import { TaskSearch } from "./task-search";
 import { BoardHeader } from "./project-header";
 import { FinishedHeader } from "./finished-header";
+import { BoardTopActions } from "./board-top-actions";
+import { useTopMenu } from "src/hooks/use-top-menu";
+import { UserAvatar } from "src/components/user-avatar";
+import { useRouter, usePathname } from "next/navigation";
 
 interface TaskBoardProps {
   projectId?: string | null;
@@ -19,6 +23,7 @@ interface TaskBoardProps {
 
 export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const isSearchVisible = searchParams.get("search") === "true";
 
   const { projects } = useProjects();
@@ -68,6 +73,37 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
   };
 
   const isRecentlyDeleted = filter === "recently-deleted";
+
+  const { setLeftContent, setRightContent } = useTopMenu();
+  const router = useRouter();
+
+  const toggleSearch = useCallback(() => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (isSearchVisible) {
+      params.delete("search");
+    } else {
+      params.set("search", "true");
+    }
+    router.replace(`${pathname}?${params.toString()}`);
+  }, [isSearchVisible, pathname, router, searchParams]);
+
+  useEffect(() => {
+    setLeftContent(<UserAvatar className="h-12 w-12 ml-2" />);
+    setRightContent(
+      <BoardTopActions
+        onToggleSearch={toggleSearch}
+        isSearchVisible={isSearchVisible}
+        onCreateTask={() => {
+          /* TODO: Implement open create task modal/focus */
+        }}
+      />,
+    );
+
+    return () => {
+      setLeftContent(null);
+      setRightContent(null);
+    };
+  }, [setLeftContent, setRightContent, isSearchVisible, toggleSearch]);
 
   useEffect(() => {
     if (!isSearchVisible && searchQuery !== "") {

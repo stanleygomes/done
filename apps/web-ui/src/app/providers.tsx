@@ -11,6 +11,7 @@ import { NotificationWatcher } from "@containers/notifications/watcher";
 import { SidebarProvider } from "../hooks/use-sidebar";
 import { SyncProvider } from "../modules/sync/sync-provider";
 import { setupHttpClient } from "@modules/auth/setup-http-client";
+import { TopMenuProvider } from "../hooks/use-top-menu";
 
 setupHttpClient();
 
@@ -19,11 +20,13 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <SyncProvider>
       <SidebarProvider>
-        <TooltipProvider>
-          <NotificationWatcher />
-          {children}
-          <Toaster />
-        </TooltipProvider>
+        <TopMenuProvider>
+          <TooltipProvider>
+            <NotificationWatcher />
+            {children}
+            <Toaster />
+          </TooltipProvider>
+        </TopMenuProvider>
       </SidebarProvider>
     </SyncProvider>
   );

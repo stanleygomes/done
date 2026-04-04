@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "@paul/ui/globals.css";
 import { Providers } from "./providers";
 import MenuRight from "@containers/menu-right";
+import MenuTop from "@containers/menu-top";
 import MenuLeft from "@containers/menu-left";
 import { Suspense } from "react";
 import en from "@modules/i18n/locales/en.json";
@@ -54,6 +55,9 @@ export default function RootLayout({
           <AuthGuard>
             <Suspense fallback={null}>
               <MenuRight />
+            </Suspense>
+            <Suspense fallback={null}>
+              <MenuTop />
             </Suspense>
             <Suspense fallback={null}>
               <MenuLeft />
