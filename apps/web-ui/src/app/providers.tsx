@@ -12,6 +12,7 @@ import { SidebarProvider } from "../hooks/use-sidebar";
 import { SyncProvider } from "../modules/sync/sync-provider";
 import { setupHttpClient } from "@modules/auth/setup-http-client";
 import { TopMenuProvider } from "../hooks/use-top-menu";
+import { PomodoroProvider } from "../context/pomodoro-context";
 
 setupHttpClient();
 
@@ -21,11 +22,13 @@ export function Providers({ children }: { children: ReactNode }) {
     <SyncProvider>
       <SidebarProvider>
         <TopMenuProvider>
-          <TooltipProvider>
-            <NotificationWatcher />
-            {children}
-            <Toaster />
-          </TooltipProvider>
+          <PomodoroProvider>
+            <TooltipProvider>
+              <NotificationWatcher />
+              {children}
+              <Toaster />
+            </TooltipProvider>
+          </PomodoroProvider>
         </TopMenuProvider>
       </SidebarProvider>
     </SyncProvider>

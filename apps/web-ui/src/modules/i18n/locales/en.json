@@ -34,9 +34,17 @@
         "denied": "Enable in Settings"
       }
     },
+    "productivity": "Productivity",
     "language": {
       "title": "Language",
       "language_description": "Choose the language for the app."
+    },
+    "pomodoro": {
+      "title": "Pomodoro",
+      "device_hint": "Note: Configuration is per device and saved locally.",
+      "focus_label": "Focus (minutes)",
+      "short_break_label": "Short Break (minutes)",
+      "long_break_label": "Long Break (minutes)"
     }
   },
   "projects": {
@@ -176,6 +184,32 @@
     },
     "badges": {
       "important": "Important"
+    },
+    "pomodoro": {
+      "timer": {
+        "focus": "Focus",
+        "short_break": "Short Break",
+        "long_break": "Long Break",
+        "cycle": "Cycle {{current}}/4",
+        "start": "Start",
+        "pause": "Pause",
+        "skip": "Skip",
+        "settings_link": "Adjust pomodoro times"
+      },
+      "instructions": {
+        "trigger_tooltip": "Instructions",
+        "title": "Pomodoro Instructions",
+        "description": "How to use the Pomodoro technique and maximize your focus.",
+        "origin_title": "📜 Origin",
+        "origin_text": "It was created by the Italian Francesco Cirillo in the late 80s. He used a tomato-shaped kitchen timer (pomodoro, in Italian) to organize his university studies.",
+        "best_practices_title": "Best Practices",
+        "practices": {
+          "focus": "<strong>Total Focus:</strong> During the Pomodoro cycle, concentrate only on the task. Eliminate all distractions.",
+          "short_break": "<strong>Short Breaks:</strong> At the end of each cycle, take a short break to stretch, drink water, and relax the mind.",
+          "long_break": "<strong>Long Breaks:</strong> After 4 full Pomodoro cycles, reward yourself with a long break to rest and recover mental energy.",
+          "adapter": "<strong>Adapt the Times:</strong> Not everyone works well with 25 minutes. Adjust the times in your account settings to match your pace!"
+        }
+      }
     }
   },
   "task_item": {

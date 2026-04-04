@@ -34,9 +34,17 @@
         "denied": "Habilitar nas Configurações"
       }
     },
+    "productivity": "Produtividade",
     "language": {
       "title": "Idioma",
       "language_description": "Escolha o idioma para o aplicativo."
+    },
+    "pomodoro": {
+      "title": "Pomodoro",
+      "device_hint": "Nota: A configuração é definida por dispositivo e salva localmente.",
+      "focus_label": "Foco (minutos)",
+      "short_break_label": "Pausa Curta (minutos)",
+      "long_break_label": "Pausa Longa (minutos)"
     }
   },
   "projects": {
@@ -176,6 +184,32 @@
     },
     "badges": {
       "important": "Importante"
+    },
+    "pomodoro": {
+      "timer": {
+        "focus": "Foco",
+        "short_break": "Pausa Curta",
+        "long_break": "Pausa Longa",
+        "cycle": "Ciclo {{current}}/4",
+        "start": "Iniciar",
+        "pause": "Pausar",
+        "skip": "Pular",
+        "settings_link": "Ajustar tempos do pomodoro"
+      },
+      "instructions": {
+        "trigger_tooltip": "Instruções",
+        "title": "Instruções Pomodoro",
+        "description": "Como utilizar a técnica Pomodoro e maximizar seu foco.",
+        "origin_title": "📜 Origem",
+        "origin_text": "Foi criada pelo italiano Francesco Cirillo no final dos anos 80. Ele usava um cronômetro de cozinha em formato de tomate (pomodoro, em italiano) para organizar seus estudos na universidade.",
+        "best_practices_title": "Boas Práticas",
+        "practices": {
+          "focus": "<strong>Foco Total:</strong> Durante o ciclo de Pomodoro, concentre-se apenas na tarefa. Elimine todas as distrações.",
+          "short_break": "<strong>Pausas Curtas:</strong> Ao fim de cada ciclo, faça uma pausa curta para esticar o corpo, beber água e relaxar a mente.",
+          "long_break": "<strong>Pausas Longas:</strong> Após 4 ciclos de Pomodoro completos, recompense-se com uma pausa longa para descansar e recuperar a energia mental.",
+          "adapter": "<strong>Adapte os Tempos:</strong> Nem todos rendem bem com 25 minutos. Ajuste os tempos nas configurações da sua conta conforme seu ritmo!"
+        }
+      }
     }
   },
   "task_item": {

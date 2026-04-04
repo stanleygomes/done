@@ -15,6 +15,7 @@
   "dependencies": {
     "@hookform/resolvers": "^2.9.11",
     "@radix-ui/react-slot": "^1.2.4",
+    "@serwist/next": "^9.0.11",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
@@ -23,7 +24,6 @@
     "i18next-browser-languagedetector": "^8.2.1",
     "lucide-react": "^0.577.0",
     "next": "^15.1.7",
-    "@serwist/next": "^9.0.11",
     "radix-ui": "^1.4.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

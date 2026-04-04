@@ -9,6 +9,7 @@ import { LanguageSelector } from "./language-selector";
 import { NotificationSettings } from "./notification-settings";
 import { LegalSection } from "./legal-section";
 import { SettingsHeader } from "./settings-header";
+import { PomodoroSettings } from "./pomodoro-settings";
 
 export default function Settings() {
   const { user } = useUser();
@@ -46,6 +47,13 @@ export default function Settings() {
               {t("settings.notifications")}
             </h2>
             <NotificationSettings />
+          </section>
+
+          <section className="flex flex-col gap-4">
+            <h2 className="text-lg font-black text-foreground">
+              {t("settings.productivity")}
+            </h2>
+            <PomodoroSettings />
           </section>
 
           <section className="flex flex-col gap-4">
