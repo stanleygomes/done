@@ -23,7 +23,7 @@ export function PinnedTasks({
 
   return (
     <div className="mb-10">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between">
         <h2 className="text-lg font-bold text-foreground">
           {t("task_board.pinned_tasks.title")}
         </h2>

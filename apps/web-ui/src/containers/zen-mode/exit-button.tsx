@@ -9,10 +9,10 @@ export function ZenExitButton({ onClick }: ZenExitButtonProps) {
   const { t } = useTranslation();
 
   return (
-    <div className="fixed w-full bg-background flex justify-center left-0 bottom-0 py-6">
+    <div className="fixed w-full flex justify-center left-0 bottom-0 py-6">
       <button
         onClick={onClick}
-        className="cursor-pointer flex items-center gap-2 rounded-base border-2 border-border bg-[#ff8fab] dark:bg-[#ff8fab]/20 px-6 py-3 font-black shadow-shadow hover:shadow-none transition-all z-50 whitespace-nowrap"
+        className="cursor-pointer flex items-center gap-2 backdrop-blur-sm rounded-base border-2 border-border bg-[#ff8fab] dark:bg-[#ff8fab]/20 px-6 py-3 font-black shadow-shadow hover:shadow-none transition-all z-50 whitespace-nowrap"
       >
         <Minimize2 className="w-5 h-5" />
         {t("zen_mode.exit")}

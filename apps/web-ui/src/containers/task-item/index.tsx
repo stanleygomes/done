@@ -155,7 +155,7 @@ export function TaskListItem({
                 onOpenDrawer={onOpenDrawer}
                 onPin={(id, isPinned) => onUpdateTaskDetails(id, { isPinned })}
                 isRecentlyDeleted={isRecentlyDeleted}
-                className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto"
+                className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto hidden md:flex"
               />
             </div>
 

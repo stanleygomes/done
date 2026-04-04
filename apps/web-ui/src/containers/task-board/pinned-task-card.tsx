@@ -20,7 +20,7 @@ export function PinnedTaskCard({
   return (
     <div
       onClick={() => onOpenDrawer(task)}
-      className="w-full flex-shrink-0 border-2 border-border p-5 flex flex-col justify-between cursor-pointer group shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98] shadow-shadow overflow-hidden"
+      className="w-full flex-shrink-0 border-2 rounded-base border-border p-5 flex flex-col justify-between cursor-pointer group shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98] shadow-shadow overflow-hidden"
       style={{
         backgroundColor: task.color
           ? `${task.color}15`
