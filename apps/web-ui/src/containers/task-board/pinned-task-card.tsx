@@ -20,7 +20,7 @@ export function PinnedTaskCard({
   return (
     <div
       onClick={() => onOpenDrawer(task)}
-      className="border-2 border-border p-5 flex flex-col justify-between cursor-pointer group shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98] shadow-shadow overflow-hidden"
+      className="w-full flex-shrink-0 border-2 border-border p-5 flex flex-col justify-between cursor-pointer group shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98] shadow-shadow overflow-hidden"
       style={{
         backgroundColor: task.color
           ? `${task.color}15`
@@ -28,14 +28,7 @@ export function PinnedTaskCard({
         borderColor: task.color || "var(--border)",
       }}
     >
-      {task.color && (
-        <div
-          className="absolute -right-10 -top-10 w-32 h-32 blur-3xl opacity-20"
-          style={{ backgroundColor: task.color }}
-        />
-      )}
-
-      <div className="flex justify-between items-start z-10 mb-10">
+      <div className="flex justify-between items-start z-10 mb-4">
         <button
           onClick={(e) => {
             e.stopPropagation();

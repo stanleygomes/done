@@ -29,18 +29,20 @@ export function PinnedTasks({
         </h2>
       </div>
 
-      {tasks.map((task) => {
-        return (
-          <PinnedTaskCard
-            key={task.id}
-            task={task}
-            onToggle={onToggle}
-            onUnpin={onUnpin}
-            onOpenDrawer={onOpenDrawer}
-            onUpdateDetails={onUpdateDetails}
-          />
-        );
-      })}
+      <div className="flex gap-4 overflow-x-auto py-6 -mx-4 px-4 scrollbar-hide snap-x">
+        {tasks.map((task) => {
+          return (
+            <PinnedTaskCard
+              key={task.id}
+              task={task}
+              onToggle={onToggle}
+              onUnpin={onUnpin}
+              onOpenDrawer={onOpenDrawer}
+              onUpdateDetails={onUpdateDetails}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
