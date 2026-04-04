@@ -16,6 +16,7 @@ import { PinnedTasks } from "./pinned-tasks";
 import { useTopMenu } from "src/hooks/use-top-menu";
 import { UserAvatar } from "src/components/user-avatar";
 import { useRouter, usePathname } from "next/navigation";
+import { Drawer, DrawerContent } from "@paul/ui";
 
 interface TaskBoardProps {
   projectId?: string | null;
@@ -26,6 +27,7 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const isSearchVisible = searchParams.get("search") === "true";
+  const [isCreateDrawerOpen, setIsCreateDrawerOpen] = useState(false);
 
   const { projects } = useProjects();
   const currentProject = projectId
@@ -98,9 +100,7 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
       <BoardTopActions
         onToggleSearch={toggleSearch}
         isSearchVisible={isSearchVisible}
-        onCreateTask={() => {
-          /* TODO: Implement open create task modal/focus */
-        }}
+        onCreateTask={() => setIsCreateDrawerOpen(true)}
       />,
     );
 
@@ -240,6 +240,27 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
         isSuggestingSubtasks={isSuggestingSubtasks}
         isRecentlyDeleted={isRecentlyDeleted}
       />
+
+      <Drawer
+        open={isCreateDrawerOpen}
+        onOpenChange={(open) => setIsCreateDrawerOpen(open)}
+      >
+        <DrawerContent className="bg-background pb-safe-bottom">
+          <CreateTaskInput
+            mode="drawer"
+            value={newTask}
+            onChange={setNewTask}
+            onSubmit={(fields) =>
+              createTask({
+                ...fields,
+                projectId: fields?.projectId || projectId || undefined,
+              })
+            }
+            onClose={() => setIsCreateDrawerOpen(false)}
+            currentProjectId={projectId}
+          />
+        </DrawerContent>
+      </Drawer>
     </main>
   );
 }

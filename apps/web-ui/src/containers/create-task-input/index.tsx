@@ -15,6 +15,8 @@ interface CreateTaskInputProps {
   onChange: (value: string) => void;
   onSubmit: (additionalProps?: Partial<Task>) => void;
   currentProjectId?: string | null;
+  mode?: "default" | "drawer";
+  onClose?: () => void;
 }
 
 export function CreateTaskInput({
@@ -22,6 +24,8 @@ export function CreateTaskInput({
   onChange,
   onSubmit,
   currentProjectId,
+  mode = "default",
+  onClose,
 }: CreateTaskInputProps) {
   const { isOpen, mounted } = useSidebar();
   const [draft, setDraft, removeDraft] = useLocalStorage("task_draft", "");
@@ -42,8 +46,17 @@ export function CreateTaskInput({
   }, []);
 
   useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
+    if (mode === "drawer") {
+      const timer = setTimeout(() => {
+        inputRef.current?.focus();
+      }, 300);
+      return () => clearTimeout(timer);
+    } else {
+      if (typeof window !== "undefined" && window.innerWidth >= 640) {
+        inputRef.current?.focus();
+      }
+    }
+  }, [mode]);
 
   function handleChange(newValue: string) {
     onChange(newValue);
@@ -60,6 +73,8 @@ export function CreateTaskInput({
   }
 
   function handleSubmitAction() {
+    if (!value.trim()) return;
+
     clear();
     removeDraft();
     onSubmit({
@@ -72,6 +87,7 @@ export function CreateTaskInput({
     setDueDateStr("");
     setDueTime("");
     setSelectedProjectId("none");
+    onClose?.();
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -79,14 +95,26 @@ export function CreateTaskInput({
     handleSubmitAction();
   }
 
+  const isDrawer = mode === "drawer";
+
   return (
     <form
       onSubmit={handleSubmit}
-      className={`fixed bottom-0 left-0 right-0 z-40 bg-background p-4 transition-all duration-300 hidden sm:block ${
-        mounted && isOpen ? "pl-0 lg:pl-76" : "pl-4"
-      }`}
+      className={
+        isDrawer
+          ? "w-full bg-background p-4"
+          : `fixed bottom-0 left-0 right-0 z-40 bg-background p-4 transition-all duration-300 hidden sm:block ${
+              mounted && isOpen ? "pl-0 lg:pl-76" : "pl-4"
+            }`
+      }
     >
-      <div className="mx-auto flex w-full max-w-2xl flex-col gap-2">
+      <div
+        className={
+          isDrawer
+            ? "flex w-full flex-col gap-2"
+            : "mx-auto flex w-full max-w-2xl flex-col gap-2"
+        }
+      >
         <div className="flex flex-col overflow-hidden rounded-xl border-2 border-border bg-secondary-background shadow-[4px_4px_0px_0px_var(--border)] transition-all">
           <InputField
             ref={inputRef}
