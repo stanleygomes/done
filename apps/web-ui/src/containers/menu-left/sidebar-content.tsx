@@ -10,6 +10,8 @@ import { SidebarMoreSection } from "./sidebar-more-section";
 import { SyncIndicator } from "../../components/sync-indicator";
 import { UserHints } from "../onboarding/user-hints";
 
+import { AppLogo } from "./app-logo";
+
 interface SidebarContentProps {
   projects: Project[];
 }
@@ -34,9 +36,7 @@ export function SidebarContent({ projects }: SidebarContentProps) {
         >
           <MenuIcon className="w-6 h-6" />
         </button>
-        <span className="text-2xl font-black uppercase tracking-tighter italic text-black dark:text-white">
-          {t("sidebar.title")}
-        </span>
+        <AppLogo />
       </div>
 
       <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-6 h-[calc(100%-80px)]">
