@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
-import Link from "next/link";
-import { LayoutGrid, Menu as MenuIcon } from "lucide-react";
+import { Menu as MenuIcon } from "lucide-react";
 import { Project } from "@paul/entities";
 import { useSearchParams } from "next/navigation";
 import { SidebarFilters } from "./sidebar-filters";
@@ -68,14 +67,6 @@ export function SidebarContent({ projects }: SidebarContentProps) {
               <UserHints />
             </div>
           </div>
-
-          <Link
-            href="/projects"
-            className="flex items-center justify-center gap-2 w-full bg-[#f0f0f0] dark:bg-[#222] border-2 border-black dark:border-white/20 rounded-xl p-3 text-xs font-black uppercase tracking-widest hover:bg-main hover:text-main-foreground hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all text-black dark:text-white"
-          >
-            <LayoutGrid className="w-4 h-4" />
-            {t("sidebar.buttons.manage_projects")}
-          </Link>
         </div>
       </div>
     </aside>
