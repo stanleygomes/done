@@ -64,7 +64,7 @@ export class AuthController {
     fastify.post<{ Body: { refreshToken: string } }>(
       `${prefix}/v1/auth/refresh-token`,
       { schema: refreshTokenSchema },
-      (request, reply) => {
+      async (request, reply) => {
         const validatedData = validateRefreshToken(request.body);
         const result = this.refreshTokenService.execute(
           validatedData.refreshToken,

@@ -54,13 +54,13 @@ export const refreshTokenSchema = {
       refreshToken: { type: "string" },
     },
   },
-  response: {
-    200: {
-      type: "object",
-      properties: {
-        token: { type: "string" },
-      },
+  200: {
+    type: "object",
+    properties: {
+      token: { type: "string" },
+      refreshToken: { type: "string" },
     },
+    required: ["token", "refreshToken"],
   },
 };
 
