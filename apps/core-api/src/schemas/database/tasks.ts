@@ -25,6 +25,8 @@ export const tasks = pgTable(
     }),
     is_deleted: boolean("is_deleted").notNull().default(false),
     deleted_at: timestamp("deleted_at", { mode: "date" }),
+    is_pinned: boolean("is_pinned").notNull().default(false),
+    color: text("color"),
   },
   (table) => [
     index("tasks_user_id_idx").on(table.user_id),

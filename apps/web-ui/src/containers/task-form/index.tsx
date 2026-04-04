@@ -13,6 +13,8 @@ import { TaskImportant } from "./task-important";
 import { TaskUrl } from "./task-url";
 import { TaskDelete } from "./task-delete";
 import { TaskMetadata } from "./task-metadata";
+import { TaskPinnedToggle } from "./task-pinned-toggle";
+import { TaskColorPicker } from "./task-color-picker";
 
 interface TaskFormProps {
   task: Task;
@@ -37,6 +39,8 @@ interface TaskFormProps {
       | "subtasks"
       | "tags"
       | "projectId"
+      | "isPinned"
+      | "color"
     >,
   ) => void;
   onSuggestSubtasks?: (id: string) => void;
@@ -95,6 +99,8 @@ export function TaskForm({
         | "subtasks"
         | "tags"
         | "projectId"
+        | "isPinned"
+        | "color"
       >
     >,
   ) {
@@ -107,6 +113,8 @@ export function TaskForm({
       subtasks: task.subtasks,
       tags: task.tags,
       projectId: task.projectId,
+      isPinned: task.isPinned,
+      color: task.color,
       ...details,
     });
   }
@@ -152,6 +160,7 @@ export function TaskForm({
           subtasks: [],
           tags: [],
           parentId: task.id,
+          isPinned: false,
         },
       ],
     });
@@ -175,13 +184,22 @@ export function TaskForm({
         <div className="flex items-center gap-3">
           <TaskStatusToggle task={task} onToggle={onToggle} />
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center gap-2">
+          <TaskPinnedToggle
+            isPinned={task.isPinned ?? false}
+            onToggle={() => patchDetails({ isPinned: !task.isPinned })}
+          />
           <TaskImportant
             isImportant={task.important}
             onToggle={() => patchDetails({ important: !task.important })}
           />
         </div>
       </div>
+
+      <TaskColorPicker
+        color={task.color}
+        onUpdateColor={(color: string | undefined) => patchDetails({ color })}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <TaskProject

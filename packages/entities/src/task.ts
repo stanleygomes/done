@@ -16,4 +16,6 @@ export interface Task {
   parentId?: string | null;
   isDeleted?: boolean;
   deletedAt?: number | null;
+  isPinned?: boolean;
+  color?: string;
 }

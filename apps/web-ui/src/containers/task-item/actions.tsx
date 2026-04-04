@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Trash2, Maximize2, ChevronRight, RotateCcw } from "lucide-react";
+import { Trash2, Maximize2, ChevronRight, RotateCcw, Pin } from "lucide-react";
 import type { Task } from "@paul/entities";
 import {
   Tooltip,
@@ -13,6 +13,7 @@ interface TaskItemActionsProps {
   onRestore?: (id: string) => void;
   onEnterZenMode?: (id: string) => void;
   onOpenDrawer: (task: Task) => void;
+  onPin?: (id: string, isPinned: boolean) => void;
   isRecentlyDeleted?: boolean;
   className?: string;
 }
@@ -23,6 +24,7 @@ export function TaskItemActions({
   onRestore,
   onEnterZenMode,
   onOpenDrawer,
+  onPin,
   isRecentlyDeleted,
   className = "",
 }: TaskItemActionsProps) {
@@ -30,6 +32,30 @@ export function TaskItemActions({
 
   return (
     <div className={`flex items-start gap-2 ${className}`}>
+      {onPin && (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              type="button"
+              className={`shrink-0 rounded-base border-2 border-border p-1.5 shadow-shadow transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none cursor-pointer ${
+                task.isPinned
+                  ? "bg-main text-white"
+                  : "bg-[#fde047] dark:bg-[#fde047]/20 text-foreground hover:bg-[#facc15] dark:hover:bg-[#facc15]/30"
+              }`}
+              onClick={() => onPin(task.id, !task.isPinned)}
+              aria-label={task.isPinned ? "Unpin task" : "Pin task"}
+            >
+              <Pin
+                size={16}
+                className={task.isPinned ? "fill-current rotate-45" : ""}
+              />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent>
+            {task.isPinned ? "Unpin task" : "Pin task"}
+          </TooltipContent>
+        </Tooltip>
+      )}
       <Tooltip>
         <TooltipTrigger asChild>
           <button

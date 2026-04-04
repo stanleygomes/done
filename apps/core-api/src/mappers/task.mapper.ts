@@ -21,6 +21,8 @@ export class TaskMapper {
       parentId: dbRow.parent_id ?? undefined,
       isDeleted: dbRow.is_deleted,
       deletedAt: dbRow.deleted_at ? dbRow.deleted_at.getTime() : null,
+      isPinned: dbRow.is_pinned,
+      color: dbRow.color ?? undefined,
     };
   }
 
@@ -43,6 +45,8 @@ export class TaskMapper {
       parent_id: task.parentId ?? null,
       is_deleted: task.isDeleted ?? false,
       deleted_at: task.deletedAt ? new Date(task.deletedAt) : null,
+      is_pinned: task.isPinned ?? false,
+      color: task.color ?? null,
     };
   }
 

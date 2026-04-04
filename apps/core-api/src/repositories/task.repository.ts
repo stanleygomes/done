@@ -20,6 +20,8 @@ export interface DbTask {
   parent_id: string | null;
   is_deleted: boolean;
   deleted_at: Date | null;
+  is_pinned: boolean;
+  color: string | null;
 }
 
 export type DbTaskInsert = Omit<DbTask, "created_at" | "updated_at"> & {
@@ -59,6 +61,8 @@ export class TaskRepository {
           parent_id: sql`excluded.parent_id`,
           is_deleted: sql`excluded.is_deleted`,
           deleted_at: sql`excluded.deleted_at`,
+          is_pinned: sql`excluded.is_pinned`,
+          color: sql`excluded.color`,
         },
       });
   }

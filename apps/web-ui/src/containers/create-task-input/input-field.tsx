@@ -26,7 +26,7 @@ export const InputField = forwardRef<HTMLTextAreaElement, InputFieldProps>(
         />
         <button
           type="submit"
-          className="m-1.5 h-fit rounded-lg bg-main border-2 border-border px-4 py-2.5 text-sm font-bold text-main-foreground transition-all hover:shadow-shadow active:scale-95 flex items-center gap-1 cursor-pointer"
+          className="m-1.5 h-fit rounded-lg bg-main border-2 border-border px-4 py-2.5 text-sm font-bold text-main-foreground transition-all hover:shadow-shadow active:scale-95 flex items-center gap-1 cursor-pointer animate-pulse"
         >
           {t("create_task.add_button")}{" "}
           <Rocket className="hidden sm:block h-4 w-4 ml-2" />

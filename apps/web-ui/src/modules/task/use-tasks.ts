@@ -31,6 +31,8 @@ function normalizeTask(task: any): Task {
     tags: task.tags ?? [],
     projectId: task.projectId,
     isDeleted: task.isDeleted ?? false,
+    isPinned: task.isPinned ?? false,
+    color: task.color,
   };
 }
 
@@ -50,7 +52,8 @@ function hasLegacyFields(task: any): boolean {
     task.dueTime === undefined ||
     task.url === undefined ||
     !Array.isArray(task.subtasks) ||
-    !Array.isArray(task.tags)
+    !Array.isArray(task.tags) ||
+    task.isPinned === undefined
   ) {
     return true;
   }
@@ -223,16 +226,20 @@ export function useTasks(projectId?: string | null, filter?: string | null) {
 
   function updateTaskDetails(
     id: string,
-    details: Pick<
-      Task,
-      | "notes"
-      | "important"
-      | "dueDate"
-      | "dueTime"
-      | "url"
-      | "subtasks"
-      | "tags"
-      | "projectId"
+    details: Partial<
+      Pick<
+        Task,
+        | "notes"
+        | "important"
+        | "dueDate"
+        | "dueTime"
+        | "url"
+        | "subtasks"
+        | "tags"
+        | "projectId"
+        | "isPinned"
+        | "color"
+      >
     >,
   ) {
     setTasks((prev) =>
@@ -242,10 +249,12 @@ export function useTasks(projectId?: string | null, filter?: string | null) {
         }
 
         const normalizedTask = normalizeTask(task);
+        const nextSubtasks = details.subtasks ?? normalizedTask.subtasks;
+
         const done = deriveParentTaskDoneState(
           normalizedTask.done,
           normalizedTask.subtasks,
-          details.subtasks,
+          nextSubtasks,
         );
 
         return {

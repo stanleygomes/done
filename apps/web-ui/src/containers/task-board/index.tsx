@@ -12,6 +12,7 @@ import { TaskSearch } from "./task-search";
 import { BoardHeader } from "./project-header";
 import { FinishedHeader } from "./finished-header";
 import { BoardTopActions } from "./board-top-actions";
+import { PinnedTasks } from "./pinned-tasks";
 import { useTopMenu } from "src/hooks/use-top-menu";
 import { UserAvatar } from "src/components/user-avatar";
 import { useRouter, usePathname } from "next/navigation";
@@ -73,6 +74,10 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
   };
 
   const isRecentlyDeleted = filter === "recently-deleted";
+
+  const pinnedTasks = [...todoTasks, ...finishedTasks].filter(
+    (t) => t.isPinned,
+  );
 
   const { setLeftContent, setRightContent } = useTopMenu();
   const router = useRouter();
@@ -147,6 +152,13 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
         {filter && !currentProject && (
           <BoardHeader title={filter} isFilter={true} />
         )}
+
+        <PinnedTasks
+          tasks={pinnedTasks}
+          onToggle={toggleTask}
+          onUnpin={(id) => updateTaskDetails(id, { isPinned: false })}
+          onOpenDrawer={handleOpenDrawer}
+        />
 
         <section className="flex flex-col gap-4">
           <TaskList

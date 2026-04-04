@@ -145,6 +145,7 @@ export function TaskListItem({
                 onRestore={onRestore}
                 onEnterZenMode={onEnterZenMode}
                 onOpenDrawer={onOpenDrawer}
+                onPin={(id, isPinned) => onUpdateTaskDetails(id, { isPinned })}
                 isRecentlyDeleted={isRecentlyDeleted}
                 className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto"
               />
