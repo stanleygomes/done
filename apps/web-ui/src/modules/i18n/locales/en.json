@@ -18,7 +18,8 @@
       "login_button": "Log in"
     },
     "themes": {
-      "light": "Light",
+      "classic": "Classic",
+      "ice": "Ice",
       "dark": "Dark",
       "auto": "Auto"
     },

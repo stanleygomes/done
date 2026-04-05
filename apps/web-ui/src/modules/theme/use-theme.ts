@@ -3,15 +3,25 @@
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 
-export type Theme = "light" | "dark" | "auto";
+export type Theme = "classic" | "dark" | "ice" | "auto";
 
 const THEME_KEY = "app-theme";
 
-function applyTheme(isDark: boolean) {
-  if (isDark) {
-    document.documentElement.classList.add("dark");
-  } else {
-    document.documentElement.classList.remove("dark");
+const THEMES: Exclude<Theme, "auto">[] = ["classic", "dark", "ice"];
+const DEFAULT_LIGHT_THEME: Theme = "classic";
+const DEFAULT_DARK_THEME: Theme = "dark";
+
+function applyTheme(theme: Theme) {
+  const root = document.documentElement;
+
+  THEMES.forEach((t) => {
+    if (t !== "classic") {
+      root.classList.remove(t);
+    }
+  });
+
+  if (theme !== "classic" && theme !== "auto") {
+    root.classList.add(theme);
   }
 }
 
@@ -26,22 +36,21 @@ export function useTheme() {
   useEffect(() => {
     if (!mounted) return;
 
-    if (theme === "dark") {
-      applyTheme(true);
-      return;
+    if (theme === "auto") {
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      const systemTheme = mediaQuery.matches
+        ? DEFAULT_DARK_THEME
+        : DEFAULT_LIGHT_THEME;
+      applyTheme(systemTheme);
+
+      const handleChange = (e: MediaQueryListEvent) =>
+        applyTheme(e.matches ? DEFAULT_DARK_THEME : DEFAULT_LIGHT_THEME);
+
+      mediaQuery.addEventListener("change", handleChange);
+      return () => mediaQuery.removeEventListener("change", handleChange);
     }
 
-    if (theme === "light") {
-      applyTheme(false);
-      return;
-    }
-
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    applyTheme(mediaQuery.matches);
-
-    const handleChange = (e: MediaQueryListEvent) => applyTheme(e.matches);
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
+    applyTheme(theme);
   }, [theme, mounted]);
 
   return { theme: mounted ? theme : "auto", setTheme };

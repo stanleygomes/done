@@ -18,7 +18,8 @@
       "login_button": "Fazer login"
     },
     "themes": {
-      "light": "Claro",
+      "classic": "Clássico",
+      "ice": "Gelo",
       "dark": "Escuro",
       "auto": "Automático"
     },

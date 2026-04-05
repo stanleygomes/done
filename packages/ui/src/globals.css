@@ -41,6 +41,24 @@
   --chart-active-dot: #fff;
 }
 
+.ice {
+  --background: oklch(98.5% 0.005 240);
+  --secondary-background: #ffffff;
+  --foreground: oklch(0% 0 0);
+  --main-foreground: oklch(0% 0 0);
+  --main: oklch(84.08% 0.1725 84.2);
+  --border: oklch(0% 0 0);
+  --ring: oklch(0% 0 0);
+  --overlay: oklch(0% 0 0 / 0.8);
+  --shadow: 4px 4px 0px 0px var(--border);
+  --chart-1: #ffbf00;
+  --chart-2: #0099ff;
+  --chart-3: #ff7a05;
+  --chart-4: #00d696;
+  --chart-5: #7a83ff;
+  --chart-active-dot: #000;
+}
+
 @theme inline {
   --color-main: var(--main);
   --color-background: var(--background);

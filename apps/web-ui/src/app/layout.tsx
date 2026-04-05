@@ -33,9 +33,17 @@ export const viewport: Viewport = {
 
 const themeScript = `
   try {
-    const theme = localStorage.getItem("app-theme");
-    if (theme === "dark" || (theme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-      document.documentElement.classList.add("dark");
+    let theme = localStorage.getItem("app-theme");
+    if (theme) {
+      theme = theme.replace(/"/g, '');
+      if (theme === "auto") {
+        const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (isDark) document.documentElement.classList.add("dark");
+      } else if (theme !== "classic") {
+        document.documentElement.classList.add(theme);
+      }
+    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+       document.documentElement.classList.add("dark");
     }
   } catch (e) {}
 `;

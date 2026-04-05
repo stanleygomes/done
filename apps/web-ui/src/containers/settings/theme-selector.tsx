@@ -8,7 +8,8 @@ export function ThemeSelector() {
   const { theme, setTheme } = useTheme();
 
   const THEME_OPTIONS: { value: Theme; label: string }[] = [
-    { value: "light", label: t("settings.themes.light") },
+    { value: "classic", label: t("settings.themes.classic") },
+    { value: "ice", label: t("settings.themes.ice") },
     { value: "dark", label: t("settings.themes.dark") },
     { value: "auto", label: t("settings.themes.auto") },
   ];
