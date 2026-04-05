@@ -89,6 +89,7 @@ Follow the existing design rules (see `code-style` skill):
 - [ ] Complex state orchestration moved to a hook (e.g. `useTasks`)
 - [ ] No component file is excessively large (> ~150 lines)
 - [ ] Naming is in English (identifiers + UI strings)
+- [ ] **MANDATORY**: All UI labels use `i18n` (no hardcoded text)
 - [ ] Neobrutalism styles applied consistently
 
 ## Example (high-level)

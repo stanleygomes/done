@@ -65,10 +65,10 @@ npm run -w auth-api check-types
 - **Open/Closed (OCP)**: extend behaviour via new classes/interfaces, not by modifying existing ones.
 - Extract reusable logic into dedicated classes or shared packages.
 
-### Language & naming
+### Language, naming & Internationalization (i18n)
 
 - All code and identifiers must be written in **English**.
-- All UI labels and string literals visible to the user must be in **English**.
+- **MANDATORY**: All UI labels, string literals, and user-facing text MUST be internationalized using `i18next` (via `useTranslation` or equivalent). Do NOT use hardcoded strings in UI components.
 - Use `camelCase` for variables/functions, `PascalCase` for classes/interfaces/types.
 
 ## Checklist
@@ -77,7 +77,8 @@ npm run -w auth-api check-types
 - [ ] Each class/function has a single, clear responsibility
 - [ ] `npm run check` passes with no errors
 - [ ] New shared logic extracted to `packages/` (not duplicated across apps)
-- [ ] All identifiers and strings are in English
+- [ ] All identifiers are in English
+- [ ] UI components use `i18n` with `i18next` (NO hardcoded user-facing strings)
 - [ ] UI components follow Neobrutalism style (vibrant colors, thick borders, offset shadows)
 
 ## 🎨 UI Design Style (Neobrutalism)
