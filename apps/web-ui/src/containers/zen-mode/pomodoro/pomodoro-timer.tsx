@@ -1,7 +1,10 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-import { usePomodoro, PomodoroPhase } from "../../../context/pomodoro-context";
+import {
+  usePomodoro,
+  PomodoroPhase,
+} from "../../../modules/pomodoro/pomodoro-context";
 import { Play, Pause, FastForward, Timer } from "lucide-react";
 import Link from "next/link";
 import { PomodoroInstructions } from "./pomodoro-instructions";

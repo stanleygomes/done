@@ -4,7 +4,7 @@ import { Project } from "@paul/entities";
 import { useSearchParams } from "next/navigation";
 import { SidebarFilters } from "./sidebar-filters";
 import { SidebarProjectList } from "./sidebar-project-list";
-import { useSidebar } from "src/hooks/use-sidebar";
+import { useSidebar } from "@modules/menu-layout/use-sidebar";
 import { SidebarMoreSection } from "./sidebar-more-section";
 import { SyncIndicator } from "../../components/sync-indicator";
 import { UserHints } from "../onboarding/user-hints";

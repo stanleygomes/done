@@ -3,7 +3,7 @@ import { Reorder, useDragControls } from "framer-motion";
 import type { Task } from "@paul/entities";
 import { useProjects } from "@modules/project/use-projects";
 import { useMediaQuery } from "usehooks-ts";
-import { useDebouncedSave } from "../../hooks/use-debounced-save";
+import { useDebouncedSave } from "../../modules/create-task/use-debounced-save";
 import { TaskToggle } from "../../components/task-toggle";
 import { DragHandle } from "./drag-handle";
 import { TaskMetadata } from "./metadata";

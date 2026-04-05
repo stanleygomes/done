@@ -13,7 +13,7 @@ import { BoardHeader } from "./project-header";
 import { FinishedHeader } from "./finished-header";
 import { BoardTopActions } from "./board-top-actions";
 import { PinnedTasks } from "./pinned-tasks";
-import { useTopMenu } from "src/hooks/use-top-menu";
+import { useTopMenu } from "@modules/menu-layout/use-top-menu";
 import { UserAvatar } from "src/components/user-avatar";
 import { useRouter, usePathname } from "next/navigation";
 import { Drawer, DrawerContent } from "@paul/ui";

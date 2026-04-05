@@ -15,7 +15,7 @@ interface MemoryFormDrawerProps {
 }
 
 import { useLocalStorage } from "usehooks-ts";
-import { useDebouncedSave } from "../../hooks/use-debounced-save";
+import { useDebouncedSave } from "../../modules/create-task/use-debounced-save";
 import { COLORS } from "../../constants/colors";
 
 export function MemoryFormDrawer({

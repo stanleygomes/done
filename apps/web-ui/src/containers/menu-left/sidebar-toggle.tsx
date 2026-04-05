@@ -1,5 +1,5 @@
 import { Menu as MenuIcon } from "lucide-react";
-import { useSidebar } from "src/hooks/use-sidebar";
+import { useSidebar } from "@modules/menu-layout/use-sidebar";
 
 export function SidebarToggle() {
   const { isOpen, setIsOpen } = useSidebar();

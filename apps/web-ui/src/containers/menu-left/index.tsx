@@ -1,7 +1,7 @@
 "use client";
 
 import { useProjects } from "@modules/project/use-projects";
-import { useSidebar } from "src/hooks/use-sidebar";
+import { useSidebar } from "@modules/menu-layout/use-sidebar";
 import { SidebarToggle } from "./sidebar-toggle";
 import { AppLogo } from "./app-logo";
 import { SidebarContent } from "./sidebar-content";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useSidebar } from "src/hooks/use-sidebar";
+import { useSidebar } from "@modules/menu-layout/use-sidebar";
 import { usePathname } from "next/navigation";
 
 export function MainWrapper({ children }: { children: React.ReactNode }) {

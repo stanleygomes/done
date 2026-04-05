@@ -1,12 +1,12 @@
 import { FormEvent, useEffect, KeyboardEvent, useState, useRef } from "react";
 import { useLocalStorage } from "usehooks-ts";
-import { useDebouncedSave } from "../../hooks/use-debounced-save";
+import { useDebouncedSave } from "../../modules/create-task/use-debounced-save";
 import { Task } from "@paul/entities";
 import { TaskDatePicker as DatePicker } from "../../components/task-date-picker";
 import { TaskProjectSelector as ProjectSelector } from "../../components/task-project-selector";
 import { TaskImportantToggle as ImportantToggle } from "../../components/task-important-toggle";
 import { TaskTimeInput as TimeInput } from "../../components/task-time-input";
-import { useSidebar } from "../../hooks/use-sidebar";
+import { useSidebar } from "../../modules/menu-layout/use-sidebar";
 import { InputField } from "./input-field";
 import { InputFooter } from "./footer";
 

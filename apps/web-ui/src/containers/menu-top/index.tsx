@@ -1,6 +1,6 @@
 "use client";
 
-import { useTopMenu } from "../../hooks/use-top-menu";
+import { useTopMenu } from "../../modules/menu-layout/use-top-menu";
 import { usePathname } from "next/navigation";
 
 export default function MenuTop() {

@@ -8,11 +8,11 @@ import { TooltipProvider } from "@paul/ui/components/ui/tooltip";
 import { Toaster } from "@paul/ui";
 import { NotificationWatcher } from "@containers/notifications/watcher";
 
-import { SidebarProvider } from "../hooks/use-sidebar";
+import { SidebarProvider } from "../modules/menu-layout/use-sidebar";
 import { SyncProvider } from "../modules/sync/sync-provider";
 import { setupHttpClient } from "@modules/http/http-client-setup";
-import { TopMenuProvider } from "../hooks/use-top-menu";
-import { PomodoroProvider } from "../context/pomodoro-context";
+import { TopMenuProvider } from "../modules/menu-layout/use-top-menu";
+import { PomodoroProvider } from "../modules/pomodoro/pomodoro-context";
 
 setupHttpClient();
 
