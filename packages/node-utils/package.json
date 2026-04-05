@@ -2,17 +2,16 @@
   "name": "@paul/node-utils",
   "version": "0.0.0",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "src/index.ts",
   "exports": {
     ".": {
       "types": "./src/index.ts",
+      "development": "./src/index.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     }
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsup src/index.ts --format esm --dts --clean"
   },
   "dependencies": {
     "@paul/http": "^0.0.0",

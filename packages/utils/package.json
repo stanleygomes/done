@@ -2,33 +2,36 @@
   "name": "@paul/utils",
   "version": "0.0.0",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "src/index.ts",
   "exports": {
     ".": {
       "types": "./src/index.ts",
+      "development": "./src/index.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
     "./date-utils.js": {
       "types": "./src/date-utils.ts",
+      "development": "./src/date-utils.ts",
       "import": "./dist/date-utils.js"
     },
     "./template-utils.js": {
       "types": "./src/template-utils.ts",
+      "development": "./src/template-utils.ts",
       "import": "./dist/template-utils.js"
     },
     "./uuid-utils.js": {
       "types": "./src/uuid-utils.ts",
+      "development": "./src/uuid-utils.ts",
       "import": "./dist/uuid-utils.js"
     },
     "./verification-code-utils.js": {
       "types": "./src/verification-code-utils.ts",
+      "development": "./src/verification-code-utils.ts",
       "import": "./dist/verification-code-utils.js"
     }
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsup src/index.ts src/date-utils.ts src/template-utils.ts src/uuid-utils.ts src/verification-code-utils.ts --format esm --dts --clean"
   },
   "dependencies": {
     "date-fns": "^4.1.0",
