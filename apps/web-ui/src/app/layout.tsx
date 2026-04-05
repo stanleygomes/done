@@ -64,18 +64,20 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <Providers>
-          <AuthGuard>
-            <Suspense fallback={null}>
-              <MenuTop />
-            </Suspense>
-            <Suspense fallback={null}>
-              <MenuLeft />
-            </Suspense>
-            <Suspense fallback={null}>
-              <MobileMenu />
-            </Suspense>
-            <MainWrapper>{children}</MainWrapper>
-          </AuthGuard>
+          <Suspense fallback={null}>
+            <AuthGuard>
+              <Suspense fallback={null}>
+                <MenuTop />
+              </Suspense>
+              <Suspense fallback={null}>
+                <MenuLeft />
+              </Suspense>
+              <Suspense fallback={null}>
+                <MobileMenu />
+              </Suspense>
+              <MainWrapper>{children}</MainWrapper>
+            </AuthGuard>
+          </Suspense>
         </Providers>
       </body>
     </html>
