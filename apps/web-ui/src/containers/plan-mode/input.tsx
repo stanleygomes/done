@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { AutoResizeTextarea } from "../../components/auto-resize-textarea";
 import { SendHorizontal } from "lucide-react";
@@ -23,6 +24,13 @@ export function PlanInput({
 }: PlanInputProps) {
   const { t } = useTranslation();
   const { isOpen, mounted } = useSidebar();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (!isLoading && textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, [isLoading]);
 
   return (
     <div
@@ -42,6 +50,8 @@ export function PlanInput({
             <div className="flex items-center gap-4 pr-1">
               <div className="flex-1">
                 <AutoResizeTextarea
+                  ref={textareaRef}
+                  autoFocus
                   value={inputValue}
                   onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                     setInputValue(e.target.value)
