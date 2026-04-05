@@ -4,16 +4,20 @@ import { motion } from "framer-motion";
 import { MessageSquare, Trash2, Clock, Brain } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { PlanningConversation } from "@modules/planning/planning-api.service";
+
 interface PlanHistoryProps {
-  conversations: Array<{ id: string; title: string; date: string }>;
-  currentConversationId?: string;
+  conversations: PlanningConversation[];
+  currentConversationId?: string | null;
   onSelectConversation: (id: string) => void;
+  onDeleteConversation: (id: string) => void;
 }
 
 export function PlanHistory({
   conversations,
   currentConversationId,
   onSelectConversation,
+  onDeleteConversation,
 }: PlanHistoryProps) {
   const { t } = useTranslation();
 
@@ -68,17 +72,23 @@ export function PlanHistory({
 
               <div className="flex flex-col min-w-0 pr-10">
                 <span className="font-black text-lg truncate leading-tight">
-                  {conv.title}
+                  {conv.title || "New Session"}
                 </span>
                 <div className="flex items-center gap-2 opacity-40 mt-2">
                   <Clock className="w-3 h-3" />
                   <span className="text-[10px] uppercase font-black tracking-widest">
-                    {conv.date}
+                    {new Date(conv.created_at).toLocaleDateString()}
                   </span>
                 </div>
               </div>
 
-              <button className="absolute right-6 top-6 p-2 opacity-0 group-hover:opacity-100 hover:bg-red-500 hover:text-white rounded-xl transition-all border-2 border-transparent hover:border-black">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDeleteConversation(conv.id);
+                }}
+                className="absolute right-6 top-6 p-2 opacity-0 group-hover:opacity-100 hover:bg-red-500 hover:text-white rounded-xl transition-all border-2 border-transparent hover:border-black"
+              >
                 <Trash2 className="w-4 h-4" />
               </button>
             </motion.button>

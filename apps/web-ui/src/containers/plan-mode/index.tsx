@@ -15,21 +15,23 @@ import { parseTaskFromResponse } from "./utils/task-parser";
 import { AnimatePresence } from "framer-motion";
 import { useSidebar } from "@modules/menu-layout/use-sidebar";
 
-const MOCK_CONVERSATIONS = [
-  { id: "1", title: "Project: Next.js App", date: "TODAY" },
-  { id: "2", title: "Weekend Trip Planning", date: "YESTERDAY" },
-  { id: "3", title: "Grocery List Brainstorm", date: "2 DAYS AGO" },
-  { id: "4", title: "Workout Routine Idea", date: "LAST WEEK" },
-];
-
 export default function PlanPage() {
-  const { messages, isLoading, sendMessage, clearChat, isInitialLoading } =
-    usePlanning();
+  const {
+    messages,
+    isLoading,
+    sendMessage,
+    isInitialLoading,
+    conversations,
+    currentConversationId,
+    setCurrentConversationId,
+    createNewConversation,
+    deleteConversation,
+  } = usePlanning();
+
   const { createTask } = useTasks();
   const { isOpen, mounted } = useSidebar();
   const [inputValue, setInputValue] = useState("");
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
-  const [currentConvId, setCurrentConvId] = useState("1");
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -52,7 +54,14 @@ export default function PlanPage() {
   };
 
   const handleNewChat = () => {
-    clearChat();
+    createNewConversation();
+    setIsHistoryOpen(false);
+  };
+
+  const handleClearChat = () => {
+    if (currentConversationId) {
+      deleteConversation(currentConversationId);
+    }
   };
 
   const handleCreateTask = (taskData: any) => {
@@ -74,7 +83,7 @@ export default function PlanPage() {
         isHistoryOpen={isHistoryOpen}
         setIsHistoryOpen={setIsHistoryOpen}
         onNewChat={handleNewChat}
-        onClearChat={clearChat}
+        onClearChat={handleClearChat}
         hasMessages={messages.length > 0}
       />
 
@@ -86,12 +95,13 @@ export default function PlanPage() {
           <PlanSyncLoader />
         ) : isHistoryOpen ? (
           <PlanHistory
-            conversations={MOCK_CONVERSATIONS}
-            currentConversationId={currentConvId}
+            conversations={conversations}
+            currentConversationId={currentConversationId || ""}
             onSelectConversation={(id) => {
-              setCurrentConvId(id);
+              setCurrentConversationId(id);
               setIsHistoryOpen(false);
             }}
+            onDeleteConversation={deleteConversation}
           />
         ) : messages.length === 0 ? (
           <PlanWelcome />
