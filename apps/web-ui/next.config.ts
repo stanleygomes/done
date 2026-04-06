@@ -17,6 +17,13 @@ const nextConfig: NextConfig = {
     "@paul/utils",
     "@paul/ui",
     "@paul/http",
+    "@paul/entities",
+    "framer-motion",
+    "lucide-react",
+    "react-icons",
+    "usehooks-ts",
+    "sonner",
+    "vaul",
   ],
   turbopack: {},
 };

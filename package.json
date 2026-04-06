@@ -9,6 +9,7 @@
     "app:core": "turbo run dev --filter=core-api",
     "app:ai": "turbo run dev --filter=ai-api",
     "app:web": "turbo run dev --filter=web-ui",
+    "app:landpage": "turbo run dev --filter=landpage-ui",
     "app:desktop": "turbo run electron:dev --filter=desktop",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
@@ -17,7 +18,9 @@
     "check-types": "turbo run check-types",
     "check": "pnpm run format:check && pnpm run lint && pnpm run check-types",
     "fix": "pnpm run format && pnpm run lint:fix && pnpm run check-types",
-    "prepare": "husky"
+    "prepare": "husky",
+    "docker:up": "docker-compose -f docker-compose.dev.yml up -d",
+    "docker:down": "docker-compose -f docker-compose.dev.yml down"
   },
   "devDependencies": {
     "husky": "^9.1.7",
