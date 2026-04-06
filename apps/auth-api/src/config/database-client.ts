@@ -7,6 +7,7 @@ import { PinoLogger } from "./pino.logger.js";
 
 const pool = new Pool({
   connectionString: config.database.url,
+  ssl: { rejectUnauthorized: false },
 });
 
 export const db = drizzle(pool, { schema });
