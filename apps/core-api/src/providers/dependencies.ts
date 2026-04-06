@@ -12,8 +12,6 @@ import { PlanningConversationService } from "../services/planning-conversation.s
 import { PlanningMessageService } from "../services/planning-message.service";
 import { PlanningConversationController } from "../controllers/planning-conversation/planning-conversation.controller";
 import { PlanningMessageController } from "../controllers/planning-message/planning-message.controller";
-import { MemoryService } from "../services/memory.service";
-import { MemoryController } from "../controllers/memory/memory.controller";
 
 import { TaskSyncService } from "../services/task-sync.service";
 import { ProjectSyncService } from "../services/project-sync.service";
@@ -25,13 +23,8 @@ const aiService = new AiService();
 
 const taskSyncService = new TaskSyncService(taskRepository);
 const projectSyncService = new ProjectSyncService(projectRepository);
-const memoryService = new MemoryService();
 
-const syncService = new SyncService(
-  taskSyncService,
-  projectSyncService,
-  memoryService,
-);
+const syncService = new SyncService(taskSyncService, projectSyncService);
 const taskService = new TaskService(taskRepository);
 const projectService = new ProjectService(projectRepository);
 const planningConversationService = new PlanningConversationService(
@@ -50,4 +43,3 @@ export const planningConversationController =
 export const planningMessageController = new PlanningMessageController(
   planningMessageService,
 );
-export const memoryController = new MemoryController(memoryService);

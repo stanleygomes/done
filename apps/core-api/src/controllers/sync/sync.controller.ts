@@ -1,11 +1,7 @@
 import { FastifyInstance, FastifyRequest } from "fastify";
-import {
-  bulkSyncTasksSchema,
-  bulkSyncProjectsSchema,
-  bulkSyncMemoriesSchema,
-} from "@paul/entities";
+import { bulkSyncTasksSchema, bulkSyncProjectsSchema } from "@paul/entities";
 import { syncSchema } from "./sync.doc";
-import type { Task, Project, Memory } from "@paul/entities";
+import type { Task, Project } from "@paul/entities";
 import { SyncService } from "../../services/sync.service";
 import { AuthMiddleware, UserAuth } from "../../middlewares/auth.middleware";
 
@@ -18,7 +14,7 @@ export class SyncController {
 
   registerRoutes(fastify: FastifyInstance, prefix = "") {
     fastify.post<{
-      Body: { tasks: Task[]; projects: Project[]; memories: Memory[] };
+      Body: { tasks: Task[]; projects: Project[] };
     }>(
       `${prefix}/v1/sync`,
       {
@@ -35,14 +31,9 @@ export class SyncController {
           projects: request.body.projects || [],
         });
 
-        const validatedMemories = bulkSyncMemoriesSchema.parse({
-          memories: request.body.memories || [],
-        });
-
         const result = await this.syncService.execute(authRequest.user.id, {
           tasks: validatedTasks.tasks,
           projects: validatedProjects.projects,
-          memories: validatedMemories.memories,
         });
 
         reply.send(result);

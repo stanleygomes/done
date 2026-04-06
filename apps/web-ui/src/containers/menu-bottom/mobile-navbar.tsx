@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ListTodo, LayoutGrid, Wand2, Brain } from "lucide-react";
+import { ListTodo, LayoutGrid, Wand2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 
@@ -16,7 +16,6 @@ export function MobileNavbar({ pathname }: MobileNavbarProps) {
     { href: "/", label: t("menu.links.tasks"), icon: ListTodo },
     { href: "/projects", label: t("menu.links.projects"), icon: LayoutGrid },
     { href: "/plan", label: t("menu.links.plan mode"), icon: Wand2 },
-    { href: "/memories", label: t("menu.links.memories"), icon: Brain },
   ];
 
   return (

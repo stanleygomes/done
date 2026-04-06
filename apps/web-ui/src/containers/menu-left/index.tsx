@@ -6,13 +6,13 @@ import { SidebarToggle } from "./sidebar-toggle";
 import { AppLogo } from "./app-logo";
 import { SidebarContent } from "./sidebar-content";
 import { usePathname } from "next/navigation";
+import { SIDEBAR_PATHS } from "@constants/sidebar";
 
 export default function MenuLeft() {
   const { isOpen, mounted } = useSidebar();
   const { projects } = useProjects();
   const pathname = usePathname();
 
-  const SIDEBAR_PATHS = ["/", "/memories", "/plan", "/settings"];
   const isSidebarPage = SIDEBAR_PATHS.includes(pathname);
 
   if (!mounted) return null;

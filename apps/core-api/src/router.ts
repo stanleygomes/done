@@ -5,7 +5,6 @@ import {
   projectController,
   planningConversationController,
   planningMessageController,
-  memoryController,
 } from "./providers/dependencies";
 
 export class AppRouter {
@@ -15,6 +14,5 @@ export class AppRouter {
     projectController.registerRoutes(fastify, prefix);
     planningConversationController.registerRoutes(fastify, prefix);
     planningMessageController.registerRoutes(fastify, prefix);
-    memoryController.registerRoutes(fastify, prefix);
   }
 }

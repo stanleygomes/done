@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { StickyNote, Sparkles, Settings, LayoutGrid } from "lucide-react";
+import { Sparkles, Settings, LayoutGrid } from "lucide-react";
 
 interface SidebarMoreSectionProps {
   showProjects?: boolean;
@@ -23,13 +23,6 @@ export function SidebarMoreSection({ showProjects }: SidebarMoreSectionProps) {
           },
         ]
       : []),
-    {
-      href: "/memories",
-      label: t("sidebar.memories"),
-      icon: StickyNote,
-      colorClass: "bg-pink-100 dark:bg-pink-900",
-      iconColorClass: "text-pink-600 dark:text-pink-400",
-    },
     {
       href: "/plan",
       label: t("sidebar.plan_mode"),

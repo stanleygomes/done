@@ -1,4 +1,4 @@
-import type { Task, Project, Memory } from "@paul/entities";
+import type { Task, Project } from "@paul/entities";
 
 interface SyncableEntity {
   id: string;
@@ -35,9 +35,5 @@ export const SyncManager = {
     projectsToUpdate: Project[],
   ): Project[] {
     return mergeEntities(localProjects, projectsToUpdate);
-  },
-
-  mergeMemories(localMemories: Memory[], memoriesToUpdate: Memory[]): Memory[] {
-    return mergeEntities(localMemories, memoriesToUpdate);
   },
 };

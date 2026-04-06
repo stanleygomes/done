@@ -2,12 +2,12 @@
 
 import { useSidebar } from "@modules/menu-layout/use-sidebar";
 import { usePathname } from "next/navigation";
+import { SIDEBAR_PATHS } from "@constants/sidebar";
 
 export function MainWrapper({ children }: { children: React.ReactNode }) {
   const { isOpen, mounted } = useSidebar();
   const pathname = usePathname();
 
-  const SIDEBAR_PATHS = ["/", "/memories", "/plan", "/settings"];
   const isSidebarPage = SIDEBAR_PATHS.includes(pathname);
 
   if (!mounted) {

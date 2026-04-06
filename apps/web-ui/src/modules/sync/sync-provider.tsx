@@ -12,7 +12,7 @@ import { useLocalStorage } from "usehooks-ts";
 import { useAuth } from "@modules/auth/use-auth";
 import { syncApiService } from "./sync-api.service";
 import { SyncManager } from "./sync-manager";
-import type { Task, Project, Memory } from "@paul/entities";
+import type { Task, Project } from "@paul/entities";
 
 export interface SyncContextType {
   isSyncing: boolean;
@@ -30,10 +30,7 @@ export function SyncProvider({ children }: { children: ReactNode }) {
     "todo-projects",
     [],
   );
-  const [memories, setMemories] = useLocalStorage<Memory[]>(
-    "todo-memories",
-    [],
-  );
+
   const [lastSyncAt, setLastSyncAt] = useLocalStorage<number | null>(
     "app-ast-sync-at",
     null,
@@ -45,10 +42,8 @@ export function SyncProvider({ children }: { children: ReactNode }) {
 
   const tasksRef = useRef(tasks);
   const projectsRef = useRef(projects);
-  const memoriesRef = useRef(memories);
   tasksRef.current = tasks;
   projectsRef.current = projects;
-  memoriesRef.current = memories;
 
   const performSync = useCallback(async () => {
     if (!token || isSyncingRef.current) return;
@@ -62,7 +57,6 @@ export function SyncProvider({ children }: { children: ReactNode }) {
         token,
         tasksRef.current,
         projectsRef.current,
-        memoriesRef.current,
       );
 
       const updatedTasks = SyncManager.mergeTasks(
@@ -73,14 +67,9 @@ export function SyncProvider({ children }: { children: ReactNode }) {
         projectsRef.current,
         response.projectsToUpdate || [],
       );
-      const updatedMemories = SyncManager.mergeMemories(
-        memoriesRef.current,
-        response.memoriesToUpdate || [],
-      );
 
       setTasks(updatedTasks);
       setProjects(updatedProjects);
-      setMemories(updatedMemories);
       setLastSyncAt(Date.now());
     } catch (err: any) {
       console.error("Sync failed", err);
@@ -97,7 +86,7 @@ export function SyncProvider({ children }: { children: ReactNode }) {
       isSyncingRef.current = false;
       setIsSyncing(false);
     }
-  }, [token, setLastSyncAt, setProjects, setTasks, setMemories]);
+  }, [token, setLastSyncAt, setProjects, setTasks]);
 
   const hasSyncedRef = useRef(false);
 
