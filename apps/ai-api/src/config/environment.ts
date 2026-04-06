@@ -94,7 +94,7 @@ export const config: Environment = {
   },
   logger: {
     level: LOG_LEVEL || "info",
-    transport: LOG_TRANSPORT || "pino-pretty",
+    transport: LOG_TRANSPORT,
   },
   services: {
     googleAiStudio: {

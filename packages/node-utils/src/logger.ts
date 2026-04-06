@@ -5,7 +5,7 @@ export class Logger {
   private static instances = new Map<string, PinoLogger>();
 
   static getLogger(
-    config: LoggerConfig = { level: "info", transport: "pino-pretty" },
+    config: LoggerConfig = { level: "info" },
     instanceKey = "default",
   ): PinoLogger {
     if (!Logger.instances.has(instanceKey)) {
