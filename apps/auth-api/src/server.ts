@@ -2,7 +2,7 @@ import "dotenv/config";
 import Fastify, { FastifyInstance } from "fastify";
 import cors from "@fastify/cors";
 import rateLimit from "@fastify/rate-limit";
-// import { AppRouter } from "./router.js";
+import { AppRouter } from "./router.js";
 import { PinoLogger } from "./config/pino.logger.js";
 import { config } from "./config/environment.js";
 import { Docs } from "./config/docs.js";
@@ -35,8 +35,8 @@ app.register(async (instance) => {
 
   await Docs.register(instance);
 
-  // const router = new AppRouter();
-  // router.register(instance, config.app.server.path);
+  const router = new AppRouter();
+  router.register(instance, config.app.server.path);
 });
 
 app.get("/health", async (request, reply) => {
