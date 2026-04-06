@@ -1,4 +1,4 @@
-// import app from "../src/server.js";
+import app from "../src/server.js";
 
 /**
  * Entry point para a Vercel Serverless Function.
@@ -8,8 +8,6 @@
  * @param {import('@vercel/node').VercelResponse} res
  */
 export default async (req: any, res: any) => {
-  console.log(req, res);
-  return "ok";
-  // await app.ready();
-  // app.server.emit("request", req, res);
+  await app.ready();
+  app.server.emit("request", req, res);
 };
