@@ -26,6 +26,7 @@ export default function PlanPage() {
     setCurrentConversationId,
     createNewConversation,
     deleteConversation,
+    refreshConversations,
   } = usePlanning();
 
   const { createTask } = useTasks();
@@ -81,7 +82,10 @@ export default function PlanPage() {
         isOpen={isOpen}
         mounted={mounted}
         isHistoryOpen={isHistoryOpen}
-        setIsHistoryOpen={setIsHistoryOpen}
+        setIsHistoryOpen={(open) => {
+          setIsHistoryOpen(open);
+          if (open) refreshConversations();
+        }}
         onNewChat={handleNewChat}
         onClearChat={handleClearChat}
         hasMessages={messages.length > 0}
