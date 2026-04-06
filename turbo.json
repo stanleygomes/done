@@ -81,6 +81,11 @@
       "cache": false,
       "persistent": true
     },
+    "lint:fix": {
+      "dependsOn": [
+        "^lint:fix"
+      ]
+    },
     "electron:dev": {
       "cache": false,
       "persistent": true

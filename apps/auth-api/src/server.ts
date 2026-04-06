@@ -9,58 +9,34 @@ import { Docs } from "./config/docs.js";
 import { runMigrations } from "./config/database-client.js";
 import { setupErrorHandler } from "./middlewares/error-handler.middleware.js";
 
-export class AppServer {
-  private fastify: FastifyInstance<any, any, any, any>;
-  private logger = PinoLogger.getLogger();
+const app: FastifyInstance = Fastify();
+const logger = PinoLogger.getLogger();
 
-  constructor() {
-    this.fastify = Fastify();
+app.register(rateLimit, {
+  global: true,
+  max: config.app.rateLimit.max,
+  timeWindow: config.app.rateLimit.timeWindow,
+});
 
-    this.fastify.register(rateLimit, {
-      global: true,
-      max: config.app.rateLimit.max,
-      timeWindow: config.app.rateLimit.timeWindow,
-    });
+app.register(cors, {
+  origin: config.app.cors.allowedOrigin,
+  methods: config.app.cors.allowedMethods.split(","),
+  allowedHeaders: config.app.cors.allowedHeaders.split(","),
+});
 
-    this.fastify.register(cors, {
-      origin: config.app.cors.allowedOrigin,
-      methods: config.app.cors.allowedMethods.split(","),
-      allowedHeaders: config.app.cors.allowedHeaders.split(","),
-    });
+setupErrorHandler(app);
 
-    setupErrorHandler(this.fastify);
+app.register(async (instance) => {
+  try {
+    await runMigrations();
+  } catch (error) {
+    logger.error(error, "Migration failed");
   }
 
-  private getPort(): number {
-    return config.app.server.port ? Number(config.app.server.port) : 5000;
-  }
+  await Docs.register(instance);
 
-  public async start() {
-    try {
-      await runMigrations();
-    } catch (error) {
-      this.logger.error(error, "Migration failed");
-      process.exit(1);
-    }
+  const router = new AppRouter();
+  router.register(instance, config.app.server.path);
+});
 
-    await Docs.register(this.fastify);
-
-    const router = new AppRouter();
-    router.register(this.fastify, config.app.server.path);
-
-    const port = this.getPort();
-    const { url, path } = config.app.server;
-    const { path: pathDocs } = config.app.docs;
-
-    this.fastify.listen({ port }, (err) => {
-      if (err) {
-        throw err;
-      }
-
-      this.logger.info(`Fastify server running on ${url}:${port}${path}`);
-      this.logger.info(`Swagger docs available at ${url}:${port}${pathDocs}`);
-    });
-  }
-}
-
-new AppServer().start();
+export default app;
