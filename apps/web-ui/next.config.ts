@@ -24,6 +24,9 @@ const nextConfig: NextConfig = {
     "usehooks-ts",
     "sonner",
     "vaul",
+    "react-i18next",
+    "i18next",
+    "i18next-browser-languagedetector",
   ],
   turbopack: {},
 };
