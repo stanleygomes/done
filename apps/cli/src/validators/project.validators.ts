@@ -21,7 +21,9 @@ const projectSchema = z.object({
 export const createProjectPayloadSchema = z.object({
   id: z.string().uuid(),
   name: projectNameSchema,
-  color: z.string().regex(/^#[0-9A-Fa-f]{6}$/),
+  color: z
+    .string()
+    .regex(/^#[0-9A-Fa-f]{6}$/, "Color must be a valid hex code"),
 });
 
 export const projectListResponseSchema = z.object({

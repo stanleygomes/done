@@ -10,7 +10,7 @@ export interface CliTask {
   dueDate: string;
   dueTime: string;
   url: string;
-  subtasks: CliTask[];
+  subtasks: unknown[];
   tags: string[];
   projectId?: string;
   parentId?: string | null;

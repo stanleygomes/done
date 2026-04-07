@@ -52,10 +52,23 @@ const dictionary = {
 } as const;
 
 type DictionaryKey = keyof (typeof dictionary)["en"];
+let currentLanguage: Language | null = null;
+
+export async function initializeI18n(): Promise<void> {
+  if (!currentLanguage) {
+    const settings = await getSettings();
+    currentLanguage = settings.language;
+  }
+}
 
 export async function t(key: DictionaryKey): Promise<string> {
-  const settings = await getSettings();
-  return dictionary[settings.language][key];
+  await initializeI18n();
+  const language = currentLanguage ?? "en";
+  return dictionary[language][key];
+}
+
+export function setCurrentLanguage(language: Language): void {
+  currentLanguage = language;
 }
 
 export function languageLabel(language: Language): string {

@@ -58,7 +58,7 @@ export async function runCreateTaskModule(titleArg?: string): Promise<void> {
   const payload = createTaskPayloadSchema.parse({
     id: generateUUID(),
     title,
-    content: title,
+    content: "",
     done: false,
     notes: "",
     important: false,
@@ -90,7 +90,6 @@ export async function runEditTaskModule(
   const spinner = ora(await t("loading")).start();
   await updateTask(token, taskId, {
     title,
-    content: title,
     updatedAt: Date.now(),
   });
   spinner.succeed();

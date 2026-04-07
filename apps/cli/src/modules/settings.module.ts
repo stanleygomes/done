@@ -1,6 +1,6 @@
 import { select } from "@inquirer/prompts";
 import { languageSchema } from "../validators/settings.validators";
-import { languageLabel, t } from "../utils/i18n";
+import { languageLabel, setCurrentLanguage, t } from "../utils/i18n";
 import { getSettings, saveSettings } from "../utils/settings-store";
 import type { Language } from "../types/language.types";
 import { renderInfo, renderSuccess } from "../utils/output";
@@ -26,6 +26,7 @@ export async function runSetLanguageModule(
     ...settings,
     language,
   });
+  setCurrentLanguage(language);
 
   renderSuccess(await t("languageUpdated"));
   renderInfo(languageLabel(language));
