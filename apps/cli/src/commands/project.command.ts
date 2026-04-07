@@ -4,7 +4,7 @@ import {
   runDeleteProjectModule,
   runEditProjectModule,
   runListProjectsModule,
-} from "../modules/project.module";
+} from "../modules/project";
 
 export function registerProjectCommand(program: Command): void {
   const projectCommand = program

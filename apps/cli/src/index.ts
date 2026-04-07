@@ -17,6 +17,7 @@ async function run() {
   registerTaskCommand(program);
   registerProjectCommand(program);
   registerSettingsCommand(program);
+
   await initializeI18n();
 
   if (process.argv.length > 2 && process.argv[2] !== "--help") {

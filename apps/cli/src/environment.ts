@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 export const AUTH_API_URL =
   process.env.PAUL_AUTH_API_URL ?? "http://localhost:5000/api";
 

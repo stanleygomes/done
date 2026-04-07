@@ -1,6 +1,6 @@
 import type { CliSettings } from "../types/settings.types";
-import { SETTINGS_FILE_PATH } from "./path-utils";
-import { readJsonFile, writeJsonFile } from "./json-storage";
+import { SETTINGS_FILE_PATH } from "../utils/path-utils";
+import { readJsonFile, writeJsonFile } from "../utils/json-storage";
 
 const defaultSettings: CliSettings = {
   language: "en",

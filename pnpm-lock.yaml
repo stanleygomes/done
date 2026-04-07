@@ -205,6 +205,9 @@ importers:
       '@inquirer/prompts':
         specifier: ^8.0.1
         version: 8.4.1(@types/node@24.12.2)
+      '@paul/entities':
+        specifier: workspace:*
+        version: link:../../packages/entities
       '@paul/http':
         specifier: workspace:*
         version: link:../../packages/http
@@ -239,6 +242,9 @@ importers:
       '@types/node':
         specifier: ^24.0.3
         version: 24.12.2
+      dotenv:
+        specifier: ^16.6.1
+        version: 16.6.1
       eslint:
         specifier: ^9.39.1
         version: 9.39.4(jiti@2.6.1)

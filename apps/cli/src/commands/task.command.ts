@@ -4,7 +4,7 @@ import {
   runDeleteTaskModule,
   runEditTaskModule,
   runListTasksModule,
-} from "../modules/task.module";
+} from "../modules/task";
 
 export function registerTaskCommand(program: Command): void {
   const taskCommand = program.command("task").description("Task management");

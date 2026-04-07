@@ -1,10 +1,13 @@
 import { input } from "@inquirer/prompts";
 import ora from "ora";
-import { sendLoginCode, verifyLoginCode } from "../api/auth-api";
-import { emailInputSchema, otpCodeSchema } from "../validators/auth.validators";
-import { saveSession } from "../utils/session-store";
-import { renderInfo, renderSuccess } from "../utils/output";
-import { t } from "../utils/i18n";
+import { sendLoginCode, verifyLoginCode } from "../../api/resources/auth";
+import {
+  emailInputSchema,
+  otpCodeSchema,
+} from "../../validators/auth.validators";
+import { saveSession } from "../../store/session-store";
+import { renderInfo, renderSuccess } from "../../utils/output";
+import { t } from "../../utils/i18n";
 
 export async function runLoginModule(): Promise<void> {
   const rawEmail = await input({ message: await t("askEmail") });

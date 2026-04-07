@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { taskSchema as sharedTaskSchema } from "@paul/entities";
 
 export const taskTitleSchema = z
   .string()
@@ -13,25 +14,7 @@ export const taskContentSchema = z
 
 export const taskIdSchema = z.string().uuid("Invalid task id");
 
-const taskSchema = z.object({
-  id: z.string().uuid(),
-  title: z.string(),
-  content: z.string(),
-  done: z.boolean(),
-  createdAt: z.number(),
-  updatedAt: z.number(),
-  notes: z.string(),
-  important: z.boolean(),
-  dueDate: z.string(),
-  dueTime: z.string(),
-  url: z.string(),
-  subtasks: z.array(z.unknown()),
-  tags: z.array(z.string()),
-  projectId: z.string().uuid().optional(),
-  parentId: z.string().uuid().nullable().optional(),
-  isDeleted: z.boolean().optional(),
-  deletedAt: z.number().nullable().optional(),
-});
+export const taskSchema = sharedTaskSchema;
 
 export const createTaskPayloadSchema = z.object({
   id: z.string().uuid(),

@@ -1,6 +1,6 @@
 import type { SessionData } from "../types/session.types";
-import { SESSION_FILE_PATH } from "./path-utils";
-import { readJsonFile, writeJsonFile } from "./json-storage";
+import { SESSION_FILE_PATH } from "../utils/path-utils";
+import { readJsonFile, writeJsonFile } from "../utils/json-storage";
 
 export async function getSession(): Promise<SessionData | null> {
   return readJsonFile<SessionData>(SESSION_FILE_PATH);

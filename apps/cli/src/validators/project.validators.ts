@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { projectSchema as sharedProjectSchema } from "@paul/entities";
 
 export const projectNameSchema = z
   .string()
@@ -8,15 +9,8 @@ export const projectNameSchema = z
 
 export const projectIdSchema = z.string().uuid("Invalid project id");
 
-const projectSchema = z.object({
-  id: z.string().uuid(),
-  name: projectNameSchema,
-  color: z.string(),
-  createdAt: z.number().optional(),
-  updatedAt: z.number().optional(),
-  isDeleted: z.boolean().optional(),
-  deletedAt: z.number().nullable().optional(),
-});
+// Use the shared project schema
+export const projectSchema = sharedProjectSchema;
 
 export const createProjectPayloadSchema = z.object({
   id: z.string().uuid(),

@@ -1,5 +1,5 @@
 import type { Command } from "commander";
-import { runLoginModule } from "../modules/auth.module";
+import { runLoginModule } from "../modules/auth";
 
 export function registerLoginCommand(program: Command): void {
   program

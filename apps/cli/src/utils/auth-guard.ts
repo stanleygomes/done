@@ -1,4 +1,4 @@
-import { getSession } from "./session-store";
+import { getSession } from "../store/session-store";
 import { t } from "./i18n";
 
 export async function requireSessionToken(): Promise<string> {

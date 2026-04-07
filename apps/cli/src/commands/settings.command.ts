@@ -1,5 +1,5 @@
 import type { Command } from "commander";
-import { runSetLanguageModule } from "../modules/settings.module";
+import { runSetLanguageModule } from "../modules/settings";
 
 export function registerSettingsCommand(program: Command): void {
   const settingsCommand = program

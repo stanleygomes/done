@@ -1,7 +1,7 @@
-import type { CliTask } from "../types/task.types";
+import type { Task } from "@paul/entities";
 import { humanizeDate } from "@paul/utils";
 
-export function formatTaskLine(task: CliTask): string {
+export function formatTaskLine(task: Task): string {
   const date = task.createdAt ? humanizeDate(new Date(task.createdAt)) : "-";
   return `${task.id} | ${task.title} | ${date}`;
 }

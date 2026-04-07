@@ -1,16 +1,21 @@
 import { input, select } from "@inquirer/prompts";
 import { generateUUID } from "@paul/utils";
 import ora from "ora";
-import { createTask, deleteTask, listTasks, updateTask } from "../api/task-api";
-import { requireSessionToken } from "../utils/auth-guard";
-import { t } from "../utils/i18n";
-import { renderInfo, renderSuccess } from "../utils/output";
-import { formatTaskLine } from "../utils/task-format";
+import {
+  createTask,
+  deleteTask,
+  listTasks,
+  updateTask,
+} from "../../api/resources/task";
+import { requireSessionToken } from "../../utils/auth-guard";
+import { t } from "../../utils/i18n";
+import { renderInfo, renderSuccess } from "../../utils/output";
+import { formatTaskLine } from "../../utils/format/task-format";
 import {
   createTaskPayloadSchema,
   taskIdSchema,
   taskTitleSchema,
-} from "../validators/task.validators";
+} from "../../validators/task.validators";
 
 async function resolveTaskId(taskId?: string): Promise<string> {
   if (taskId) {
