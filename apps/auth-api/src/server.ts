@@ -39,9 +39,4 @@ app.register(async (instance) => {
   router.register(instance, config.app.server.path);
 });
 
-app.get("/health", async (request, reply) => {
-  console.log("Health check", request, reply);
-  return { status: "ok", message: "API is working" };
-});
-
 export default app;
