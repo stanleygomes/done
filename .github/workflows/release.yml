@@ -57,7 +57,7 @@ jobs:
           esac
 
       - name: Run Migrations for ${{ matrix.api }}
-        run: pnpm turbo run db:migrate --filter=${{ matrix.api }}
+        run: pnpm -F ${{ matrix.api }} db:migrate
 
   release:
     needs: [migrate]
