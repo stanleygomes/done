@@ -1,1 +1,1 @@
-export { prompt_logs } from "./prompt_logs.js";
+export { prompt_logs } from "./prompt_logs";

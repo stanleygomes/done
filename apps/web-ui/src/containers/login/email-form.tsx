@@ -51,7 +51,7 @@ export default function EmailForm({ onSubmit, isLoading }: EmailFormProps) {
         <CardTitle className="text-3xl font-black uppercase tracking-tighter text-foreground flex flex-col gap-4">
           <div className="relative h-16 w-16 md:h-20 md:w-20 overflow-hidden rounded-base border-2 md:border-4 border-border bg-main shadow-shadow">
             <Image
-              src="/images/logo.jpg"
+              src="/images/logo.png"
               alt="Done Logo"
               fill
               className="object-cover"

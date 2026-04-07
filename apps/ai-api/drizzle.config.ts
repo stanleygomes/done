@@ -1,18 +1,28 @@
 import "dotenv/config";
 import type { Config } from "drizzle-kit";
 
-// Clean the auth token in case it has quotes from the .env loader
-const authToken = (process.env.DATABASE_AUTH_TOKEN || "").replace(/['"]/g, "");
+const rawUrl = process.env.DATABASE_URL || "";
+if (!rawUrl) {
+  console.error("DATABASE_URL is missing in environment variables");
+  process.exit(1);
+}
+
+const url = new URL(rawUrl);
 
 export default {
   schema: "./src/schemas/database/index.ts",
   out: "./src/database/migrations",
-  dialect: "turso",
+  dialect: "postgresql",
   dbCredentials: {
-    url: process.env.DATABASE_URL || "",
-    authToken,
+    host: url.hostname,
+    port: parseInt(url.port) || 5432,
+    user: url.username,
+    password: url.password,
+    database: url.pathname.substring(1),
+    ssl: { rejectUnauthorized: false },
   },
   migrations: {
     table: "__drizzle_migrations",
+    schema: "public",
   },
 } satisfies Config;

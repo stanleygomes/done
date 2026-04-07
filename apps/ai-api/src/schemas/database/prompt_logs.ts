@@ -1,6 +1,6 @@
-import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { pgTable, text, timestamp, index } from "drizzle-orm/pg-core";
 
-export const prompt_logs = sqliteTable(
+export const prompt_logs = pgTable(
   "prompt_logs",
   {
     id: text("id").primaryKey(),
@@ -8,7 +8,9 @@ export const prompt_logs = sqliteTable(
     user_email: text("user_email").notNull(),
     prompt: text("prompt").notNull(),
     response: text("response").notNull(),
-    created_at: integer("created_at", { mode: "timestamp_ms" }).notNull(),
+    created_at: timestamp("created_at", { withTimezone: true, mode: "date" })
+      .defaultNow()
+      .notNull(),
   },
   (table) => [
     index("prompt_logs_user_id_idx").on(table.user_id),

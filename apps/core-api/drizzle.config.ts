@@ -1,7 +1,13 @@
 import "dotenv/config";
 import type { Config } from "drizzle-kit";
 
-const databaseUrl = new URL(process.env.DATABASE_URL || "");
+const rawUrl = process.env.DATABASE_URL || "";
+if (!rawUrl) {
+  console.error("DATABASE_URL is missing in environment variables");
+  process.exit(1);
+}
+
+const databaseUrl = new URL(rawUrl);
 databaseUrl.searchParams.delete("sslmode");
 
 export default {

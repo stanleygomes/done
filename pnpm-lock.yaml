@@ -44,9 +44,9 @@ importers:
       '@fastify/swagger-ui':
         specifier: ^5.2.3
         version: 5.2.5
-      '@libsql/client':
-        specifier: ^0.15.15
-        version: 0.15.15
+      '@neondatabase/serverless':
+        specifier: ^1.0.2
+        version: 1.0.2
       '@paul/http':
         specifier: ^0.0.0
         version: link:../../packages/http
@@ -61,10 +61,13 @@ importers:
         version: 16.6.1
       drizzle-orm:
         specifier: ^0.45.1
-        version: 0.45.2(@libsql/client@0.15.15)(@types/pg@8.20.0)(pg@8.20.0)
+        version: 0.45.2(@libsql/client@0.15.15)(@neondatabase/serverless@1.0.2)(@types/pg@8.20.0)(pg@8.20.0)
       fastify:
         specifier: ^5.4.0
         version: 5.8.4
+      pg:
+        specifier: ^8.20.0
+        version: 8.20.0
       zod:
         specifier: ^4.3.6
         version: 4.3.6
@@ -78,6 +81,9 @@ importers:
       '@types/node':
         specifier: ^24.0.3
         version: 24.12.2
+      '@types/pg':
+        specifier: ^8.20.0
+        version: 8.20.0
       '@vercel/node':
         specifier: ^5.6.6
         version: 5.7.0(rollup@4.60.1)
@@ -131,7 +137,7 @@ importers:
         version: 16.6.1
       drizzle-orm:
         specifier: ^0.45.1
-        version: 0.45.2(@libsql/client@0.15.15)(@types/pg@8.20.0)(pg@8.20.0)
+        version: 0.45.2(@libsql/client@0.15.15)(@neondatabase/serverless@1.0.2)(@types/pg@8.20.0)(pg@8.20.0)
       fastify:
         specifier: ^5.4.0
         version: 5.8.4
@@ -222,7 +228,7 @@ importers:
         version: 16.6.1
       drizzle-orm:
         specifier: ^0.45.1
-        version: 0.45.2(@libsql/client@0.15.15)(@types/pg@8.20.0)(pg@8.20.0)
+        version: 0.45.2(@libsql/client@0.15.15)(@neondatabase/serverless@1.0.2)(@types/pg@8.20.0)(pg@8.20.0)
       fastify:
         specifier: ^5.4.0
         version: 5.8.4
@@ -2012,6 +2018,10 @@ packages:
 
   '@neon-rs/load@0.0.4':
     resolution: {integrity: sha512-kTPhdZyTQxB+2wpiRcFWrDcejc4JI6tkPuS7UZCG4l6Zvc5kU/gGQ/ozvHTh1XR5tS+UlfAfGuPajjzQjCiHCw==}
+
+  '@neondatabase/serverless@1.0.2':
+    resolution: {integrity: sha512-I5sbpSIAHiB+b6UttofhrN/UJXII+4tZPAq1qugzwCwLIL8EZLV7F/JyHUrEIiGgQpEXzpnjlJ+zwcEhheGvCw==}
+    engines: {node: '>=19.0.0'}
 
   '@next/env@15.5.14':
     resolution: {integrity: sha512-aXeirLYuASxEgi4X4WhfXsShCFxWDfNn/8ZeC5YXAS2BB4A8FJi1kwwGL6nvMVboE7fZCzmJPNdMvVHc8JpaiA==}
@@ -7705,10 +7715,12 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+    optional: true
 
   '@libsql/core@0.15.15':
     dependencies:
       js-base64: 3.7.8
+    optional: true
 
   '@libsql/darwin-arm64@0.5.29':
     optional: true
@@ -7725,8 +7737,10 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+    optional: true
 
-  '@libsql/isomorphic-fetch@0.3.1': {}
+  '@libsql/isomorphic-fetch@0.3.1':
+    optional: true
 
   '@libsql/isomorphic-ws@0.1.5':
     dependencies:
@@ -7735,6 +7749,7 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+    optional: true
 
   '@libsql/linux-arm-gnueabihf@0.5.29':
     optional: true
@@ -7803,7 +7818,13 @@ snapshots:
       outvariant: 1.4.3
       strict-event-emitter: 0.5.1
 
-  '@neon-rs/load@0.0.4': {}
+  '@neon-rs/load@0.0.4':
+    optional: true
+
+  '@neondatabase/serverless@1.0.2':
+    dependencies:
+      '@types/node': 22.19.17
+      '@types/pg': 8.20.0
 
   '@next/env@15.5.14': {}
 
@@ -9086,7 +9107,8 @@ snapshots:
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 24.12.2
+      '@types/node': 25.5.2
+    optional: true
 
   '@types/yauzl@2.10.3':
     dependencies:
@@ -9762,7 +9784,8 @@ snapshots:
 
   dequal@2.0.3: {}
 
-  detect-libc@2.0.2: {}
+  detect-libc@2.0.2:
+    optional: true
 
   detect-libc@2.1.2: {}
 
@@ -9792,9 +9815,10 @@ snapshots:
       esbuild: 0.25.12
       tsx: 4.21.0
 
-  drizzle-orm@0.45.2(@libsql/client@0.15.15)(@types/pg@8.20.0)(pg@8.20.0):
+  drizzle-orm@0.45.2(@libsql/client@0.15.15)(@neondatabase/serverless@1.0.2)(@types/pg@8.20.0)(pg@8.20.0):
     optionalDependencies:
       '@libsql/client': 0.15.15
+      '@neondatabase/serverless': 1.0.2
       '@types/pg': 8.20.0
       pg: 8.20.0
 
@@ -10911,7 +10935,8 @@ snapshots:
 
   joycon@3.1.1: {}
 
-  js-base64@3.7.8: {}
+  js-base64@3.7.8:
+    optional: true
 
   js-tokens@4.0.0: {}
 
@@ -11025,6 +11050,7 @@ snapshots:
       '@libsql/linux-x64-gnu': 0.5.29
       '@libsql/linux-x64-musl': 0.5.29
       '@libsql/win32-x64-msvc': 0.5.29
+    optional: true
 
   light-my-request@6.6.0:
     dependencies:
@@ -11648,7 +11674,8 @@ snapshots:
 
   progress@2.0.3: {}
 
-  promise-limit@2.7.0: {}
+  promise-limit@2.7.0:
+    optional: true
 
   prompts@2.4.2:
     dependencies:
@@ -12801,7 +12828,8 @@ snapshots:
 
   wrappy@1.0.2: {}
 
-  ws@8.20.0: {}
+  ws@8.20.0:
+    optional: true
 
   wsl-utils@0.3.1:
     dependencies:
