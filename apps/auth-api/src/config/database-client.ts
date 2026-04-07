@@ -5,9 +5,11 @@ import * as schema from "../schemas/database/index.js";
 import { config } from "./environment.js";
 import { PinoLogger } from "./pino.logger.js";
 
+const isDevelopment = config.app.env === "development";
+
 const pool = new Pool({
   connectionString: config.database.url,
-  ssl: { rejectUnauthorized: false },
+  ssl: isDevelopment ? false : { rejectUnauthorized: false },
 });
 
 export const db = drizzle(pool, { schema });
