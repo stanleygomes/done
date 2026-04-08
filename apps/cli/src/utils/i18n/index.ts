@@ -1,5 +1,5 @@
 import type { Language } from "../../types/language.types";
-import { getSettings } from "../../store/settings-store";
+import { settingsStore } from "../../store/settings-store";
 
 import { en } from "./locales/en";
 import { pt } from "./locales/pt";
@@ -19,7 +19,7 @@ let currentLanguage: Language | null = null;
 
 export async function initializeI18n(): Promise<void> {
   if (!currentLanguage) {
-    const settings = await getSettings();
+    const settings = await settingsStore.get();
     currentLanguage = settings.language;
   }
 }

@@ -6,31 +6,34 @@ const defaultSettings: CliSettings = {
   language: "en",
 };
 
-export async function getSettings(): Promise<CliSettings> {
-  const settings = await readJsonFile<CliSettings>(SETTINGS_FILE_PATH);
-  return settings ?? defaultSettings;
+export class SettingsStore {
+  constructor(private readonly filePath: string) {}
+
+  async get(): Promise<CliSettings> {
+    const settings = await readJsonFile<CliSettings>(this.filePath);
+    return settings ?? defaultSettings;
+  }
+
+  async save(settings: CliSettings): Promise<void> {
+    await writeJsonFile(this.filePath, settings);
+  }
+
+  async setActiveProject(id: string, name: string): Promise<void> {
+    const settings = await this.get();
+    await this.save({
+      ...settings,
+      activeProjectId: id,
+      activeProjectName: name,
+    });
+  }
+
+  async clearActiveProject(): Promise<void> {
+    const settings = await this.get();
+    const newSettings = { ...settings };
+    delete newSettings.activeProjectId;
+    delete newSettings.activeProjectName;
+    await this.save(newSettings);
+  }
 }
 
-export async function saveSettings(settings: CliSettings): Promise<void> {
-  await writeJsonFile(SETTINGS_FILE_PATH, settings);
-}
-
-export async function setActiveProject(
-  id: string,
-  name: string,
-): Promise<void> {
-  const settings = await getSettings();
-  await saveSettings({
-    ...settings,
-    activeProjectId: id,
-    activeProjectName: name,
-  });
-}
-
-export async function clearActiveProject(): Promise<void> {
-  const settings = await getSettings();
-  const newSettings = { ...settings };
-  delete newSettings.activeProjectId;
-  delete newSettings.activeProjectName;
-  await saveSettings(newSettings);
-}
+export const settingsStore = new SettingsStore(SETTINGS_FILE_PATH);

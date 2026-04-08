@@ -1,4 +1,4 @@
-import { getSettings } from "../../store/settings-store";
+import { settingsStore } from "../../store/settings-store";
 import { requireSessionToken } from "../../utils/auth-guard";
 import { t } from "../../utils/i18n";
 import { selectAndParse } from "../../utils/prompt";
@@ -12,7 +12,7 @@ export async function resolveTaskId(taskId?: string): Promise<string> {
   }
 
   const token = await requireSessionToken();
-  const settings = await getSettings();
+  const settings = await settingsStore.get();
   const activeProjectId = settings.activeProjectId;
 
   let tasks = await runWithLoading(() => getActiveTasks(token));

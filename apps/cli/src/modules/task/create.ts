@@ -1,6 +1,6 @@
 import { generateUUID } from "@paul/utils";
 import { createApiClient } from "../../api";
-import { getSettings } from "../../store/settings-store";
+import { settingsStore } from "../../store/settings-store";
 import { requireSessionToken } from "../../utils/auth-guard";
 import { t } from "../../utils/i18n";
 import { renderSuccess } from "../../utils/output";
@@ -13,7 +13,7 @@ import {
 
 export async function runCreateTaskModule(titleArg?: string): Promise<void> {
   const token = await requireSessionToken();
-  const settings = await getSettings();
+  const settings = await settingsStore.get();
   const activeProjectId = settings.activeProjectId;
 
   const title = await askAndParse({

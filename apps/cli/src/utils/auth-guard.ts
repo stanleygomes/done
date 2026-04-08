@@ -1,15 +1,15 @@
-import { getSession } from "../store/session-store";
+import { sessionStore } from "../store/session-store";
 import { runLoginModule } from "../modules/auth";
 import { t } from "./i18n";
 import { renderInfo } from "./output";
 
 export async function requireSessionToken(): Promise<string> {
-  let session = await getSession();
+  let session = await sessionStore.get();
 
   if (!session?.token) {
     renderInfo(await t("loginRequired"));
     await runLoginModule();
-    session = await getSession();
+    session = await sessionStore.get();
   }
 
   if (!session?.token) {

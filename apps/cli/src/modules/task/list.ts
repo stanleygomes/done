@@ -1,5 +1,5 @@
 import { createApiClient } from "../../api";
-import { getSettings } from "../../store/settings-store";
+import { settingsStore } from "../../store/settings-store";
 import { requireSessionToken } from "../../utils/auth-guard";
 import { t } from "../../utils/i18n";
 import { renderInfo } from "../../utils/output";
@@ -14,7 +14,7 @@ export async function getActiveTasks(token: string) {
 
 export async function runListTasksModule(): Promise<void> {
   const token = await requireSessionToken();
-  const settings = await getSettings();
+  const settings = await settingsStore.get();
   const activeProjectId = settings.activeProjectId;
 
   let tasks = await runWithLoading(() => getActiveTasks(token));

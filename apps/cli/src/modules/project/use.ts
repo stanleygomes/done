@@ -1,7 +1,4 @@
-import {
-  clearActiveProject,
-  setActiveProject,
-} from "../../store/settings-store";
+import { settingsStore } from "../../store/settings-store";
 import { requireSessionToken } from "../../utils/auth-guard";
 import { t } from "../../utils/i18n";
 import { renderSuccess } from "../../utils/output";
@@ -30,14 +27,14 @@ export async function runUseProjectModule(): Promise<void> {
   });
 
   if (selectedProjectId === "none") {
-    await clearActiveProject();
+    await settingsStore.clearActiveProject();
     renderSuccess(await t("projectDeactivated"));
     return;
   }
 
   const project = projects.find((p) => p.id === selectedProjectId);
   if (project) {
-    await setActiveProject(project.id, project.name);
+    await settingsStore.setActiveProject(project.id, project.name);
 
     renderSuccess(
       (await t("projectActivated")).replace("{name}", project.name),

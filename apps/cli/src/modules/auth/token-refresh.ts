@@ -1,8 +1,8 @@
 import { createApiClient } from "../../api";
-import { getSession, saveSession } from "../../store/session-store";
+import { sessionStore } from "../../store/session-store";
 
 export async function runTokenRefreshModule() {
-  const session = await getSession();
+  const session = await sessionStore.get();
   if (!session?.refreshToken) {
     throw new Error("No refresh token found");
   }
@@ -10,7 +10,7 @@ export async function runTokenRefreshModule() {
   const api = createApiClient();
   const result = await api.auth.refreshToken(session.refreshToken);
 
-  await saveSession({
+  await sessionStore.save({
     ...session,
     token: result.token,
     refreshToken: result.refreshToken,

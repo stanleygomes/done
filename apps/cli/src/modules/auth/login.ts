@@ -2,7 +2,7 @@ import { createApiClient } from "../../api";
 import { askAndParse } from "../../utils/prompt";
 import { runWithLoading } from "../../utils/spinner";
 import { emailSchema, otpCodeSchema } from "../../validators/auth.validators";
-import { saveSession } from "../../store/session-store";
+import { sessionStore } from "../../store/session-store";
 import { renderInfo, renderSuccess } from "../../utils/output";
 import { t } from "../../utils/i18n";
 
@@ -32,7 +32,7 @@ export async function runLoginModule(): Promise<void> {
     api.auth.verifyLoginCode(email, code),
   );
 
-  await saveSession({
+  await sessionStore.save({
     token: verifyCodeResult.token,
     refreshToken: verifyCodeResult.refreshToken,
     email,
