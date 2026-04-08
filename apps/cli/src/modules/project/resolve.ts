@@ -1,7 +1,7 @@
-import { requireSessionToken } from "../../utils/auth-guard.util";
+import { AuthGuard } from "../../utils/auth-guard.util";
 import { t } from "../../utils/i18n/i18n.util";
-import { selectAndParse } from "../../utils/prompt.util";
-import { runWithLoading } from "../../utils/spinner.util";
+import { Prompt } from "../../utils/prompt.util";
+import { Loader } from "../../utils/spinner.util";
 import { ProjectValidator } from "../../validators/project.validators";
 import { getActiveProjects } from "./list";
 
@@ -10,14 +10,14 @@ export async function resolveProjectId(projectId?: string): Promise<string> {
     return ProjectValidator.id.parse(projectId);
   }
 
-  const token = await requireSessionToken();
-  const projects = await runWithLoading(() => getActiveProjects(token));
+  const token = await AuthGuard.requireToken();
+  const projects = await Loader.run(() => getActiveProjects(token));
 
   if (projects.length === 0) {
     throw new Error(await t("noProjects"));
   }
 
-  return selectAndParse({
+  return Prompt.select({
     messageKey: "selectProject",
     choices: projects.map((project) => ({
       name: project.name,

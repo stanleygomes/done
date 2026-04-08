@@ -1,19 +1,19 @@
 import { generateUUID } from "@paul/utils";
 import { createApiClient } from "../../api/api";
 import { settingsStore } from "../../store/settings.store";
-import { requireSessionToken } from "../../utils/auth-guard.util";
+import { AuthGuard } from "../../utils/auth-guard.util";
 import { t } from "../../utils/i18n/i18n.util";
-import { renderSuccess } from "../../utils/output.util";
-import { askAndParse } from "../../utils/prompt.util";
-import { runWithLoading } from "../../utils/spinner.util";
+import { Output } from "../../utils/output.util";
+import { Prompt } from "../../utils/prompt.util";
+import { Loader } from "../../utils/spinner.util";
 import { TaskValidator } from "../../validators/task.validators";
 
 export async function runCreateTaskModule(titleArg?: string): Promise<void> {
-  const token = await requireSessionToken();
+  const token = await AuthGuard.requireToken();
   const settings = await settingsStore.get();
   const activeProjectId = settings.activeProjectId;
 
-  const title = await askAndParse({
+  const title = await Prompt.ask({
     messageKey: "askTaskTitle",
     schema: TaskValidator.title,
     initialValue: titleArg,
@@ -36,7 +36,7 @@ export async function runCreateTaskModule(titleArg?: string): Promise<void> {
   });
 
   const api = createApiClient(token);
-  await runWithLoading(() => api.task.create(payload));
+  await Loader.run(() => api.task.create(payload));
 
-  renderSuccess(await t("taskCreated"));
+  Output.success(await t("taskCreated"));
 }

@@ -1,6 +1,14 @@
 import os from "node:os";
 import path from "node:path";
 
-export const CLI_HOME_DIR = path.join(os.homedir(), ".paul");
-export const SESSION_FILE_PATH = path.join(CLI_HOME_DIR, "session.json");
-export const SETTINGS_FILE_PATH = path.join(CLI_HOME_DIR, "settings.json");
+export class PathProvider {
+  public static readonly homeDir = path.join(os.homedir(), ".paul");
+  public static readonly sessionFile = path.join(
+    PathProvider.homeDir,
+    "session.json",
+  );
+  public static readonly settingsFile = path.join(
+    PathProvider.homeDir,
+    "settings.json",
+  );
+}

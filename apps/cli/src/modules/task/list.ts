@@ -1,10 +1,10 @@
 import { createApiClient } from "../../api/api";
 import { settingsStore } from "../../store/settings.store";
-import { requireSessionToken } from "../../utils/auth-guard.util";
+import { AuthGuard } from "../../utils/auth-guard.util";
 import { t } from "../../utils/i18n/i18n.util";
-import { renderInfo } from "../../utils/output.util";
-import { runWithLoading } from "../../utils/spinner.util";
-import { formatTaskLine } from "../../utils/format/task-format.util";
+import { Output } from "../../utils/output.util";
+import { Loader } from "../../utils/spinner.util";
+import { TaskFormatter } from "../../utils/format/task-format.util";
 
 export async function getActiveTasks(token: string) {
   const api = createApiClient(token);
@@ -13,15 +13,15 @@ export async function getActiveTasks(token: string) {
 }
 
 export async function runListTasksModule(): Promise<void> {
-  const token = await requireSessionToken();
+  const token = await AuthGuard.requireToken();
   const settings = await settingsStore.get();
   const activeProjectId = settings.activeProjectId;
 
-  let tasks = await runWithLoading(() => getActiveTasks(token));
+  let tasks = await Loader.run(() => getActiveTasks(token));
 
   if (activeProjectId) {
     tasks = tasks.filter((task) => task.projectId === activeProjectId);
-    renderInfo(
+    Output.info(
       (await t("activeProjectInfo")).replace(
         "{name}",
         settings.activeProjectName || "",
@@ -30,11 +30,11 @@ export async function runListTasksModule(): Promise<void> {
   }
 
   if (tasks.length === 0) {
-    renderInfo(await t("noTasks"));
+    Output.info(await t("noTasks"));
     return;
   }
 
   for (const task of tasks) {
-    console.log(formatTaskLine(task));
+    console.log(TaskFormatter.formatLine(task));
   }
 }

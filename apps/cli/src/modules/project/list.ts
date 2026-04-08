@@ -1,9 +1,9 @@
 import { createApiClient } from "../../api/api";
-import { requireSessionToken } from "../../utils/auth-guard.util";
+import { AuthGuard } from "../../utils/auth-guard.util";
 import { t } from "../../utils/i18n/i18n.util";
-import { renderInfo } from "../../utils/output.util";
-import { runWithLoading } from "../../utils/spinner.util";
-import { formatProjectLine } from "../../utils/format/project-format.util";
+import { Output } from "../../utils/output.util";
+import { Loader } from "../../utils/spinner.util";
+import { ProjectFormatter } from "../../utils/format/project-format.util";
 
 export async function getActiveProjects(token: string) {
   const api = createApiClient(token);
@@ -12,15 +12,15 @@ export async function getActiveProjects(token: string) {
 }
 
 export async function runListProjectsModule(): Promise<void> {
-  const token = await requireSessionToken();
-  const projects = await runWithLoading(() => getActiveProjects(token));
+  const token = await AuthGuard.requireToken();
+  const projects = await Loader.run(() => getActiveProjects(token));
 
   if (projects.length === 0) {
-    renderInfo(await t("noProjects"));
+    Output.info(await t("noProjects"));
     return;
   }
 
   for (const project of projects) {
-    console.log(formatProjectLine(project));
+    console.log(ProjectFormatter.formatLine(project));
   }
 }

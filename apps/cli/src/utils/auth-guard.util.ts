@@ -1,20 +1,22 @@
 import { sessionStore } from "../store/session.store";
 import { runLoginModule } from "../modules/auth";
 import { t } from "./i18n/i18n.util";
-import { renderInfo } from "./output.util";
+import { Output } from "./output.util";
 
-export async function requireSessionToken(): Promise<string> {
-  let session = await sessionStore.get();
+export class AuthGuard {
+  public static async requireToken(): Promise<string> {
+    let session = await sessionStore.get();
 
-  if (!session?.token) {
-    renderInfo(await t("loginRequired"));
-    await runLoginModule();
-    session = await sessionStore.get();
+    if (!session?.token) {
+      Output.info(await t("loginRequired"));
+      await runLoginModule();
+      session = await sessionStore.get();
+    }
+
+    if (!session?.token) {
+      throw new Error(await t("loginRequired"));
+    }
+
+    return session.token;
   }
-
-  if (!session?.token) {
-    throw new Error(await t("loginRequired"));
-  }
-
-  return session.token;
 }

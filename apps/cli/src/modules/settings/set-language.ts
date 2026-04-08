@@ -1,11 +1,7 @@
 import { SettingsValidator } from "../../validators/settings.validators";
-import {
-  languageLabel,
-  setCurrentLanguage,
-  t,
-} from "../../utils/i18n/i18n.util";
+import { I18n, t } from "../../utils/i18n/i18n.util";
 import { settingsStore } from "../../store/settings.store";
-import { renderInfo, renderSuccess } from "../../utils/output.util";
+import { Output } from "../../utils/output.util";
 import { askLanguage } from "./ask-language";
 
 export async function runSetLanguageModule(
@@ -19,8 +15,8 @@ export async function runSetLanguageModule(
     ...settings,
     language,
   });
-  setCurrentLanguage(language);
+  I18n.setLanguage(language);
 
-  renderSuccess(await t("languageUpdated"));
-  renderInfo(languageLabel(language));
+  Output.success(await t("languageUpdated"));
+  Output.info(I18n.getLabel(language));
 }

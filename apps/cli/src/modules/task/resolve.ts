@@ -1,8 +1,8 @@
 import { settingsStore } from "../../store/settings.store";
-import { requireSessionToken } from "../../utils/auth-guard.util";
+import { AuthGuard } from "../../utils/auth-guard.util";
 import { t } from "../../utils/i18n/i18n.util";
-import { selectAndParse } from "../../utils/prompt.util";
-import { runWithLoading } from "../../utils/spinner.util";
+import { Prompt } from "../../utils/prompt.util";
+import { Loader } from "../../utils/spinner.util";
 import { TaskValidator } from "../../validators/task.validators";
 import { getActiveTasks } from "./list";
 
@@ -11,11 +11,11 @@ export async function resolveTaskId(taskId?: string): Promise<string> {
     return TaskValidator.id.parse(taskId);
   }
 
-  const token = await requireSessionToken();
+  const token = await AuthGuard.requireToken();
   const settings = await settingsStore.get();
   const activeProjectId = settings.activeProjectId;
 
-  let tasks = await runWithLoading(() => getActiveTasks(token));
+  let tasks = await Loader.run(() => getActiveTasks(token));
 
   if (activeProjectId) {
     tasks = tasks.filter((task) => task.projectId === activeProjectId);
@@ -25,7 +25,7 @@ export async function resolveTaskId(taskId?: string): Promise<string> {
     throw new Error(await t("noTasks"));
   }
 
-  return selectAndParse({
+  return Prompt.select({
     messageKey: "selectTask",
     choices: tasks.map((task) => ({
       name: task.title,

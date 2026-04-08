@@ -1,14 +1,14 @@
 import { settingsStore } from "../../store/settings.store";
-import { requireSessionToken } from "../../utils/auth-guard.util";
+import { AuthGuard } from "../../utils/auth-guard.util";
 import { t } from "../../utils/i18n/i18n.util";
-import { renderSuccess } from "../../utils/output.util";
-import { selectAndParse } from "../../utils/prompt.util";
-import { runWithLoading } from "../../utils/spinner.util";
+import { Output } from "../../utils/output.util";
+import { Prompt } from "../../utils/prompt.util";
+import { Loader } from "../../utils/spinner.util";
 import { getActiveProjects } from "./list";
 
 export async function runUseProjectModule(): Promise<void> {
-  const token = await requireSessionToken();
-  const projects = await runWithLoading(() => getActiveProjects(token));
+  const token = await AuthGuard.requireToken();
+  const projects = await Loader.run(() => getActiveProjects(token));
 
   const choices = [
     {
@@ -21,14 +21,14 @@ export async function runUseProjectModule(): Promise<void> {
     })),
   ];
 
-  const selectedProjectId = await selectAndParse({
+  const selectedProjectId = await Prompt.select({
     messageKey: "selectProjectToUse",
     choices,
   });
 
   if (selectedProjectId === "none") {
     await settingsStore.clearActiveProject();
-    renderSuccess(await t("projectDeactivated"));
+    Output.success(await t("projectDeactivated"));
     return;
   }
 
@@ -36,7 +36,7 @@ export async function runUseProjectModule(): Promise<void> {
   if (project) {
     await settingsStore.setActiveProject(project.id, project.name);
 
-    renderSuccess(
+    Output.success(
       (await t("projectActivated")).replace("{name}", project.name),
     );
   }

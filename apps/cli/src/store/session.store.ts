@@ -1,21 +1,21 @@
 import type { SessionData } from "../types/session.type";
-import { SESSION_FILE_PATH } from "../utils/path.util";
-import { readJsonFile, writeJsonFile } from "../utils/json-storage.util";
+import { PathProvider } from "../utils/path.util";
+import { JsonStorage } from "../utils/json-storage.util";
 
 export class SessionStore {
   constructor(private readonly filePath: string) {}
 
   async get(): Promise<SessionData | null> {
-    return readJsonFile<SessionData>(this.filePath);
+    return JsonStorage.read<SessionData>(this.filePath);
   }
 
   async save(session: SessionData): Promise<void> {
-    await writeJsonFile(this.filePath, session);
+    await JsonStorage.write(this.filePath, session);
   }
 
   async clear(): Promise<void> {
-    await writeJsonFile(this.filePath, null);
+    await JsonStorage.write(this.filePath, null);
   }
 }
 
-export const sessionStore = new SessionStore(SESSION_FILE_PATH);
+export const sessionStore = new SessionStore(PathProvider.sessionFile);
