@@ -6,15 +6,17 @@ import { renderInfo } from "../../utils/output";
 import { runWithLoading } from "../../utils/spinner";
 import { formatTaskLine } from "../../utils/format/task-format";
 
+export async function getActiveTasks(token: string) {
+  const allTasks = await listTasks(token);
+  return allTasks.filter((task) => !task.isDeleted);
+}
+
 export async function runListTasksModule(): Promise<void> {
   const token = await requireSessionToken();
   const settings = await getSettings();
   const activeProjectId = settings.activeProjectId;
 
-  let tasks = await runWithLoading(async () => {
-    const allTasks = await listTasks(token);
-    return allTasks.filter((task) => !task.isDeleted);
-  });
+  let tasks = await runWithLoading(() => getActiveTasks(token));
 
   if (activeProjectId) {
     tasks = tasks.filter((task) => task.projectId === activeProjectId);

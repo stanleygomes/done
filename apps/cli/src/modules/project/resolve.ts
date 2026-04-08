@@ -1,8 +1,9 @@
 import { select } from "@inquirer/prompts";
-import { listProjects } from "../../api/resources/project";
 import { requireSessionToken } from "../../utils/auth-guard";
 import { t } from "../../utils/i18n";
+import { runWithLoading } from "../../utils/spinner";
 import { projectIdSchema } from "../../validators/project.validators";
+import { getActiveProjects } from "./list";
 
 export async function resolveProjectId(projectId?: string): Promise<string> {
   if (projectId) {
@@ -10,9 +11,7 @@ export async function resolveProjectId(projectId?: string): Promise<string> {
   }
 
   const token = await requireSessionToken();
-  const projects = (await listProjects(token)).filter(
-    (project) => !project.isDeleted,
-  );
+  const projects = await runWithLoading(() => getActiveProjects(token));
 
   if (projects.length === 0) {
     throw new Error(await t("noProjects"));

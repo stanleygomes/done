@@ -1,9 +1,10 @@
 import { select } from "@inquirer/prompts";
-import { listTasks } from "../../api/resources/task";
 import { getSettings } from "../../store/settings-store";
 import { requireSessionToken } from "../../utils/auth-guard";
 import { t } from "../../utils/i18n";
+import { runWithLoading } from "../../utils/spinner";
 import { taskIdSchema } from "../../validators/task.validators";
+import { getActiveTasks } from "./list";
 
 export async function resolveTaskId(taskId?: string): Promise<string> {
   if (taskId) {
@@ -14,7 +15,7 @@ export async function resolveTaskId(taskId?: string): Promise<string> {
   const settings = await getSettings();
   const activeProjectId = settings.activeProjectId;
 
-  let tasks = (await listTasks(token)).filter((task) => !task.isDeleted);
+  let tasks = await runWithLoading(() => getActiveTasks(token));
 
   if (activeProjectId) {
     tasks = tasks.filter((task) => task.projectId === activeProjectId);
