@@ -19,6 +19,8 @@ export const pt = {
   selectTask: "Selecione uma tarefa",
   selectProject: "Selecione um projeto",
   askTaskTitle: "Título da tarefa",
+  askTaskNotes: "Deseja adicionar notas? (Pressione Enter para pular)",
+  askTaskImportant: "Esta tarefa é importante?",
   askProjectTitle: "Título do projeto",
   loading: "Carregando...",
 } as const;

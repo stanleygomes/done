@@ -18,6 +18,8 @@ export const en = {
   selectTask: "Select a task",
   selectProject: "Select a project",
   askTaskTitle: "Task title",
+  askTaskNotes: "Do you want to add notes? (Press Enter to skip)",
+  askTaskImportant: "Is this task important?",
   askProjectTitle: "Project title",
   loading: "Loading...",
 } as const;

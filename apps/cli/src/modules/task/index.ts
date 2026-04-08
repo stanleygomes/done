@@ -1,4 +1,4 @@
-import { input, select } from "@inquirer/prompts";
+import { confirm, input, select } from "@inquirer/prompts";
 import { generateUUID } from "@paul/utils";
 import ora from "ora";
 import {
@@ -55,18 +55,23 @@ export async function runListTasksModule(): Promise<void> {
 }
 
 export async function runCreateTaskModule(titleArg?: string): Promise<void> {
-  const token = await requireSessionToken();
+  await requireSessionToken();
+
   const rawTitle =
     titleArg ?? (await input({ message: await t("askTaskTitle") }));
   const title = taskTitleSchema.parse(rawTitle);
 
+  const notes = await input({ message: await t("askTaskNotes") });
+  const important = await confirm({ message: await t("askTaskImportant") });
+
+  const token = await requireSessionToken();
   const payload = createTaskPayloadSchema.parse({
     id: generateUUID(),
     title,
     content: "",
     done: false,
-    notes: "",
-    important: false,
+    notes,
+    important,
     dueDate: "",
     dueTime: "",
     url: "",
@@ -86,12 +91,12 @@ export async function runEditTaskModule(
   taskIdArg?: string,
   titleArg?: string,
 ): Promise<void> {
-  const token = await requireSessionToken();
   const taskId = await resolveTaskId(taskIdArg);
   const rawTitle =
     titleArg ?? (await input({ message: await t("askTaskTitle") }));
   const title = taskTitleSchema.parse(rawTitle);
 
+  const token = await requireSessionToken();
   const spinner = ora(await t("loading")).start();
   await updateTask(token, taskId, {
     title,
