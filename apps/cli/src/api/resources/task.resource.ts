@@ -1,5 +1,5 @@
 import type { Task } from "@paul/entities";
-import { taskListResponseSchema } from "../../validators/task.validators";
+import { TaskValidator } from "../../validators/task.validators";
 import { BaseResource } from "../base.resource";
 
 export class TaskResource extends BaseResource {
@@ -9,7 +9,7 @@ export class TaskResource extends BaseResource {
       this.getRequestConfig(),
     );
 
-    return taskListResponseSchema.parse(response.data).tasks;
+    return TaskValidator.listResponse.parse(response.data).tasks;
   }
 
   async create(task: Record<string, unknown>): Promise<Task> {

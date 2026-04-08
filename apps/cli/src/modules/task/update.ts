@@ -4,7 +4,7 @@ import { t } from "../../utils/i18n";
 import { renderSuccess } from "../../utils/output";
 import { askAndParse } from "../../utils/prompt";
 import { runWithLoading } from "../../utils/spinner";
-import { taskTitleSchema } from "../../validators/task.validators";
+import { TaskValidator } from "../../validators/task.validators";
 import { resolveTaskId } from "./resolve";
 
 export async function runUpdateTaskModule(
@@ -15,7 +15,7 @@ export async function runUpdateTaskModule(
   const taskId = await resolveTaskId(taskIdArg);
   const title = await askAndParse({
     messageKey: "askTaskTitle",
-    schema: taskTitleSchema,
+    schema: TaskValidator.title,
     initialValue: titleArg,
   });
 

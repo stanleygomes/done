@@ -1,37 +1,39 @@
 import { z } from "zod";
 import { taskSchema as sharedTaskSchema } from "@paul/entities";
 
-export const taskTitleSchema = z
-  .string()
-  .trim()
-  .min(1, "Title is required")
-  .max(500, "Title is too long");
+export class TaskValidator {
+  public static readonly title = z
+    .string()
+    .trim()
+    .min(1, "Title is required")
+    .max(500, "Title is too long");
 
-export const taskContentSchema = z
-  .string()
-  .trim()
-  .max(500, "Content is too long");
+  public static readonly content = z
+    .string()
+    .trim()
+    .max(500, "Content is too long");
 
-export const taskIdSchema = z.string().uuid("Invalid task id");
+  public static readonly id = z.string().uuid("Invalid task id");
 
-export const taskSchema = sharedTaskSchema;
+  public static readonly task = sharedTaskSchema;
 
-export const createTaskPayloadSchema = z.object({
-  id: z.string().uuid(),
-  title: taskTitleSchema,
-  content: taskContentSchema,
-  done: z.boolean(),
-  notes: z.string(),
-  important: z.boolean(),
-  dueDate: z.string(),
-  dueTime: z.string(),
-  url: z.string(),
-  subtasks: z.array(taskSchema),
-  tags: z.array(z.string()),
-  isDeleted: z.boolean(),
-  projectId: z.string().uuid().optional().nullable(),
-});
+  public static readonly createPayload = z.object({
+    id: z.string().uuid(),
+    title: TaskValidator.title,
+    content: TaskValidator.content,
+    done: z.boolean(),
+    notes: z.string(),
+    important: z.boolean(),
+    dueDate: z.string(),
+    dueTime: z.string(),
+    url: z.string(),
+    subtasks: z.array(TaskValidator.task),
+    tags: z.array(z.string()),
+    isDeleted: z.boolean(),
+    projectId: z.string().uuid().optional().nullable(),
+  });
 
-export const taskListResponseSchema = z.object({
-  tasks: z.array(taskSchema),
-});
+  public static readonly listResponse = z.object({
+    tasks: z.array(TaskValidator.task),
+  });
+}

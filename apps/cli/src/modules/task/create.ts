@@ -6,10 +6,7 @@ import { t } from "../../utils/i18n";
 import { renderSuccess } from "../../utils/output";
 import { askAndParse } from "../../utils/prompt";
 import { runWithLoading } from "../../utils/spinner";
-import {
-  createTaskPayloadSchema,
-  taskTitleSchema,
-} from "../../validators/task.validators";
+import { TaskValidator } from "../../validators/task.validators";
 
 export async function runCreateTaskModule(titleArg?: string): Promise<void> {
   const token = await requireSessionToken();
@@ -18,11 +15,11 @@ export async function runCreateTaskModule(titleArg?: string): Promise<void> {
 
   const title = await askAndParse({
     messageKey: "askTaskTitle",
-    schema: taskTitleSchema,
+    schema: TaskValidator.title,
     initialValue: titleArg,
   });
 
-  const payload = createTaskPayloadSchema.parse({
+  const payload = TaskValidator.createPayload.parse({
     id: generateUUID(),
     title,
     content: "",

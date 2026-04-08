@@ -1,22 +1,24 @@
 import { z } from "zod";
 
-export const emailSchema = z.string().email("Invalid email");
+export class AuthValidator {
+  public static readonly email = z.string().email("Invalid email");
 
-export const emailInputSchema = z.object({
-  email: emailSchema,
-});
+  public static readonly emailInput = z.object({
+    email: AuthValidator.email,
+  });
 
-export const otpCodeSchema = z
-  .string()
-  .regex(/^\d{6}$/, "Invalid verification code");
+  public static readonly otpCode = z
+    .string()
+    .regex(/^\d{6}$/, "Invalid verification code");
 
-export const sendCodeResponseSchema = z.object({
-  message: z.string(),
-  isRegistered: z.boolean(),
-});
+  public static readonly sendCodeResponse = z.object({
+    message: z.string(),
+    isRegistered: z.boolean(),
+  });
 
-export const verifyCodeResponseSchema = z.object({
-  token: z.string().min(1),
-  refreshToken: z.string().min(1),
-  isNew: z.boolean(),
-});
+  public static readonly verifyCodeResponse = z.object({
+    token: z.string().min(1),
+    refreshToken: z.string().min(1),
+    isNew: z.boolean(),
+  });
+}

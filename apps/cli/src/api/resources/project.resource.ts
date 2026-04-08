@@ -1,5 +1,5 @@
 import type { Project } from "@paul/entities";
-import { projectListResponseSchema } from "../../validators/project.validators";
+import { ProjectValidator } from "../../validators/project.validators";
 import { BaseResource } from "../base.resource";
 
 export class ProjectResource extends BaseResource {
@@ -9,7 +9,7 @@ export class ProjectResource extends BaseResource {
       this.getRequestConfig(),
     );
 
-    return projectListResponseSchema.parse(response.data).projects;
+    return ProjectValidator.listResponse.parse(response.data).projects;
   }
 
   async create(project: Record<string, unknown>): Promise<Project> {

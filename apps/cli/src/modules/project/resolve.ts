@@ -2,12 +2,12 @@ import { requireSessionToken } from "../../utils/auth-guard";
 import { t } from "../../utils/i18n";
 import { selectAndParse } from "../../utils/prompt";
 import { runWithLoading } from "../../utils/spinner";
-import { projectIdSchema } from "../../validators/project.validators";
+import { ProjectValidator } from "../../validators/project.validators";
 import { getActiveProjects } from "./list";
 
 export async function resolveProjectId(projectId?: string): Promise<string> {
   if (projectId) {
-    return projectIdSchema.parse(projectId);
+    return ProjectValidator.id.parse(projectId);
   }
 
   const token = await requireSessionToken();

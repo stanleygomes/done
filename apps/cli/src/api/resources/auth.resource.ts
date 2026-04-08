@@ -2,10 +2,7 @@ import type {
   SendCodeResponse,
   VerifyCodeResponse,
 } from "../../types/auth.types";
-import {
-  sendCodeResponseSchema,
-  verifyCodeResponseSchema,
-} from "../../validators/auth.validators";
+import { AuthValidator } from "../../validators/auth.validators";
 import { BaseResource } from "../base.resource";
 
 export class AuthResource extends BaseResource {
@@ -17,7 +14,7 @@ export class AuthResource extends BaseResource {
       },
     );
 
-    return sendCodeResponseSchema.parse(response.data);
+    return AuthValidator.sendCodeResponse.parse(response.data);
   }
 
   async verifyLoginCode(
@@ -32,7 +29,7 @@ export class AuthResource extends BaseResource {
       },
     );
 
-    return verifyCodeResponseSchema.parse(response.data);
+    return AuthValidator.verifyCodeResponse.parse(response.data);
   }
 
   async refreshToken(

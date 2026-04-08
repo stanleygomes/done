@@ -4,7 +4,7 @@ import { t } from "../../utils/i18n";
 import { renderSuccess } from "../../utils/output";
 import { askAndParse } from "../../utils/prompt";
 import { runWithLoading } from "../../utils/spinner";
-import { projectNameSchema } from "../../validators/project.validators";
+import { ProjectValidator } from "../../validators/project.validators";
 import { resolveProjectId } from "./resolve";
 
 export async function runEditProjectModule(
@@ -15,7 +15,7 @@ export async function runEditProjectModule(
   const projectId = await resolveProjectId(projectIdArg);
   const name = await askAndParse({
     messageKey: "askProjectTitle",
-    schema: projectNameSchema,
+    schema: ProjectValidator.name,
     initialValue: nameArg,
   });
 

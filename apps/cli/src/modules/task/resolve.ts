@@ -3,12 +3,12 @@ import { requireSessionToken } from "../../utils/auth-guard";
 import { t } from "../../utils/i18n";
 import { selectAndParse } from "../../utils/prompt";
 import { runWithLoading } from "../../utils/spinner";
-import { taskIdSchema } from "../../validators/task.validators";
+import { TaskValidator } from "../../validators/task.validators";
 import { getActiveTasks } from "./list";
 
 export async function resolveTaskId(taskId?: string): Promise<string> {
   if (taskId) {
-    return taskIdSchema.parse(taskId);
+    return TaskValidator.id.parse(taskId);
   }
 
   const token = await requireSessionToken();

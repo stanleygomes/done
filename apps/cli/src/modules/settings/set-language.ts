@@ -1,4 +1,4 @@
-import { languageSchema } from "../../validators/settings.validators";
+import { SettingsValidator } from "../../validators/settings.validators";
 import { languageLabel, setCurrentLanguage, t } from "../../utils/i18n";
 import { settingsStore } from "../../store/settings-store";
 import { renderInfo, renderSuccess } from "../../utils/output";
@@ -9,7 +9,7 @@ export async function runSetLanguageModule(
 ): Promise<void> {
   const settings = await settingsStore.get();
   const languageValue = languageArg ?? (await askLanguage());
-  const language = languageSchema.parse(languageValue);
+  const language = SettingsValidator.language.parse(languageValue);
 
   await settingsStore.save({
     ...settings,

@@ -1,3 +1,5 @@
 import { z } from "zod";
 
-export const languageSchema = z.enum(["en", "pt"]);
+export class SettingsValidator {
+  public static readonly language = z.enum(["en", "pt"]);
+}
