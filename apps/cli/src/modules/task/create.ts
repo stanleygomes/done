@@ -2,6 +2,7 @@ import { input } from "@inquirer/prompts";
 import { generateUUID } from "@paul/utils";
 import ora from "ora";
 import { createTask } from "../../api/resources/task";
+import { getSettings } from "../../store/settings-store";
 import { requireSessionToken } from "../../utils/auth-guard";
 import { t } from "../../utils/i18n";
 import { renderSuccess } from "../../utils/output";
@@ -12,6 +13,9 @@ import {
 
 export async function runCreateTaskModule(titleArg?: string): Promise<void> {
   const token = await requireSessionToken();
+  const settings = await getSettings();
+  const activeProjectId = settings.activeProjectId;
+
   const rawTitle =
     titleArg ?? (await input({ message: await t("askTaskTitle") }));
   const title = taskTitleSchema.parse(rawTitle);
@@ -29,6 +33,7 @@ export async function runCreateTaskModule(titleArg?: string): Promise<void> {
     subtasks: [],
     tags: [],
     isDeleted: false,
+    projectId: activeProjectId || null,
   });
 
   const spinner = ora(await t("loading")).start();

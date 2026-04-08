@@ -4,6 +4,7 @@ import {
   runDeleteProjectModule,
   runEditProjectModule,
   runListProjectsModule,
+  runUseProjectModule,
 } from "../modules/project";
 
 export function registerProjectCommand(program: Command): void {
@@ -34,4 +35,9 @@ export function registerProjectCommand(program: Command): void {
     .description("Delete project")
     .argument("[projectId]", "Project id")
     .action(runDeleteProjectModule);
+
+  projectCommand
+    .command("use")
+    .description("Set active project for terminal session")
+    .action(runUseProjectModule);
 }

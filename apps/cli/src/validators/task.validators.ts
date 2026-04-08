@@ -29,6 +29,7 @@ export const createTaskPayloadSchema = z.object({
   subtasks: z.array(taskSchema),
   tags: z.array(z.string()),
   isDeleted: z.boolean(),
+  projectId: z.string().uuid().optional().nullable(),
 });
 
 export const taskListResponseSchema = z.object({

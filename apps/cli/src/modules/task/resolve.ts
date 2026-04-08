@@ -1,5 +1,6 @@
 import { select } from "@inquirer/prompts";
 import { listTasks } from "../../api/resources/task";
+import { getSettings } from "../../store/settings-store";
 import { requireSessionToken } from "../../utils/auth-guard";
 import { t } from "../../utils/i18n";
 import { taskIdSchema } from "../../validators/task.validators";
@@ -10,7 +11,14 @@ export async function resolveTaskId(taskId?: string): Promise<string> {
   }
 
   const token = await requireSessionToken();
-  const tasks = (await listTasks(token)).filter((task) => !task.isDeleted);
+  const settings = await getSettings();
+  const activeProjectId = settings.activeProjectId;
+
+  let tasks = (await listTasks(token)).filter((task) => !task.isDeleted);
+
+  if (activeProjectId) {
+    tasks = tasks.filter((task) => task.projectId === activeProjectId);
+  }
 
   if (tasks.length === 0) {
     throw new Error(await t("noTasks"));

@@ -23,4 +23,9 @@ export const pt = {
   askTaskImportant: "Esta tarefa é importante?",
   askProjectTitle: "Título do projeto",
   loading: "Carregando...",
+  selectProjectToUse: "Selecione um projeto para usar nesta sessão do terminal",
+  projectActivated: "Projeto {name} ativado.",
+  projectDeactivated: "Projeto ativo limpo.",
+  none: "Nenhum",
+  activeProjectInfo: "Projeto ativo: {name}",
 } as const;

@@ -22,4 +22,9 @@ export const en = {
   askTaskImportant: "Is this task important?",
   askProjectTitle: "Project title",
   loading: "Loading...",
+  selectProjectToUse: "Select a project to use in this terminal session",
+  projectActivated: "Project {name} activated.",
+  projectDeactivated: "Project active project cleared.",
+  none: "None",
+  activeProjectInfo: "Active project: {name}",
 } as const;
