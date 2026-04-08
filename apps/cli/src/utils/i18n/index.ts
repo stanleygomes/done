@@ -14,7 +14,7 @@ export const LANGUAGE_CHOICES = [
   { name: "Português", value: "pt" },
 ] as const;
 
-type DictionaryKey = keyof (typeof dictionary)["en"];
+export type DictionaryKey = keyof (typeof dictionary)["en"];
 let currentLanguage: Language | null = null;
 
 export async function initializeI18n(): Promise<void> {

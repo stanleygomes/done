@@ -1,7 +1,9 @@
 import { z } from "zod";
 
+export const emailSchema = z.string().email("Invalid email");
+
 export const emailInputSchema = z.object({
-  email: z.string().email("Invalid email"),
+  email: emailSchema,
 });
 
 export const otpCodeSchema = z

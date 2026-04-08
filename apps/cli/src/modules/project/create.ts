@@ -1,10 +1,10 @@
-import { input } from "@inquirer/prompts";
 import { generateUUID } from "@paul/utils";
 import ora from "ora";
 import { createProject } from "../../api/resources/project";
 import { requireSessionToken } from "../../utils/auth-guard";
 import { t } from "../../utils/i18n";
 import { renderSuccess } from "../../utils/output";
+import { askAndParse } from "../../utils/prompt";
 import {
   createProjectPayloadSchema,
   projectNameSchema,
@@ -14,9 +14,11 @@ const DEFAULT_PROJECT_COLOR = "#4F46E5";
 
 export async function runCreateProjectModule(nameArg?: string): Promise<void> {
   const token = await requireSessionToken();
-  const rawName =
-    nameArg ?? (await input({ message: await t("askProjectTitle") }));
-  const name = projectNameSchema.parse(rawName);
+  const name = await askAndParse({
+    messageKey: "askProjectTitle",
+    schema: projectNameSchema,
+    initialValue: nameArg,
+  });
 
   const payload = createProjectPayloadSchema.parse({
     id: generateUUID(),
