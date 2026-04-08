@@ -1,5 +1,8 @@
 import { select } from "@inquirer/prompts";
-import { getSettings, saveSettings } from "../../store/settings-store";
+import {
+  clearActiveProject,
+  setActiveProject,
+} from "../../store/settings-store";
 import { requireSessionToken } from "../../utils/auth-guard";
 import { t } from "../../utils/i18n";
 import { renderSuccess } from "../../utils/output";
@@ -26,22 +29,18 @@ export async function runUseProjectModule(): Promise<void> {
     choices,
   });
 
-  const settings = await getSettings();
-
   if (selectedProjectId === "none") {
-    delete settings.activeProjectId;
-    delete settings.activeProjectName;
-    await saveSettings(settings);
+    await clearActiveProject();
     renderSuccess(await t("projectDeactivated"));
     return;
   }
 
   const project = projects.find((p) => p.id === selectedProjectId);
-  settings.activeProjectId = selectedProjectId;
-  settings.activeProjectName = project?.name;
-  await saveSettings(settings);
+  if (project) {
+    await setActiveProject(project.id, project.name);
 
-  renderSuccess(
-    (await t("projectActivated")).replace("{name}", project?.name || ""),
-  );
+    renderSuccess(
+      (await t("projectActivated")).replace("{name}", project.name),
+    );
+  }
 }

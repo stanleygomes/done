@@ -14,3 +14,20 @@ export async function getSettings(): Promise<CliSettings> {
 export async function saveSettings(settings: CliSettings): Promise<void> {
   await writeJsonFile(SETTINGS_FILE_PATH, settings);
 }
+
+export async function setActiveProject(id: string, name: string): Promise<void> {
+  const settings = await getSettings();
+  await saveSettings({
+    ...settings,
+    activeProjectId: id,
+    activeProjectName: name,
+  });
+}
+
+export async function clearActiveProject(): Promise<void> {
+  const settings = await getSettings();
+  const newSettings = { ...settings };
+  delete newSettings.activeProjectId;
+  delete newSettings.activeProjectName;
+  await saveSettings(newSettings);
+}
