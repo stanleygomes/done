@@ -1,5 +1,6 @@
 import { generateUUID } from "@paul/utils";
 import { createProject } from "../../api/resources/project";
+import { DEFAULT_PROJECT_COLOR } from "../../constants/project.constants";
 import { requireSessionToken } from "../../utils/auth-guard";
 import { t } from "../../utils/i18n";
 import { renderSuccess } from "../../utils/output";
@@ -9,8 +10,6 @@ import {
   createProjectPayloadSchema,
   projectNameSchema,
 } from "../../validators/project.validators";
-
-const DEFAULT_PROJECT_COLOR = "#4F46E5";
 
 export async function runCreateProjectModule(nameArg?: string): Promise<void> {
   const token = await requireSessionToken();
