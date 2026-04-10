@@ -5,8 +5,11 @@ import { config } from "./environment.js";
 
 const isDevelopment = config.app.env === "development";
 
+const databaseUrl = new URL(config.database.url);
+databaseUrl.searchParams.delete("sslmode");
+
 const pool = new Pool({
-  connectionString: config.database.url,
+  connectionString: databaseUrl.toString(),
   ssl: isDevelopment ? false : { rejectUnauthorized: false },
 });
 

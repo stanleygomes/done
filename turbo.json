@@ -102,12 +102,7 @@
     },
     "db:migrate": {
       "dependsOn": [
-        "build"
-      ]
-    },
-    "migrate": {
-      "dependsOn": [
-        "db:migrate"
+        "^db:migrate"
       ]
     }
   }

@@ -41,7 +41,7 @@ jobs:
 
       - name: Set database environment variables
         run: |
-          echo "DATABASE_URL=${{ secrets.DB_URL_CORE_API }}" >> $GITHUB_ENV
+          echo "DATABASE_URL=${{ secrets.DB_URL_CORE }}" >> $GITHUB_ENV
           echo "DATABASE_AUTH_TOKEN=${{ secrets.DB_AUTH_TOKEN_CORE_API }}" >> $GITHUB_ENV
 
       - name: Run Migrations
@@ -89,7 +89,7 @@ jobs:
         run: |
           case "${{ matrix.app }}" in
             "core-api") echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_CORE_API_PROJECT_ID }}" >> $GITHUB_ENV ;;
-            "web-ui")   echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_UI_PROJECT_ID }}"       >> $GITHUB_ENV ;;
+            "web-ui")   echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_WEB_UI_PROJECT_ID }}"       >> $GITHUB_ENV ;;
             "landpage-ui") echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_LANDPAGE_PROJECT_ID }}" >> $GITHUB_ENV ;;
           esac
 
