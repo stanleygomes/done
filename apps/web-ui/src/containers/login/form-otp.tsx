@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useTranslation, Trans } from "react-i18next";
 import { Button } from "@paul/ui/components/ui/button";
 import {
@@ -16,29 +17,28 @@ import {
   CardTitle,
 } from "@paul/ui/components/ui/card";
 import { Icon } from "@paul/ui/components/ui/icon";
+import { useLoginActions } from "../../modules/auth/use-login-actions";
+import { useLogin } from "../../modules/auth/login-context";
 
-interface OtpFormProps {
-  email: string;
-  isNewUser: boolean;
-  onVerify: (code: string) => Promise<boolean>;
-  onBack: () => void;
-  isLoading?: boolean;
-}
-
-export default function OtpForm({
-  email,
-  isNewUser,
-  onVerify,
-  onBack,
-  isLoading,
-}: OtpFormProps) {
+export default function OtpContainer() {
   const { t } = useTranslation();
+  const router = useRouter();
+  const { email, isNewUser, isLoading } = useLogin();
+  const { handleVerifyOtp } = useLoginActions();
   const [value, setValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    if (!email) {
+      router.push("/login");
+    }
+  }, [email, router]);
+
+  if (!email) return null;
+
   const handleVerify = async () => {
     if (value.length === 6) {
-      const success = await onVerify(value);
+      const success = await handleVerifyOtp(value);
       if (!success) {
         setValue("");
         inputRef.current?.focus();
@@ -101,7 +101,7 @@ export default function OtpForm({
         </div>
 
         <button
-          onClick={onBack}
+          onClick={() => router.push("/login")}
           className="text-xs font-bold uppercase tracking-widest text-foreground/40 hover:text-main hover:underline decoration-main decoration-2 underline-offset-4 cursor-pointer text-left"
         >
           {t("login.otp.change_email")}

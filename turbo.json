@@ -71,7 +71,8 @@
         "PGUSER",
         "PGHOST",
         "PGHOST_UNPOOLED",
-        "POSTGRES_URL_NO_SSL"
+        "POSTGRES_URL_NO_SSL",
+        "AUTH_PEPPER"
       ],
       "outputs": [
         ".next/**",

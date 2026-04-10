@@ -18,6 +18,7 @@ const {
   LOG_TRANSPORT,
   RATE_LIMIT_MAX,
   RATE_LIMIT_WINDOW_MS,
+  AUTH_PEPPER,
 } = process.env;
 
 export interface Environment {
@@ -43,6 +44,16 @@ export interface Environment {
       max: number;
       timeWindow: number;
     };
+    cookie: {
+      httpOnly: boolean;
+      secure: boolean;
+      sameSite: "lax" | "strict" | "none";
+      path: string;
+      maxAge: {
+        accessToken: number;
+        refreshToken: number;
+      };
+    };
   };
   logger: {
     level: string;
@@ -53,6 +64,7 @@ export interface Environment {
     jwtPublicKey: string;
     accessTokenExpiresIn: string;
     refreshTokenExpiresIn: string;
+    pepper: string;
   };
   database: {
     url: string;
@@ -89,6 +101,16 @@ export const config: Environment = {
       max: Number(RATE_LIMIT_MAX) || (NODE_ENV === "development" ? 10000 : 100),
       timeWindow: Number(RATE_LIMIT_WINDOW_MS) || 60 * 1000,
     },
+    cookie: {
+      httpOnly: true,
+      secure: NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: {
+        accessToken: 3600, // 1 hour (fallback)
+        refreshToken: 30 * 24 * 60 * 60, // 30 days
+      },
+    },
   },
   logger: {
     level: LOG_LEVEL || "info",
@@ -99,6 +121,7 @@ export const config: Environment = {
     jwtPublicKey: (JWT_PUBLIC_KEY || "").replace(/\\n/g, "\n"),
     accessTokenExpiresIn: JWT_ACCESS_EXPIRES_IN || "1h",
     refreshTokenExpiresIn: JWT_REFRESH_EXPIRES_IN || "30d",
+    pepper: AUTH_PEPPER || "",
   },
   database: {
     url:

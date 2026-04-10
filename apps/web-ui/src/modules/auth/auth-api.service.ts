@@ -24,6 +24,34 @@ export const authService = {
     return response.data;
   },
 
+  async loginPassword(email: string, password: string): Promise<any> {
+    const response = await httpClient.post<any>(
+      `${AUTH_API_URL}/v1/auth/login-password`,
+      {
+        email,
+        password,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  },
+
+  async resetPassword(data: {
+    email: string;
+    code: string;
+    newPassword: string;
+  }): Promise<any> {
+    const response = await httpClient.post<any>(
+      `${AUTH_API_URL}/v1/auth/reset-password`,
+      data,
+    );
+
+    return response.data;
+  },
+
   async verifyCode(email: string, code: string): Promise<VerifyCodeResponse> {
     const response = await httpClient.post<VerifyCodeResponse>(
       `${AUTH_API_URL}/v1/auth/verify-code`,
@@ -31,15 +59,20 @@ export const authService = {
         email,
         code,
       },
+      {
+        withCredentials: true,
+      },
     );
 
     return response.data;
   },
+
   async getMe(token: string): Promise<any> {
     const response = await httpClient.get(`${AUTH_API_URL}/v1/auth/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      withCredentials: true,
     });
 
     return response.data;
@@ -53,6 +86,7 @@ export const authService = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        withCredentials: true,
       },
     );
 
@@ -64,6 +98,9 @@ export const authService = {
       `${AUTH_API_URL}/v1/auth/refresh-token`,
       {
         refreshToken,
+      },
+      {
+        withCredentials: true,
       },
     );
 

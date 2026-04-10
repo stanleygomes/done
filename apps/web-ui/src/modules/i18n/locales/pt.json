@@ -331,8 +331,30 @@
       "agreement": "Ao continuar, você concorda com nossa",
       "and": "e",
       "errors": {
-        "invalid_email": "Por favor, insira um e-mail válido"
+        "invalid_email": "Por favor, insira um e-mail válido",
+        "code_invalid": "Código inválido",
+        "password_too_short": "Mínimo 12 caracteres",
+        "password_required": "Senha obrigatória"
       }
+    },
+    "change_email": "E-mail errado? Altere aqui",
+    "password": {
+      "title_login": "Bem-vindo de volta!",
+      "title_register": "Crie sua senha",
+      "label": "Sua senha",
+      "placeholder": "Mínimo 12 caracteres",
+      "forgot_password": "Esqueceu a senha?",
+      "login_without_password": "Entrar com código por e-mail",
+      "submit_login": "Entrar",
+      "submit_register": "Criar conta"
+    },
+    "recovery": {
+      "title": "Recuperar senha",
+      "info_code_sent": "Enviamos um código para o seu e-mail {{email}}. Insira o código e sua nova senha abaixo.",
+      "code_label": "Código de 6 dígitos",
+      "new_password_label": "Nova senha",
+      "submit": "Redefinir senha",
+      "success": "Senha redefinida com sucesso!"
     },
     "otp": {
       "title_new": "Crie sua conta",
@@ -345,7 +367,9 @@
     },
     "errors": {
       "send_code": "Erro ao enviar o código. Tente novamente.",
-      "verify_code": "Código inválido ou expirado. Verifique e tente novamente."
+      "verify_code": "Código inválido ou expirado. Verifique e tente novamente.",
+      "login_password": "E-mail ou senha incorretos.",
+      "reset_password": "Erro ao redefinir a senha. Verifique o código e tente novamente."
     }
   },
   "hints": {

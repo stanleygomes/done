@@ -24,13 +24,12 @@ Keywords: `next`, `nextjs`, `react`, `page.tsx`, `layout.tsx`, `frontend`, `ui`,
 
 ### 1) Pages are composition-first (thin `page.tsx`)
 
-- `src/app/**/page.tsx` should primarily:
-  - compose layout and components
-  - wire **top-level** state/hooks
-  - pass props down
-- `page.tsx` should **not** contain large amounts of UI detail for each subpart of the screen.
+- `src/app/**/page.tsx` should be as thin as possible.
+- Its primary responsibility is to **import and render a Container** from `src/containers`.
+- **Logic, state orchestration, and complex composition** should happen inside the **Container**, not the page.
+- This maintains a clear boundary between routing (app/) and business/UI orchestration (containers/).
 
-**Rule of thumb:** if `page.tsx` grows beyond ~80 or more lines or starts to contain multiple distinct UI sections, extract components.
+**Rule of thumb:** `page.tsx` should usually be less than 10 lines of code.
 
 ### 2) Extract components by responsibility (SRP)
 
@@ -44,16 +43,18 @@ When a UI has distinct parts, extract them into dedicated components. Typical sp
 
 Each component should have **one reason to change**.
 
-### 3) Separate UI from stateful orchestration
+### 3) Separate UI from stateful orchestration (Containers vs Components)
 
 Prefer this layering:
 
-- **Domain / pure logic** (no React):
-  - e.g. `TaskManager`, types/interfaces, pure helpers
+- **Containers (`src/containers/*`)**:
+  - Orchestrate business logic, hooks, and API calls.
+  - Compose multiple UI components.
+  - Handle redirection and top-level state.
 - **Hooks / state orchestration**:
-  - e.g. `useTasks()` that wraps localStorage state, actions and calls `TaskManager`
-- **UI components**:
-  - presentational components that receive props and emit callbacks
+  - e.g. `useTasks()` that wraps actions and helpers.
+- **UI components (`src/components/*` or local to container)**:
+  - Presentational components that receive props and emit callbacks.
 
 UI components should be as “dumb” as practical:
 
@@ -83,11 +84,12 @@ Follow the existing design rules (see `code-style` skill):
 
 ## Checklist (use before finishing)
 
-- [ ] `page.tsx` is composition-first (thin)
-- [ ] UI split into smaller components (`List`, `ListItem`, `InputBar`, `EmptyState`, etc.)
+- [ ] `page.tsx` is thin (< 10 lines) and only renders a Container
+- [ ] Business logic and state orchestration moved to a Container (`src/containers/*`)
+- [ ] UI split into smaller presentational components
 - [ ] Pure logic extracted to non-React modules when applicable
 - [ ] Complex state orchestration moved to a hook (e.g. `useTasks`)
-- [ ] No component file is excessively large (> ~150 lines)
+- [ ] No component/container file is excessively large (> ~150 lines)
 - [ ] Naming is in English (identifiers + UI strings)
 - [ ] **MANDATORY**: All UI labels use `i18n` (no hardcoded text)
 - [ ] Neobrutalism styles applied consistently

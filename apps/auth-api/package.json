@@ -16,6 +16,7 @@
     "@": "src"
   },
   "dependencies": {
+    "@fastify/cookie": "^11.0.2",
     "@fastify/cors": "^10.1.0",
     "@fastify/rate-limit": "^10.3.0",
     "@fastify/swagger": "^9.5.1",
@@ -23,6 +24,7 @@
     "@paul/http": "^0.0.0",
     "@paul/node-utils": "^0.0.0",
     "@paul/utils": "^0.0.0",
+    "argon2": "^0.41.1",
     "bcryptjs": "^3.0.3",
     "dotenv": "^16.5.0",
     "drizzle-orm": "^0.45.1",

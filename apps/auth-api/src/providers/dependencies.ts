@@ -12,6 +12,8 @@ import { ClientCredentialsService } from "../services/client-credentials.service
 import { CreateApiClientService } from "../services/create-api-client.service.js";
 import { GetProfileService } from "../services/get-profile.service.js";
 import { UpdateProfileService } from "../services/update-profile.service.js";
+import { LoginPasswordService } from "../services/login-password.service.js";
+import { ResetPasswordService } from "../services/reset-password.service.js";
 import { AuthController } from "../controllers/auth/auth.controller.js";
 
 const userRepository = new UserRepository();
@@ -50,6 +52,14 @@ const clientCredentialsService = new ClientCredentialsService(
 const createApiClientService = new CreateApiClientService(apiClientRepository);
 const getProfileService = new GetProfileService(userRepository);
 const updateProfileService = new UpdateProfileService(userRepository);
+const loginPasswordService = new LoginPasswordService(
+  userRepository,
+  jwtService,
+);
+const resetPasswordService = new ResetPasswordService(
+  verificationCodeRepository,
+  userRepository,
+);
 
 export const authController = new AuthController(
   sendEmailCodeService,
@@ -59,4 +69,6 @@ export const authController = new AuthController(
   createApiClientService,
   getProfileService,
   updateProfileService,
+  loginPasswordService,
+  resetPasswordService,
 );

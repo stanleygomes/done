@@ -1,27 +1,24 @@
 if (process.env.NODE_ENV !== "production") {
   await import("dotenv/config");
 }
-import Fastify, { FastifyInstance } from "fastify";
+import cookie from "@fastify/cookie";
 import cors from "@fastify/cors";
 import rateLimit from "@fastify/rate-limit";
-import { AppRouter } from "./router.js";
-import { config } from "./config/environment.js";
+import Fastify, { FastifyInstance } from "fastify";
+import { corsOptions } from "./config/cors.js";
 import { Docs } from "./config/docs.js";
+import { config } from "./config/environment.js";
+import { rateLimitOptions } from "./config/rate-limit.js";
 import { setupErrorHandler } from "./middlewares/error-handler.middleware.js";
+import { authCookiePlugin } from "./plugins/auth-cookie.plugin.js";
+import { AppRouter } from "./router.js";
 
 const app: FastifyInstance = Fastify();
 
-app.register(rateLimit, {
-  global: true,
-  max: config.app.rateLimit.max,
-  timeWindow: config.app.rateLimit.timeWindow,
-});
-
-app.register(cors, {
-  origin: config.app.cors.allowedOrigin,
-  methods: config.app.cors.allowedMethods.split(","),
-  allowedHeaders: config.app.cors.allowedHeaders.split(","),
-});
+app.register(cookie);
+app.register(authCookiePlugin);
+app.register(rateLimit, rateLimitOptions);
+app.register(cors, corsOptions);
 
 setupErrorHandler(app);
 

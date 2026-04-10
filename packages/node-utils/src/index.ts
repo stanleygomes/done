@@ -1,4 +1,5 @@
 export { loadTemplateFile } from "./template-utils";
+export * from "./hash-utils";
 export * from "./jwt-utils";
 export * from "./logger";
 export * from "./email-service";

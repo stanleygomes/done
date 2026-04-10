@@ -20,6 +20,51 @@ export const sendCodeSchema = {
   },
 };
 
+export const loginPasswordSchema = {
+  description: "Login with email and password",
+  tags: ["Auth"],
+  body: {
+    type: "object",
+    required: ["email", "password"],
+    properties: {
+      email: { type: "string", format: "email" },
+      password: { type: "string" },
+    },
+  },
+  response: {
+    200: {
+      type: "object",
+      properties: {
+        message: { type: "string" },
+      },
+      required: ["message"],
+    },
+  },
+};
+
+export const resetPasswordSchema = {
+  description: "Reset password using email code",
+  tags: ["Auth"],
+  body: {
+    type: "object",
+    required: ["email", "code", "newPassword"],
+    properties: {
+      email: { type: "string", format: "email" },
+      code: { type: "string" },
+      newPassword: { type: "string" },
+    },
+  },
+  response: {
+    200: {
+      type: "object",
+      properties: {
+        message: { type: "string" },
+      },
+      required: ["message"],
+    },
+  },
+};
+
 export const verifyCodeSchema = {
   description: "Verify email code and get tokens",
   tags: ["Auth"],

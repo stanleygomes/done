@@ -44,7 +44,7 @@ export function SyncIndicator() {
             className="flex items-center gap-1.5 hover:text-foreground transition-colors"
             title={`Last sync: ${new Date(lastSyncAt).toLocaleString()}`}
           >
-            <Cloud className="w-3.5 h-3.5" />
+            <Cloud className="w-8 h-8" />
             <span className="hidden sm:inline">
               Synced {formatDistanceToNow(lastSyncAt, { addSuffix: true })}
             </span>

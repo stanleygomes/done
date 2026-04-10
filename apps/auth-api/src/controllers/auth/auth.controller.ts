@@ -1,25 +1,35 @@
+import {
+  LoginPasswordInput,
+  loginPasswordSchema as loginZodSchema,
+  ResetPasswordInput,
+  resetPasswordSchema as resetPasswordZodSchema,
+  sendCodeSchema as sendCodeZodSchema,
+} from "@paul/entities";
 import { FastifyInstance } from "fastify";
-import { SendEmailCodeService } from "../../services/send-email-code.service.js";
-import { VerifyEmailCodeService } from "../../services/verify-email-code.service.js";
-import { RefreshTokenService } from "../../services/refresh-token.service.js";
+import { AuthMiddleware, UserAuth } from "../../middlewares/auth.middleware.js";
+import { validateClientCredentials } from "../../schemas/validators/client-credentials.validator.js";
+import { validateCreateClient } from "../../schemas/validators/create-client.validator.js";
+import { validateRefreshToken } from "../../schemas/validators/refresh-token.validator.js";
+import { validateVerifyCode } from "../../schemas/validators/verify-code.validator.js";
 import { ClientCredentialsService } from "../../services/client-credentials.service.js";
 import { CreateApiClientService } from "../../services/create-api-client.service.js";
 import { GetProfileService } from "../../services/get-profile.service.js";
+import { LoginPasswordService } from "../../services/login-password.service.js";
+import { RefreshTokenService } from "../../services/refresh-token.service.js";
+import { ResetPasswordService } from "../../services/reset-password.service.js";
+import { SendEmailCodeService } from "../../services/send-email-code.service.js";
 import { UpdateProfileService } from "../../services/update-profile.service.js";
-import { AuthMiddleware, UserAuth } from "../../middlewares/auth.middleware.js";
-import { validateSendCode } from "../../schemas/validators/send-code.validator.js";
-import { validateVerifyCode } from "../../schemas/validators/verify-code.validator.js";
-import { validateRefreshToken } from "../../schemas/validators/refresh-token.validator.js";
-import { validateClientCredentials } from "../../schemas/validators/client-credentials.validator.js";
-import { validateCreateClient } from "../../schemas/validators/create-client.validator.js";
+import { VerifyEmailCodeService } from "../../services/verify-email-code.service.js";
 import {
   createClientSchema,
+  getProfileSchema,
+  loginPasswordSchema,
   refreshTokenSchema,
+  resetPasswordSchema,
   sendCodeSchema,
   tokenSchema,
-  verifyCodeSchema,
-  getProfileSchema,
   updateProfileSchema,
+  verifyCodeSchema,
 } from "./auth.doc.js";
 
 export class AuthController {
@@ -31,6 +41,8 @@ export class AuthController {
     private readonly createApiClientService: CreateApiClientService,
     private readonly getProfileService: GetProfileService,
     private readonly updateProfileService: UpdateProfileService,
+    private readonly loginPasswordService: LoginPasswordService,
+    private readonly resetPasswordService: ResetPasswordService,
   ) {}
 
   registerRoutes(fastify: FastifyInstance, prefix = "") {
@@ -38,13 +50,44 @@ export class AuthController {
       `${prefix}/v1/auth/send-code`,
       { schema: sendCodeSchema },
       async (request, reply) => {
-        const validatedData = validateSendCode(request.body);
+        const validatedData = sendCodeZodSchema.parse(request.body);
 
         const { isRegistered } = await this.sendEmailCodeService.execute(
           validatedData.email,
         );
 
         reply.send({ message: "Verification code sent", isRegistered });
+      },
+    );
+
+    fastify.post<{ Body: LoginPasswordInput }>(
+      `${prefix}/v1/auth/login-password`,
+      { schema: loginPasswordSchema },
+      async (request, reply) => {
+        const validatedData = loginZodSchema.parse(request.body);
+        const { token, refreshToken } = await this.loginPasswordService.execute(
+          validatedData.email,
+          validatedData.password,
+        );
+
+        reply
+          .setAuthCookies(token, refreshToken)
+          .send({ message: "Logged in successfully" });
+      },
+    );
+
+    fastify.post<{ Body: ResetPasswordInput }>(
+      `${prefix}/v1/auth/reset-password`,
+      { schema: resetPasswordSchema },
+      async (request, reply) => {
+        const validatedData = resetPasswordZodSchema.parse(request.body);
+        await this.resetPasswordService.execute(
+          validatedData.email,
+          validatedData.code,
+          validatedData.newPassword,
+        );
+
+        reply.send({ message: "Password reset successfully" });
       },
     );
 
@@ -57,7 +100,8 @@ export class AuthController {
           validatedData.email,
           validatedData.code,
         );
-        reply.send(result);
+
+        reply.setAuthCookies(result.token, result.refreshToken).send(result);
       },
     );
 
@@ -69,7 +113,8 @@ export class AuthController {
         const result = await this.refreshTokenService.execute(
           validatedData.refreshToken,
         );
-        reply.send(result);
+
+        reply.setAuthCookies(result.token, result.refreshToken).send(result);
       },
     );
 

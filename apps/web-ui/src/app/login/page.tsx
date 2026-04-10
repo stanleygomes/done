@@ -1,5 +1,5 @@
-import Login from "src/containers/login";
+import EmailContainer from "../../containers/login/form-email";
 
 export default function LoginPage() {
-  return <Login />;
+  return <EmailContainer />;
 }

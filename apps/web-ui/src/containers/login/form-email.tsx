@@ -16,6 +16,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@paul/ui/components/ui/card";
+import { useLoginActions } from "../../modules/auth/use-login-actions";
+import { useLogin } from "../../modules/auth/login-context";
 
 const emailSchema = z.object({
   email: z.string().email("invalid_email"),
@@ -23,13 +25,11 @@ const emailSchema = z.object({
 
 type EmailFormData = z.infer<typeof emailSchema>;
 
-interface EmailFormProps {
-  onSubmit: (data: EmailFormData) => void;
-  isLoading?: boolean;
-}
-
-export default function EmailForm({ onSubmit, isLoading }: EmailFormProps) {
+export default function EmailContainer() {
   const { t } = useTranslation();
+  const { handleEmailSubmit } = useLoginActions();
+  const { isLoading } = useLogin();
+
   const {
     register,
     handleSubmit,
@@ -61,7 +61,7 @@ export default function EmailForm({ onSubmit, isLoading }: EmailFormProps) {
         </CardTitle>
       </CardHeader>
       <CardContent className="mt-4">
-        <form id="email-form" onSubmit={handleSubmit(onSubmit)}>
+        <form id="email-form" onSubmit={handleSubmit(handleEmailSubmit)}>
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
               <p className="text-sm font-bold text-foreground/60 mb-1 uppercase tracking-wider">
