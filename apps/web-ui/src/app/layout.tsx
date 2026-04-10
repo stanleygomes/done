@@ -8,6 +8,7 @@ import { Suspense } from "react";
 import en from "@modules/i18n/locales/en.json";
 import { MainWrapper } from "./main-wrapper";
 import { AuthGuard } from "@modules/auth/auth-guard";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: en.metadata.title,
@@ -62,6 +63,13 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
+      <Script
+        src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"
+        strategy="beforeInteractive"
+      />
+      <Script id="vconsole-init" strategy="afterInteractive">
+        {`var vConsole = new window.VConsole();`}
+      </Script>
       <body className="antialiased">
         <Providers>
           <Suspense fallback={null}>

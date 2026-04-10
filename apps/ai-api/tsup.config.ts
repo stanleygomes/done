@@ -10,7 +10,7 @@ export default defineConfig({
   sourcemap: true,
   dts: false,
   outDir: "dist",
-  external: ["fastify", "pg", "pino"],
-  noExternal: ["@paul/*", "dotenv"],
+  external: ["fastify", "pg", "pino", "dotenv"],
+  noExternal: ["@paul/*"],
   publicDir: "src/database/migrations",
 });
