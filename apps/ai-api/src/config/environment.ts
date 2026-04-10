@@ -94,7 +94,7 @@ export const config: Environment = {
   },
   logger: {
     level: LOG_LEVEL || "info",
-    transport: LOG_TRANSPORT,
+    transport: NODE_ENV === "production" ? undefined : LOG_TRANSPORT,
   },
   services: {
     googleAiStudio: {

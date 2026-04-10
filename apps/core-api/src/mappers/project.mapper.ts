@@ -2,7 +2,7 @@ import type { Project } from "@paul/entities";
 import type {
   DbProject,
   DbProjectInsert,
-} from "../repositories/project.repository";
+} from "../repositories/project.repository.js";
 
 export class ProjectMapper {
   static toDomain(dbRow: DbProject): Project {

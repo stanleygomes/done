@@ -1,5 +1,5 @@
-import { PlanningRepository } from "../repositories/planning.repository";
-import { BusinessError } from "../errors/BusinessError";
+import { PlanningRepository } from "../repositories/planning.repository.js";
+import { BusinessError } from "../errors/BusinessError.js";
 
 export class PlanningConversationService {
   constructor(private readonly planningRepository: PlanningRepository) {}

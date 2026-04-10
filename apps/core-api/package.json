@@ -16,6 +16,7 @@
     "@": "src"
   },
   "dependencies": {
+    "@paul/entities": "workspace:*",
     "@paul/http": "^0.0.0",
     "@paul/node-utils": "^0.0.0",
     "@paul/utils": "^0.0.0",

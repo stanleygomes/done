@@ -1,3 +1,4 @@
+import "fastify";
 import app from "../src/server.js";
 
 /**

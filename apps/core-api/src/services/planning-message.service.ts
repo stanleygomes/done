@@ -1,7 +1,7 @@
 import { Logger, loadTemplateFile } from "@paul/node-utils";
-import { PlanningRepository } from "../repositories/planning.repository";
-import { BusinessError } from "../errors/BusinessError";
-import { AiService } from "./ai.service";
+import { PlanningRepository } from "../repositories/planning.repository.js";
+import { BusinessError } from "../errors/BusinessError.js";
+import { AiService } from "./ai.service.js";
 
 const logger = Logger.getLogger();
 

@@ -61,7 +61,17 @@
         "SUPABASE_URL",
         "SUPABASE_PUBLISHABLE_KEY",
         "SUPABASE_SECRET_KEY",
-        "SUPABASE_ANON_KEY"
+        "SUPABASE_ANON_KEY",
+        "TURSO_DATABASE_URL",
+        "TURSO_AUTH_TOKEN",
+        "NEON_PROJECT_ID",
+        "PGPASSWORD",
+        "DATABASE_URL_UNPOOLED",
+        "PGDATABASE",
+        "PGUSER",
+        "PGHOST",
+        "PGHOST_UNPOOLED",
+        "POSTGRES_URL_NO_SSL"
       ],
       "outputs": [
         ".next/**",

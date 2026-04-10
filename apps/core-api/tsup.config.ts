@@ -5,11 +5,12 @@ export default defineConfig({
   format: ["esm"],
   clean: true,
   bundle: true,
+  splitting: false,
   minify: false,
   sourcemap: true,
   dts: false,
   outDir: "dist",
   external: ["fastify", "pg", "pino"],
-  noExternal: ["@paul/node-utils", "@paul/http", "@paul/utils", "dotenv"],
+  noExternal: [/^@paul\/.*/, "dotenv"],
   publicDir: "src/database/migrations",
 });

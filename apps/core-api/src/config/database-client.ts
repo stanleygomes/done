@@ -1,7 +1,7 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import * as schema from "../schemas/database/index";
-import { config } from "./environment";
+import * as schema from "../schemas/database/index.js";
+import { config } from "./environment.js";
 
 const isDevelopment = config.app.env === "development";
 

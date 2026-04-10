@@ -6,10 +6,10 @@ import {
   getProjectSchema,
   listProjectsSchema,
   updateProjectSchemaDoc,
-} from "./project.doc";
+} from "./project.doc.js";
 import type { Project } from "@paul/entities";
-import { ProjectService } from "../../services/project.service";
-import { AuthMiddleware, UserAuth } from "../../middlewares/auth.middleware";
+import { ProjectService } from "../../services/project.service.js";
+import { AuthMiddleware, UserAuth } from "../../middlewares/auth.middleware.js";
 
 type AuthenticatedRequest = FastifyRequest & {
   user: UserAuth;

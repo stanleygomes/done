@@ -278,6 +278,9 @@ importers:
       '@fastify/swagger-ui':
         specifier: ^5.2.3
         version: 5.2.5
+      '@paul/entities':
+        specifier: workspace:*
+        version: link:../../packages/entities
       '@paul/http':
         specifier: ^0.0.0
         version: link:../../packages/http
@@ -552,6 +555,9 @@ importers:
       '@paul/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(jiti@2.6.1)(postcss@8.5.8)(tsx@4.21.0)(typescript@5.9.2)(yaml@2.8.3)
       typescript:
         specifier: 5.9.2
         version: 5.9.2

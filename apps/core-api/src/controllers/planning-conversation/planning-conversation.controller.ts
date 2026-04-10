@@ -1,11 +1,11 @@
 import { FastifyInstance, FastifyRequest } from "fastify";
-import { PlanningConversationService } from "../../services/planning-conversation.service";
-import { AuthMiddleware, UserAuth } from "../../middlewares/auth.middleware";
+import { PlanningConversationService } from "../../services/planning-conversation.service.js";
+import { AuthMiddleware, UserAuth } from "../../middlewares/auth.middleware.js";
 import {
   listConversationsSchema,
   createConversationSchema,
   deleteConversationSchema,
-} from "./planning-conversation.doc";
+} from "./planning-conversation.doc.js";
 
 type AuthenticatedRequest = FastifyRequest & {
   user: UserAuth;

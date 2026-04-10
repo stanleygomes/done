@@ -1,9 +1,9 @@
 import { FastifyInstance, FastifyRequest } from "fastify";
 import { bulkSyncTasksSchema, bulkSyncProjectsSchema } from "@paul/entities";
-import { syncSchema } from "./sync.doc";
+import { syncSchema } from "./sync.doc.js";
 import type { Task, Project } from "@paul/entities";
-import { SyncService } from "../../services/sync.service";
-import { AuthMiddleware, UserAuth } from "../../middlewares/auth.middleware";
+import { SyncService } from "../../services/sync.service.js";
+import { AuthMiddleware, UserAuth } from "../../middlewares/auth.middleware.js";
 
 type AuthenticatedRequest = FastifyRequest & {
   user: UserAuth;

@@ -1,6 +1,9 @@
 import type { Task } from "@paul/entities";
-import { TaskRepository, type DbTask } from "../repositories/task.repository";
-import { TaskMapper } from "../mappers/task.mapper";
+import {
+  TaskRepository,
+  type DbTask,
+} from "../repositories/task.repository.js";
+import { TaskMapper } from "../mappers/task.mapper.js";
 
 export class TaskSyncService {
   constructor(private readonly taskRepository: TaskRepository) {}
