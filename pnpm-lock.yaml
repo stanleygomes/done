@@ -108,6 +108,9 @@ importers:
       '@fastify/swagger-ui':
         specifier: ^5.2.3
         version: 5.2.5
+      '@paul/entities':
+        specifier: workspace:*
+        version: link:../../packages/entities
       '@paul/http':
         specifier: ^0.0.0
         version: link:../../packages/http
