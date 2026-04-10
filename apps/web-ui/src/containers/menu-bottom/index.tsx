@@ -6,7 +6,7 @@ import { MobileNavbar } from "./mobile-navbar";
 export function MobileMenu() {
   const pathname = usePathname();
 
-  const isLogin = pathname === "/login";
+  const isLogin = pathname.startsWith("/login");
   const isLanding = pathname === "/landing";
 
   if (isLogin || isLanding) return null;

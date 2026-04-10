@@ -7,7 +7,7 @@ export default function MenuTop() {
   const { leftContent, rightContent } = useTopMenu();
   const pathname = usePathname();
 
-  const isLogin = pathname === "/login";
+  const isLogin = pathname.startsWith("/login");
   const isLanding = pathname === "/landing";
 
   if (isLogin || isLanding) return null;
