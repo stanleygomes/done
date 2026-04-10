@@ -16,16 +16,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@paul/ui/components/ui/card";
-import { ArrowLeft, Key, Mail } from "lucide-react";
+import { ArrowLeft, Check, Circle, Key, Mail } from "lucide-react";
 import { useLoginActions } from "../../modules/auth/use-login-actions";
 import { useLogin } from "../../modules/auth/login-context";
+import { userPasswordSchema } from "@paul/entities";
 
-const recoverySchema = z.object({
-  code: z.string().length(6, "code_invalid"),
-  newPassword: z.string().min(12, "password_too_short"),
-});
-
-type RecoveryFormData = z.infer<typeof recoverySchema>;
+type RecoveryFormData = {
+  code: string;
+  newPassword: string;
+};
 
 export default function RecoveryContainer() {
   const { t } = useTranslation();
@@ -36,13 +35,21 @@ export default function RecoveryContainer() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isValid },
     setFocus,
   } = useForm<RecoveryFormData>({
     mode: "onChange",
-    resolver: zodResolver(recoverySchema),
+    resolver: zodResolver(
+      z.object({
+        code: z.string().length(6, "code_invalid"),
+        newPassword: userPasswordSchema,
+      }),
+    ),
     defaultValues: { code: "", newPassword: "" },
   });
+
+  const passwordValue = watch("newPassword", "");
 
   useEffect(() => {
     if (!email) {
@@ -59,9 +66,10 @@ export default function RecoveryContainer() {
       <CardHeader className="pb-4 relative">
         <button
           onClick={() => router.push("/login/password")}
-          className="absolute left-0 top-0 p-2 text-foreground/40 hover:text-foreground transition-colors"
+          className="absolute -left-2 -top-2 h-10 w-10 md:h-12 md:w-12 flex items-center justify-center rounded-base border-2 border-border bg-main text-main-foreground shadow-shadow transition-all hover:bg-main/90 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none z-10"
+          title={t("settings.back")}
         >
-          <ArrowLeft size={24} />
+          <ArrowLeft size={24} strokeWidth={3} />
         </button>
         <CardTitle className="text-3xl font-black uppercase tracking-tighter text-foreground flex flex-col gap-2 pt-4">
           <div className="text-2xl md:text-3xl">
@@ -121,9 +129,36 @@ export default function RecoveryContainer() {
               </div>
               {errors.newPassword && (
                 <p className="text-xs font-black text-red-500 uppercase mt-1 italic">
-                  {t(`login.form.errors.${errors.newPassword.message}`)}
+                  {errors.newPassword.message &&
+                  t(`login.form.errors.${errors.newPassword.message}`) !==
+                    `login.form.errors.${errors.newPassword.message}`
+                    ? t(`login.form.errors.${errors.newPassword.message}`)
+                    : errors.newPassword.message}
                 </p>
               )}
+
+              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-2 p-4 rounded-base border-2 border-border bg-background/50">
+                <Requirement
+                  label={t("login.password.requirements.length")}
+                  met={passwordValue.length >= 12}
+                />
+                <Requirement
+                  label={t("login.password.requirements.lowercase")}
+                  met={/[a-z]/.test(passwordValue)}
+                />
+                <Requirement
+                  label={t("login.password.requirements.uppercase")}
+                  met={/[A-Z]/.test(passwordValue)}
+                />
+                <Requirement
+                  label={t("login.password.requirements.number")}
+                  met={/[0-9]/.test(passwordValue)}
+                />
+                <Requirement
+                  label={t("login.password.requirements.special")}
+                  met={/[^a-zA-Z0-9]/.test(passwordValue)}
+                />
+              </div>
             </div>
           </div>
         </form>
@@ -140,5 +175,20 @@ export default function RecoveryContainer() {
         </Button>
       </CardFooter>
     </Card>
+  );
+}
+
+function Requirement({ label, met }: { label: string; met: boolean }) {
+  return (
+    <div
+      className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-wider transition-colors ${met ? "text-green-500" : "text-foreground/20"}`}
+    >
+      {met ? (
+        <Check size={12} strokeWidth={4} />
+      ) : (
+        <Circle size={12} strokeWidth={4} />
+      )}
+      {label}
+    </div>
   );
 }

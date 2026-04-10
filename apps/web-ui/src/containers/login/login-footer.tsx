@@ -10,9 +10,9 @@ export default function LoginFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-border p-4 text-center md:p-6 flex flex-col items-center gap-4">
+    <footer className="bg-border dark:bg-main p-4 text-center md:p-6 flex flex-col items-center gap-4 transition-colors duration-300">
       <LoginLinks />
-      <div className="text-[10px] md:text-xs font-black uppercase tracking-wider text-background italic opacity-60">
+      <div className="text-[10px] md:text-xs font-black uppercase tracking-wider text-background dark:text-main-foreground italic opacity-60">
         {t("login.footer", { year: currentYear })}
       </div>
     </footer>

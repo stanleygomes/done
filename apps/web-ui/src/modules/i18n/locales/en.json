@@ -346,7 +346,14 @@
       "forgot_password": "Forgot password?",
       "login_without_password": "Login with email code",
       "submit_login": "Login",
-      "submit_register": "Register"
+      "submit_register": "Register",
+      "requirements": {
+        "length": "At least 12 characters",
+        "lowercase": "One lowercase letter",
+        "uppercase": "One uppercase letter",
+        "number": "One number",
+        "special": "One special character"
+      }
     },
     "recovery": {
       "title": "Recover password",
@@ -367,6 +374,7 @@
     },
     "errors": {
       "send_code": "Error sending code. Please try again.",
+      "check_email": "Error checking email. Please try again.",
       "verify_code": "Invalid or expired code. Please check and try again.",
       "login_password": "Incorrect email or password.",
       "reset_password": "Error resetting password. Check the code and try again."

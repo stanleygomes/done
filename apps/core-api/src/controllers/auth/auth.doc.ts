@@ -20,6 +20,27 @@ export const sendCodeSchema = {
   },
 };
 
+export const checkEmailSchema = {
+  description: "Check if an email is registered",
+  tags: ["Auth"],
+  body: {
+    type: "object",
+    required: ["email"],
+    properties: {
+      email: { type: "string", format: "email" },
+    },
+  },
+  response: {
+    200: {
+      type: "object",
+      properties: {
+        isRegistered: { type: "boolean" },
+      },
+      required: ["isRegistered"],
+    },
+  },
+};
+
 export const loginPasswordSchema = {
   description: "Login with email and password",
   tags: ["Auth"],
@@ -38,6 +59,30 @@ export const loginPasswordSchema = {
         message: { type: "string" },
       },
       required: ["message"],
+    },
+  },
+};
+
+export const registerSchema = {
+  description: "Register a new user",
+  tags: ["Auth"],
+  body: {
+    type: "object",
+    required: ["email", "password"],
+    properties: {
+      email: { type: "string", format: "email" },
+      password: { type: "string" },
+    },
+  },
+  response: {
+    201: {
+      type: "object",
+      properties: {
+        message: { type: "string" },
+        token: { type: "string" },
+        refreshToken: { type: "string" },
+      },
+      required: ["message", "token", "refreshToken"],
     },
   },
 };

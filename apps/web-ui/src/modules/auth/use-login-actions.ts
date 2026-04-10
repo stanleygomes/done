@@ -11,26 +11,18 @@ export function useLoginActions() {
   const { t } = useTranslation();
   const { login: finishLogin } = useAuth();
   const router = useRouter();
-  const {
-    email,
-    setEmail,
-    setIsNewUser,
-    isNewUser,
-    tempPassword,
-    setTempPassword,
-    setIsLoading,
-  } = useLogin();
+  const { email, setEmail, setIsNewUser, isNewUser, setIsLoading } = useLogin();
 
   const handleEmailSubmit = async (data: { email: string }) => {
     setIsLoading(true);
     try {
-      const response = await authService.sendCode(data.email);
+      const response = await authService.checkEmail(data.email);
       setEmail(data.email);
       setIsNewUser(!response.isRegistered);
       router.push("/login/password");
     } catch (error) {
-      console.error("Error sending code:", error);
-      toast.error(t("login.errors.send_code"));
+      console.error("Error checking email:", error);
+      toast.error(t("login.errors.check_email"));
     } finally {
       setIsLoading(false);
     }
@@ -40,8 +32,9 @@ export function useLoginActions() {
     setIsLoading(true);
     try {
       if (isNewUser) {
-        setTempPassword(data.password);
-        router.push("/login/otp");
+        const response = await authService.register(email, data.password);
+        finishLogin(response.token, response.refreshToken);
+        router.push("/");
       } else {
         await authService.loginPassword(email, data.password);
         router.push("/");
@@ -82,15 +75,6 @@ export function useLoginActions() {
     setIsLoading(true);
     try {
       const response = await authService.verifyCode(email, code);
-
-      if (isNewUser && tempPassword) {
-        await authService.resetPassword({
-          email,
-          code,
-          newPassword: tempPassword,
-        });
-      }
-
       finishLogin(response.token, response.refreshToken);
       router.push("/");
       return true;

@@ -1,6 +1,8 @@
 import {
   LoginPasswordInput,
   loginPasswordSchema as loginZodSchema,
+  RegisterInput,
+  registerSchema as registerZodSchema,
   ResetPasswordInput,
   resetPasswordSchema as resetPasswordZodSchema,
   sendCodeSchema as sendCodeZodSchema,
@@ -19,7 +21,9 @@ import { RefreshTokenService } from "../../services/refresh-token.service.js";
 import { ResetPasswordService } from "../../services/reset-password.service.js";
 import { SendEmailCodeService } from "../../services/send-email-code.service.js";
 import { UpdateProfileService } from "../../services/update-profile.service.js";
+import { RegisterService } from "../../services/register.service.js";
 import { VerifyEmailCodeService } from "../../services/verify-email-code.service.js";
+import { CheckUserExistenceService } from "../../services/check-user-existence.service.js";
 import {
   createClientSchema,
   getProfileSchema,
@@ -27,9 +31,11 @@ import {
   refreshTokenSchema,
   resetPasswordSchema,
   sendCodeSchema,
+  checkEmailSchema,
   tokenSchema,
   updateProfileSchema,
   verifyCodeSchema,
+  registerSchema,
 } from "./auth.doc.js";
 
 export class AuthController {
@@ -43,9 +49,25 @@ export class AuthController {
     private readonly updateProfileService: UpdateProfileService,
     private readonly loginPasswordService: LoginPasswordService,
     private readonly resetPasswordService: ResetPasswordService,
+    private readonly registerService: RegisterService,
+    private readonly checkUserExistenceService: CheckUserExistenceService,
   ) {}
 
   registerRoutes(fastify: FastifyInstance, prefix = "") {
+    fastify.post<{ Body: { email: string } }>(
+      `${prefix}/v1/auth/check-email`,
+      { schema: checkEmailSchema },
+      async (request, reply) => {
+        const validatedData = sendCodeZodSchema.parse(request.body);
+
+        const { isRegistered } = await this.checkUserExistenceService.execute(
+          validatedData.email,
+        );
+
+        reply.send({ isRegistered });
+      },
+    );
+
     fastify.post<{ Body: { email: string } }>(
       `${prefix}/v1/auth/send-code`,
       { schema: sendCodeSchema },
@@ -57,6 +79,24 @@ export class AuthController {
         );
 
         reply.send({ message: "Verification code sent", isRegistered });
+      },
+    );
+
+    fastify.post<{ Body: RegisterInput }>(
+      `${prefix}/v1/auth/register`,
+      { schema: registerSchema },
+      async (request, reply) => {
+        const validatedData = registerZodSchema.parse(request.body);
+        const { token, refreshToken } = await this.registerService.execute(
+          validatedData.email,
+          validatedData.password,
+        );
+
+        reply.status(201).setAuthCookies(token, refreshToken).send({
+          message: "User registered successfully",
+          token,
+          refreshToken,
+        });
       },
     );
 

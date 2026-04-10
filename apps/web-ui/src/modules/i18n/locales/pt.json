@@ -346,7 +346,14 @@
       "forgot_password": "Esqueceu a senha?",
       "login_without_password": "Entrar com código por e-mail",
       "submit_login": "Entrar",
-      "submit_register": "Criar conta"
+      "submit_register": "Criar conta",
+      "requirements": {
+        "length": "Pelo menos 12 caracteres",
+        "lowercase": "Uma letra minúscula",
+        "uppercase": "Uma letra maiúscula",
+        "number": "Um número",
+        "special": "Um caractere especial"
+      }
     },
     "recovery": {
       "title": "Recuperar senha",
@@ -367,6 +374,7 @@
     },
     "errors": {
       "send_code": "Erro ao enviar o código. Tente novamente.",
+      "check_email": "Erro ao verificar o e-mail. Tente novamente.",
       "verify_code": "Código inválido ou expirado. Verifique e tente novamente.",
       "login_password": "E-mail ou senha incorretos.",
       "reset_password": "Erro ao redefinir a senha. Verifique o código e tente novamente."

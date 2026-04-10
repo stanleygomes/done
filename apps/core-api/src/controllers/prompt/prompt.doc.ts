@@ -1,4 +1,6 @@
 export const executePromptDoc = {
+  description: "Execute a prompt",
+  tags: ["Prompt"],
   body: {
     type: "object",
     required: ["contents"],

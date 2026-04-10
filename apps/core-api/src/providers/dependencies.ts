@@ -15,6 +15,8 @@ import { ResetPasswordService } from "../services/reset-password.service.js";
 import { SendEmailCodeService } from "../services/send-email-code.service.js";
 import { UpdateProfileService } from "../services/update-profile.service.js";
 import { VerifyEmailCodeService } from "../services/verify-email-code.service.js";
+import { CheckUserExistenceService } from "../services/check-user-existence.service.js";
+import { RegisterService } from "../services/register.service.js";
 import { PromptLogRepository } from "../repositories/prompt-log.repository.js";
 import { GoogleAiStudioService } from "../services/google-ai-studio.service.js";
 import { PromptExecutionService } from "../services/prompt-execution.service.js";
@@ -81,10 +83,12 @@ const loginPasswordService = new LoginPasswordService(
   userRepository,
   jwtService,
 );
+const checkUserExistenceService = new CheckUserExistenceService(userRepository);
 const resetPasswordService = new ResetPasswordService(
   verificationCodeRepository,
   userRepository,
 );
+const registerService = new RegisterService(userRepository, jwtService);
 
 const googleAiStudioService = new GoogleAiStudioService();
 
@@ -121,6 +125,8 @@ export const authController = new AuthController(
   updateProfileService,
   loginPasswordService,
   resetPasswordService,
+  registerService,
+  checkUserExistenceService,
 );
 
 export const projectController = new ProjectController(projectService);

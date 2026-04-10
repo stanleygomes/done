@@ -26,6 +26,10 @@ export class Docs {
   }
 
   static async register(fastify: any) {
+    if (config.app.env === "production") {
+      return;
+    }
+
     await fastify.register(swagger, this.buildSwaggerConfig());
     await fastify.register(swaggerUI, {
       routePrefix: config.app.docs.path,

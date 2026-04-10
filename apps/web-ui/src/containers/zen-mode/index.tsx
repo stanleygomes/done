@@ -38,8 +38,6 @@ export function ZenModeView({ task, onExit }: ZenModeViewProps) {
             <ZenBadges task={task} project={project} />
           </div>
 
-          <PomodoroTimer />
-
           {(task.notes || task.subtasks.length > 0) && (
             <div className="w-full mt-8 flex flex-col gap-6">
               <ZenNotes notes={task.notes} />

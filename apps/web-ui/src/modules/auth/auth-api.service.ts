@@ -12,7 +12,34 @@ export interface VerifyCodeResponse {
   isNew: boolean;
 }
 
+export interface CheckEmailResponse {
+  isRegistered: boolean;
+}
+
 export const authService = {
+  async checkEmail(email: string): Promise<CheckEmailResponse> {
+    const response = await httpClient.post<CheckEmailResponse>(
+      `${AUTH_API_URL}/v1/auth/check-email`,
+      {
+        email,
+      },
+    );
+
+    return response.data;
+  },
+
+  async register(email: string, password: string): Promise<any> {
+    const response = await httpClient.post<any>(
+      `${AUTH_API_URL}/v1/auth/register`,
+      {
+        email,
+        password,
+      },
+    );
+
+    return response.data;
+  },
+
   async sendCode(email: string): Promise<SendCodeResponse> {
     const response = await httpClient.post<SendCodeResponse>(
       `${AUTH_API_URL}/v1/auth/send-code`,

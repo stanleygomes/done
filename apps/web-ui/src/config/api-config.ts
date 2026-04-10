@@ -1,5 +1,7 @@
 export const AUTH_API_URL = process.env.NEXT_PUBLIC_AUTH_API_URL;
 export const CORE_API_URL = process.env.NEXT_PUBLIC_CORE_API_URL;
+export const LANDPAGE_URL =
+  process.env.NEXT_PUBLIC_LANDPAGE_URL || "http://localhost:3000";
 
 export const getHeaders = (token: string | null) => ({
   Authorization: token ? `Bearer ${token}` : "",

@@ -10,8 +10,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const publicPaths = ["/login"];
-  const isPublicPath = publicPaths.includes(pathname);
+  const isPublicPath = pathname.startsWith("/login");
 
   useEffect(() => {
     if (isLoaded) {
