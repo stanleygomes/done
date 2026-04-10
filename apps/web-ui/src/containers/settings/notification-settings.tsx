@@ -12,8 +12,8 @@ export function NotificationSettings() {
   >("default");
 
   useEffect(() => {
-    if ("Notification" in window) {
-      setPermission(Notification.permission);
+    if (typeof window !== "undefined" && "Notification" in window) {
+      setPermission(window.Notification.permission);
     } else {
       setPermission("unsupported");
     }

@@ -9,6 +9,7 @@ export class NotificationManager {
       return "denied";
     }
 
+    if (typeof Notification === "undefined") return "denied";
     const permission = await Notification.requestPermission();
     if (permission === "granted") {
       toast.success("Notificações ativadas!");
@@ -20,7 +21,11 @@ export class NotificationManager {
   }
 
   static async sendNotification(title: string, options?: NotificationOptions) {
-    if (Notification.permission !== "granted") return;
+    if (
+      typeof Notification === "undefined" ||
+      Notification.permission !== "granted"
+    )
+      return;
 
     if ("serviceWorker" in navigator) {
       const registration = await navigator.serviceWorker.ready;
@@ -30,7 +35,9 @@ export class NotificationManager {
         ...options,
       });
     } else {
-      new Notification(title, options);
+      if (typeof Notification !== "undefined") {
+        new Notification(title, options);
+      }
     }
   }
 

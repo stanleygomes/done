@@ -10,7 +10,11 @@ export function NotificationWatcher() {
   const prevTasksRef = useRef<string>("");
 
   useEffect(() => {
-    if (Notification.permission !== "granted") return;
+    if (
+      typeof Notification === "undefined" ||
+      Notification.permission !== "granted"
+    )
+      return;
 
     const currentTasksHash = JSON.stringify(
       todoTasks.map((t) => ({ id: t.id, date: t.dueDate, time: t.dueTime })),
