@@ -1,13 +1,8 @@
 import "dotenv/config";
 import type { Config } from "drizzle-kit";
 
-const rawUrl = process.env.DATABASE_URL || "";
-if (!rawUrl) {
-  console.error("DATABASE_URL is missing in environment variables");
-  process.exit(1);
-}
-
-const databaseUrl = new URL(rawUrl);
+// Handle SSL for Supabase connection (self-signed certificates)
+const databaseUrl = new URL(process.env.DATABASE_URL || "");
 databaseUrl.searchParams.delete("sslmode");
 
 export default {

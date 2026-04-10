@@ -1,5 +1,5 @@
 import { db } from "../config/database-client.js";
-import { prompt_logs } from "../schemas/database/index.js";
+import { promptLogs } from "../schemas/database/index.js";
 
 interface SavePromptLogInput {
   userId: string;
@@ -11,7 +11,7 @@ interface SavePromptLogInput {
 
 export class PromptLogRepository {
   async save(data: SavePromptLogInput) {
-    await db.insert(prompt_logs).values({
+    await db.insert(promptLogs).values({
       id: crypto.randomUUID(),
       user_id: data.userId,
       user_email: data.userEmail,

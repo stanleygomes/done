@@ -41,7 +41,6 @@ export class AuthMiddleware {
       if (error instanceof AuthError) {
         throw error;
       }
-
       throw new AuthError("Token expired or invalid");
     }
   }

@@ -23,9 +23,7 @@ This Turborepo includes the following apps:
 
 ### Apps (`/apps`)
 
-- `auth-api`: authentication service (OTP/JWT, security integrations, and email utilities).
-- `core-api`: main domain API.
-- `ai-api`: API for AI features.
+- `core-api`: consolidated backend service (authentication, domain logic, and AI features).
 - `web-ui`: primary web app built with Next.js.
 - `desktop`: Electron desktop client.
 - `cli`: terminal client for authentication, tasks, and projects.
@@ -51,9 +49,7 @@ pnpm install
 | :--------------------- | :------------------------------------------------ |
 | `pnpm run dev`         | Starts apps in development mode (except desktop). |
 | `pnpm run app:web`     | Starts only `web-ui`.                             |
-| `pnpm run app:auth`    | Starts only `auth-api`.                           |
 | `pnpm run app:core`    | Starts only `core-api`.                           |
-| `pnpm run app:ai`      | Starts only `ai-api`.                             |
 | `pnpm run app:desktop` | Starts desktop (Electron).                        |
 | `pnpm run build`       | Builds all workspaces.                            |
 | `pnpm run lint`        | Runs lint across all workspaces.                  |
@@ -65,9 +61,7 @@ pnpm install
 
 Each app has its own template:
 
-- `apps/auth-api/.env.template`
 - `apps/core-api/.env.template`
-- `apps/ai-api/.env.template`
 - `apps/web-ui/.env.template`
 
 Copy the template for the desired app to `.env` and fill in the values.

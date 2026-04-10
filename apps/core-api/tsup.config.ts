@@ -11,6 +11,6 @@ export default defineConfig({
   dts: false,
   outDir: "dist",
   external: ["fastify", "pg", "pino", "dotenv"],
-  noExternal: [/^@paul\/.*/],
+  noExternal: ["@paul/*", "bcryptjs", "argon2"],
   publicDir: "src/database/migrations",
 });

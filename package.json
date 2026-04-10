@@ -5,12 +5,11 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --filter=!desktop --filter=!cli",
-    "app:auth": "turbo run dev --filter=auth-api",
     "app:core": "turbo run dev --filter=core-api",
-    "app:ai": "turbo run dev --filter=ai-api",
     "app:web": "turbo run dev --filter=web-ui",
     "app:landpage": "turbo run dev --filter=landpage-ui",
     "app:desktop": "turbo run electron:dev --filter=desktop",
+    "studio": "turbo run studio --filter=core-api",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",

@@ -5,29 +5,29 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1775212264434,
+      "when": 1775213354548,
       "tag": "0000_initial_schema",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1775302198039,
-      "tag": "0001_nebulous_ares",
+      "when": 1775827083331,
+      "tag": "0001_add_password_hash_to_users",
       "breakpoints": true
     },
     {
       "idx": 2,
       "version": "7",
-      "when": 1775415607101,
-      "tag": "0002_exotic_adam_destine",
+      "when": 1775831811064,
+      "tag": "0002_add_prompt_table",
       "breakpoints": true
     },
     {
       "idx": 3,
       "version": "7",
-      "when": 1775480862939,
-      "tag": "0003_late_professor_monster",
+      "when": 1775832040008,
+      "tag": "0003_add_core_tables",
       "breakpoints": true
     }
   ]

@@ -1,9 +1,7 @@
 import swagger from "@fastify/swagger";
 import swaggerUI from "@fastify/swagger-ui";
 import { config } from "./environment.js";
-import { createRequire } from "node:module";
-const require = createRequire(import.meta.url);
-const pkg = require("../../../../package.json");
+import pkg from "../../../../package.json" with { type: "json" };
 
 export class Docs {
   static buildSwaggerConfig() {
@@ -11,7 +9,6 @@ export class Docs {
       openapi: {
         info: {
           title: pkg.name,
-          description: pkg.description,
           version: pkg.version,
         },
         components: {

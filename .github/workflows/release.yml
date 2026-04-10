@@ -20,12 +20,7 @@ jobs:
 
   migrate:
     needs: [build]
-    name: Migrate ${{ matrix.api }}
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        api: [auth-api, core-api, ai-api]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -46,18 +41,11 @@ jobs:
 
       - name: Set database environment variables
         run: |
-          case "${{ matrix.api }}" in
-            "auth-api")
-              echo "DATABASE_URL=${{ secrets.DB_URL_AUTH_API }}" >> $GITHUB_ENV ;;
-            "core-api")
-              echo "DATABASE_URL=${{ secrets.DB_URL_CORE_API }}" >> $GITHUB_ENV ;;
-            "ai-api")
-              echo "DATABASE_URL=${{ secrets.DB_URL_AI_API }}" >> $GITHUB_ENV
-              echo "DATABASE_AUTH_TOKEN=${{ secrets.DB_AUTH_TOKEN_AI_API }}" >> $GITHUB_ENV ;;
-          esac
+          echo "DATABASE_URL=${{ secrets.DB_URL_CORE_API }}" >> $GITHUB_ENV
+          echo "DATABASE_AUTH_TOKEN=${{ secrets.DB_AUTH_TOKEN_CORE_API }}" >> $GITHUB_ENV
 
-      - name: Run Migrations for ${{ matrix.api }}
-        run: pnpm -F ${{ matrix.api }} db:migrate
+      - name: Run Migrations
+        run: pnpm -F core-api db:migrate
 
   release:
     needs: [migrate]
@@ -89,7 +77,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        app: [auth-api, core-api, ai-api, web-ui, landpage-ui]
+        app: [core-api, web-ui, landpage-ui]
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -100,9 +88,7 @@ jobs:
       - name: Set Vercel Project ID
         run: |
           case "${{ matrix.app }}" in
-            "auth-api") echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_AUTH_API_PROJECT_ID }}" >> $GITHUB_ENV ;;
             "core-api") echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_CORE_API_PROJECT_ID }}" >> $GITHUB_ENV ;;
-            "ai-api")   echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_AI_API_PROJECT_ID }}"   >> $GITHUB_ENV ;;
             "web-ui")   echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_UI_PROJECT_ID }}"       >> $GITHUB_ENV ;;
             "landpage-ui") echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_LANDPAGE_PROJECT_ID }}" >> $GITHUB_ENV ;;
           esac

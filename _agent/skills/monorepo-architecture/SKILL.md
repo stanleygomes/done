@@ -20,10 +20,9 @@ Keywords: `monorepo`, `turborepo`, `workspace`, `package`, `boundary`, `dependen
 ```
 paul/
 ├── apps/
-│   ├── auth-api/     # Auth service — Fastify, SQLite/Drizzle/PostgreSQL, Resend, RS256 JWT
-│   ├── core-ai-api/  # AI-powered service — Fastify, Google AI Studio
-│   ├── desktop/      # Desktop application — Electron
-│   └── web-ui/       # Primary frontend — Next.js 16, React 19, TailwindCSS 4
+│   ├── core-api/    # Consolidated service — Fastify, PostgreSQL, Google AI Studio, Resend, RS256 JWT
+│   ├── desktop/     # Desktop application — Electron
+│   └── web-ui/      # Primary frontend — Next.js 16, React 19, TailwindCSS 4
 ├── packages/
 │   ├── entities/           # @paul/entities — shared domain entities and types
 │   ├── eslint-config/      # @paul/eslint-config — shared ESLint rules
@@ -74,8 +73,7 @@ Defined in `turbo.json`:
 npm run dev
 
 # Run a single app
-npm run app:auth       # auth-api
-npm run app:core-ai    # core-ai-api
+npm run app:core       # core-api
 npm run app:web        # web-ui
 npm run app:desktop    # desktop
 

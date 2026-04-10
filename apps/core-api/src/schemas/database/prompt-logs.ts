@@ -1,6 +1,6 @@
 import { pgTable, text, timestamp, index } from "drizzle-orm/pg-core";
 
-export const prompt_logs = pgTable(
+export const promptLogs = pgTable(
   "prompt_logs",
   {
     id: text("id").primaryKey(),

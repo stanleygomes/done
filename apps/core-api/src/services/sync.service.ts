@@ -1,7 +1,7 @@
 import type { Project, Task } from "@paul/entities";
 import { Logger } from "@paul/node-utils";
 import type { Logger as PinoLogger } from "pino";
-import { TaskSyncService } from "./task-sync.service.js";
+import { TaskSyncService } from "../services/task-sync.service.js";
 import { ProjectSyncService } from "./project-sync.service.js";
 
 const logger: PinoLogger = Logger.getLogger();
