@@ -45,7 +45,9 @@
       "device_hint": "Nota: A configuração é definida por dispositivo e salva localmente.",
       "focus_label": "Foco (minutos)",
       "short_break_label": "Pausa Curta (minutos)",
-      "long_break_label": "Pausa Longa (minutos)"
+      "long_break_label": "Pausa Longa (minutos)",
+      "save_button": "Salvar Configurações",
+      "saved_success": "Configurações de Pomodoro salvas!"
     },
     "profile": {
       "account_type": "Conta Pessoal",

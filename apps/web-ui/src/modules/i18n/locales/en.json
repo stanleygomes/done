@@ -45,7 +45,9 @@
       "device_hint": "Note: Configuration is per device and saved locally.",
       "focus_label": "Focus (minutes)",
       "short_break_label": "Short Break (minutes)",
-      "long_break_label": "Long Break (minutes)"
+      "long_break_label": "Long Break (minutes)",
+      "save_button": "Save Settings",
+      "saved_success": "Pomodoro settings saved!"
     },
     "profile": {
       "account_type": "Personal Account",
