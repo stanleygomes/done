@@ -80,9 +80,16 @@ export default function PasswordContainer() {
                 {t("login.password.label")}
               </p>
               <Input
+                type="hidden"
+                name="email"
+                value={email}
+                autoComplete="username"
+              />
+              <Input
                 id="password"
                 type="password"
                 {...register("password")}
+                autoComplete={isNewUser ? "new-password" : "current-password"}
                 placeholder={t("login.password.placeholder")}
                 className="h-12 rounded-base border-2 border-border bg-background px-4 font-bold ring-offset-background placeholder:text-foreground/30 focus-visible:ring-2 focus-visible:ring-main"
                 required

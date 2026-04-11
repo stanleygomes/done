@@ -53,6 +53,7 @@ export default function EmailContainer() {
                 id="email"
                 type="email"
                 {...register("email")}
+                autoComplete="email"
                 placeholder={t("login.form.email_placeholder")}
                 className="h-12 rounded-base border-2 border-border bg-background px-4 font-bold ring-offset-background placeholder:text-foreground/30 focus-visible:ring-2 focus-visible:ring-main"
                 required
