@@ -1,20 +1,20 @@
 "use client";
 
-import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
 export function SettingsHeader() {
   const { t } = useTranslation();
+  const router = useRouter();
 
   return (
     <>
-      <Link
-        href="/"
-        className="mb-8 inline-flex items-center gap-1 text-sm font-bold text-foreground/50 transition-colors hover:text-foreground"
+      <button
+        onClick={() => router.back()}
+        className="mb-8 inline-flex items-center gap-1 text-sm font-bold text-foreground/50 transition-colors hover:text-foreground cursor-pointer"
       >
         ← {t("settings.back")}
-      </Link>
+      </button>
       <h1 className="mb-8 text-4xl font-black tracking-tight text-foreground">
         {t("settings.title")}
       </h1>
