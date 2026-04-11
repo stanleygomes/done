@@ -26,12 +26,12 @@ export function PlanWelcome() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center py-12 text-center px-4 max-w-2xl mx-auto w-full h-[60vh]">
+    <div className="flex flex-col items-center justify-center py-6 text-center px-4 max-w-2xl mx-auto w-full">
       <motion.h2
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
-        className="text-3xl md:text-4xl font-black mb-4 tracking-tight dark:text-white"
+        className="text-2xl md:text-3xl font-black mb-2 tracking-tight dark:text-white"
       >
         {t("common.components.chat.empty_state")}
       </motion.h2>
@@ -40,12 +40,12 @@ export function PlanWelcome() {
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.5 }}
-        className="text-base md:text-lg text-muted-foreground font-medium mb-8"
+        className="hidden md:block text-sm md:text-base text-muted-foreground font-medium mb-4"
       >
         {t("common.components.chat.empty_state_description")}
       </motion.p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-3xl">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 w-full max-w-3xl px-2">
         {examples.map((item, idx) => {
           const Icon = item.icon;
           return (
@@ -54,14 +54,18 @@ export function PlanWelcome() {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4 + idx * 0.1, duration: 0.4 }}
-              className="p-4 rounded-2xl border-2 border-black dark:border-white/10 dark:bg-white/5 text-left shadow-shadow"
+              className="p-3 md:p-4 flex md:flex-col items-center md:items-start gap-3 md:gap-1 rounded-xl md:rounded-2xl border-2 border-black dark:border-white/10 dark:bg-white/5 text-left shadow-shadow"
             >
-              <Icon className={`w-5 h-5 mb-3 ${item.color}`} />
-              <div className="font-black text-[10px] uppercase tracking-widest opacity-40 mb-1">
-                {t("common.components.chat.empty_state_examples.label")}
-              </div>
-              <div className="font-bold text-base leading-tight">
-                {item.text}
+              <Icon
+                className={`w-4 h-4 md:w-5 md:h-5 md:mb-3 shrink-0 ${item.color}`}
+              />
+              <div className="flex flex-col">
+                <div className="hidden md:block font-black text-[10px] uppercase tracking-widest opacity-40 mb-1">
+                  {t("common.components.chat.empty_state_examples.label")}
+                </div>
+                <div className="font-bold text-sm md:text-base leading-tight">
+                  {item.text}
+                </div>
               </div>
             </motion.div>
           );

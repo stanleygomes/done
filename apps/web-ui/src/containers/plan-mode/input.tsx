@@ -34,7 +34,7 @@ export function PlanInput({
 
   return (
     <div
-      className={`fixed bottom-6 left-0 right-0 z-50 px-6 transition-all duration-300 ${
+      className={`fixed bottom-28 left-0 right-0 z-50 px-6 transition-all duration-300 ${
         isOpen && mounted ? "lg:left-72" : "lg:left-0"
       }`}
     >
@@ -45,7 +45,7 @@ export function PlanInput({
         transition={{ type: "spring", stiffness: 200, damping: 25 }}
         className="max-w-4xl mx-auto"
       >
-        <div className="relative group p-4 rounded-[2rem] bg-background/80 dark:bg-zinc-900/90 backdrop-blur-3xl border-2 border-black dark:border-white shadow-shadow">
+        <div className="relative group px-4 py-2 rounded-[2rem] bg-background/80 dark:bg-zinc-900/90 backdrop-blur-3xl border-2 border-black dark:border-white shadow-shadow">
           <div className="flex flex-col">
             <div className="flex items-center gap-4 pr-1">
               <div className="flex-1">

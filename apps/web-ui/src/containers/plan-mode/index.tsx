@@ -1,21 +1,29 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { usePlanning } from "@modules/planning/use-planning";
 import { useTasks } from "@modules/task/use-tasks";
 import { toast } from "@paul/ui";
 import { PlanWelcome } from "./welcome";
 import { PlanMessageItem } from "./message-item";
 import { PlanInput } from "./input";
-import { PlanHeader } from "./header";
 import { PlanSyncLoader } from "./sync-loader";
 import { PlanThinkingIndicator } from "./thinking-indicator";
 import { PlanHistory } from "./history";
 import { parseTaskFromResponse } from "./utils/task-parser";
 import { AnimatePresence } from "framer-motion";
+import { useTopMenu } from "@modules/menu-layout/use-top-menu";
+import { UserAvatar } from "src/components/user-avatar";
+import { PageActions } from "src/components/page-actions";
+import { History, MessageSquarePlus } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
 import { useSidebar } from "@modules/menu-layout/use-sidebar";
 
+import { PlanDesktopActions } from "./desktop-actions";
+
 export default function PlanPage() {
+  const { t } = useTranslation();
   const {
     messages,
     isLoading,
@@ -34,12 +42,46 @@ export default function PlanPage() {
   const [inputValue, setInputValue] = useState("");
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { setLeftContent, setRightContent } = useTopMenu();
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, isLoading]);
+
+  const actions = useMemo(
+    () => [
+      {
+        icon: MessageSquarePlus,
+        onClick: () => {
+          createNewConversation();
+          setIsHistoryOpen(false);
+        },
+        label: t("common.components.chat.actions.new_chat"),
+      },
+      {
+        icon: History,
+        onClick: () => {
+          setIsHistoryOpen(!isHistoryOpen);
+          if (!isHistoryOpen) refreshConversations();
+        },
+        isActive: isHistoryOpen,
+        label: t("common.components.chat.history.button"),
+      },
+    ],
+    [createNewConversation, isHistoryOpen, refreshConversations, t],
+  );
+
+  useEffect(() => {
+    setLeftContent(<UserAvatar className="h-12 w-12 ml-2" />);
+    setRightContent(<PageActions actions={actions} />);
+
+    return () => {
+      setLeftContent(null);
+      setRightContent(null);
+    };
+  }, [setLeftContent, setRightContent, isHistoryOpen, t, actions]);
 
   const handleSend = () => {
     if (!inputValue.trim() || isLoading) return;
@@ -51,17 +93,6 @@ export default function PlanPage() {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSend();
-    }
-  };
-
-  const handleNewChat = () => {
-    createNewConversation();
-    setIsHistoryOpen(false);
-  };
-
-  const handleClearChat = () => {
-    if (currentConversationId) {
-      deleteConversation(currentConversationId);
     }
   };
 
@@ -78,22 +109,23 @@ export default function PlanPage() {
 
   return (
     <div className="relative flex flex-col h-screen bg-background overflow-hidden font-jakarta">
-      <PlanHeader
-        isOpen={isOpen}
-        mounted={mounted}
+      <PlanDesktopActions
         isHistoryOpen={isHistoryOpen}
-        setIsHistoryOpen={(open) => {
-          setIsHistoryOpen(open);
-          if (open) refreshConversations();
+        onToggleHistory={() => {
+          setIsHistoryOpen(!isHistoryOpen);
+          if (!isHistoryOpen) refreshConversations();
         }}
-        onNewChat={handleNewChat}
-        onClearChat={handleClearChat}
-        hasMessages={messages.length > 0}
+        onNewChat={() => {
+          createNewConversation();
+          setIsHistoryOpen(false);
+        }}
       />
 
       <div
         ref={scrollRef}
-        className="flex-1 overflow-y-auto px-4 pt-32 pb-48 w-full max-w-5xl mx-auto scroll-smooth no-scrollbar"
+        className={`flex-1 overflow-y-auto px-4 pt-24 pb-48 w-full max-w-5xl mx-auto scroll-smooth no-scrollbar transition-all duration-300 ${
+          isOpen && mounted ? "lg:ml-2" : ""
+        }`}
       >
         {isInitialLoading ? (
           <PlanSyncLoader />
