@@ -70,7 +70,8 @@ export function TaskForm({
   const { save, flush } = useDebouncedSave(600);
 
   useEffect(() => {
-    if (isEditing) {
+    const isMobile = window.innerWidth < 768;
+    if (isEditing && !isMobile) {
       inputRef.current?.focus();
     }
   }, [isEditing]);

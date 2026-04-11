@@ -1,24 +1,23 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
-import { useTranslation } from "react-i18next";
+import { useTopMenu } from "@modules/menu-layout/use-top-menu";
 import { useProjects } from "@modules/project/use-projects";
 import { useTasks } from "@modules/task/use-tasks";
-import { TaskList } from "./task-list";
+import { Drawer, DrawerContent } from "@paul/ui";
+import { Plus, Search } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { PageActions } from "src/components/page-actions";
+import { UserMenu } from "src/components/user-menu";
 import { CreateTaskInput } from "../create-task-input";
 import { TaskDrawer } from "../task-drawer";
 import { ZenModeView } from "../zen-mode";
-import { useSearchParams } from "next/navigation";
-import { TaskSearch } from "./task-search";
-import { BoardHeader } from "./project-header";
 import { FinishedHeader } from "./finished-header";
-import { PageActions } from "src/components/page-actions";
-import { Plus, Search } from "lucide-react";
 import { PinnedTasks } from "./pinned-tasks";
-import { useTopMenu } from "@modules/menu-layout/use-top-menu";
-import { UserAvatar } from "src/components/user-avatar";
-import { useRouter, usePathname } from "next/navigation";
-import { Drawer, DrawerContent } from "@paul/ui";
+import { BoardHeader } from "./project-header";
+import { TaskList } from "./task-list";
+import { TaskSearch } from "./task-search";
 
 interface TaskBoardProps {
   projectId?: string | null;
@@ -98,7 +97,7 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
   }, [isSearchVisible, pathname, router, searchParams]);
 
   useEffect(() => {
-    setLeftContent(<UserAvatar className="h-12 w-12 ml-2" />);
+    setLeftContent(<UserMenu className="h-12 w-12 ml-2" />);
     setRightContent(
       <PageActions
         actions={[

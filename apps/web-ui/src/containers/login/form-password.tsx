@@ -79,11 +79,15 @@ export default function PasswordContainer() {
               <p className="text-sm font-bold text-foreground/60 mb-1 uppercase tracking-wider">
                 {t("login.password.label")}
               </p>
-              <Input
-                type="hidden"
+              <input
+                type="text"
                 name="email"
                 value={email}
                 autoComplete="username"
+                readOnly
+                className="sr-only"
+                tabIndex={-1}
+                aria-hidden="true"
               />
               <Input
                 id="password"

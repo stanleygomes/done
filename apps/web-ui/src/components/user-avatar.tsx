@@ -1,9 +1,9 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const AVATARS = [
   "/images/face-cool.png",
@@ -39,7 +39,7 @@ export function UserAvatar({ className }: UserAvatarProps) {
       className="group flex items-center justify-center rounded-full"
     >
       <div
-        className={`relative overflow-hidden rounded-full bg-black transition-all group-hover:scale-110 group-hover:rotate-3 group-active:scale-95 shadow-sm group-hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:group-hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)] ${className}`}
+        className={`relative overflow-hidden rounded-full bg-black transition-all group-hover:scale-110 group-hover:rotate-3 group-active:scale-95 shadow-sm group-hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:group-hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)] border-2 border-black dark:border-white/20 ${className}`}
       >
         <Image
           src={avatar}
