@@ -8,7 +8,7 @@ import { authService } from "../auth/auth-api.service";
 
 export function useUser() {
   const [user, setUser] = useLocalStorage<User | null>("app-user", null);
-  const { token, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -16,19 +16,17 @@ export function useUser() {
   }, []);
 
   const fetchProfile = useCallback(async () => {
-    if (!token) return;
     try {
-      const profile = await authService.getMe(token);
+      const profile = await authService.getMe();
       setUser(profile);
     } catch (error) {
       console.error("Error fetching profile:", error);
     }
-  }, [token, setUser]);
+  }, [setUser]);
 
   const updateProfile = async (data: { name: string }) => {
-    if (!token) return;
     try {
-      const profile = await authService.updateMe(token, data);
+      const profile = await authService.updateMe(data);
       setUser(profile);
       return profile;
     } catch (error) {

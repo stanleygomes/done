@@ -1,14 +1,13 @@
 "use client";
 
+import { TaskManager } from "@modules/task/task-manager";
+import type { Task } from "@paul/entities";
+import { SearchRanker } from "@paul/search-ranker";
+import { toast } from "@paul/ui";
+import { generateUUID, isUUID } from "@paul/utils";
 import { useEffect, useMemo, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { taskApiService } from "./task-api.service";
-import { useAuth } from "@modules/auth/use-auth";
-import { TaskManager } from "@modules/task/task-manager";
-import type { Task } from "@paul/entities";
-import { isUUID, generateUUID } from "@paul/utils";
-import { SearchRanker } from "@paul/search-ranker";
-import { toast } from "@paul/ui";
 
 function normalizeTask(task: any): Task {
   const content = task.content ?? task.title ?? "";
@@ -293,15 +292,12 @@ export function useTasks(projectId?: string | null, filter?: string | null) {
     setTimeout(performSync, 1000);
   }
 
-  const { token } = useAuth();
   const [isSuggestingSubtasks, setIsSuggestingSubtasks] = useState(false);
 
   async function suggestSubtasks(taskId: string) {
-    if (!token) return;
-
     setIsSuggestingSubtasks(true);
     try {
-      const suggestions = await taskApiService.suggestSubtasks(token, taskId);
+      const suggestions = await taskApiService.suggestSubtasks(taskId);
 
       const newSubtasks: Task[] = suggestions.map((content) => ({
         id: generateUUID(),

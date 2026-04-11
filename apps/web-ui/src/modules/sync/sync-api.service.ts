@@ -14,7 +14,6 @@ export interface SyncResponse {
 
 export const syncApiService = {
   async syncTasksAndProjects(
-    token: string,
     tasks: Task[],
     projects: Project[],
   ): Promise<SyncResponse> {
@@ -23,11 +22,6 @@ export const syncApiService = {
       {
         tasks,
         projects,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       },
     );
 

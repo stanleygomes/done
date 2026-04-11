@@ -8,34 +8,34 @@ import {
   sendCodeSchema as sendCodeZodSchema,
 } from "@paul/entities";
 import { FastifyInstance } from "fastify";
+import { AuthError } from "../../errors/AuthError.js";
 import { AuthMiddleware, UserAuth } from "../../middlewares/auth.middleware.js";
 import { validateClientCredentials } from "../../schemas/validators/client-credentials.validator.js";
 import { validateCreateClient } from "../../schemas/validators/create-client.validator.js";
-import { validateRefreshToken } from "../../schemas/validators/refresh-token.validator.js";
 import { validateVerifyCode } from "../../schemas/validators/verify-code.validator.js";
+import { CheckUserExistenceService } from "../../services/check-user-existence.service.js";
 import { ClientCredentialsService } from "../../services/client-credentials.service.js";
 import { CreateApiClientService } from "../../services/create-api-client.service.js";
 import { GetProfileService } from "../../services/get-profile.service.js";
 import { LoginPasswordService } from "../../services/login-password.service.js";
 import { RefreshTokenService } from "../../services/refresh-token.service.js";
+import { RegisterService } from "../../services/register.service.js";
 import { ResetPasswordService } from "../../services/reset-password.service.js";
 import { SendEmailCodeService } from "../../services/send-email-code.service.js";
 import { UpdateProfileService } from "../../services/update-profile.service.js";
-import { RegisterService } from "../../services/register.service.js";
 import { VerifyEmailCodeService } from "../../services/verify-email-code.service.js";
-import { CheckUserExistenceService } from "../../services/check-user-existence.service.js";
 import {
+  checkEmailSchema,
   createClientSchema,
   getProfileSchema,
   loginPasswordSchema,
   refreshTokenSchema,
+  registerSchema,
   resetPasswordSchema,
   sendCodeSchema,
-  checkEmailSchema,
   tokenSchema,
   updateProfileSchema,
   verifyCodeSchema,
-  registerSchema,
 } from "./auth.doc.js";
 
 export class AuthController {
@@ -145,14 +145,18 @@ export class AuthController {
       },
     );
 
-    fastify.post<{ Body: { refreshToken: string } }>(
+    fastify.post<{ Body: { refreshToken?: string } }>(
       `${prefix}/v1/auth/refresh-token`,
       { schema: refreshTokenSchema },
       async (request, reply) => {
-        const validatedData = validateRefreshToken(request.body);
-        const result = await this.refreshTokenService.execute(
-          validatedData.refreshToken,
-        );
+        const refreshToken =
+          request.body?.refreshToken || (request as any).cookies?.refresh_token;
+
+        if (!refreshToken) {
+          throw new AuthError("Refresh token is required");
+        }
+
+        const result = await this.refreshTokenService.execute(refreshToken);
 
         reply.setAuthCookies(result.token, result.refreshToken).send(result);
       },

@@ -94,43 +94,21 @@ export const authService = {
     return response.data;
   },
 
-  async getMe(token: string): Promise<any> {
-    const response = await httpClient.get(`${AUTH_API_URL}/v1/auth/me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      withCredentials: true,
-    });
-
+  async getMe(): Promise<any> {
+    const response = await httpClient.get(`${AUTH_API_URL}/v1/auth/me`);
     return response.data;
   },
 
-  async updateMe(token: string, data: { name: string }): Promise<any> {
-    const response = await httpClient.patch(
-      `${AUTH_API_URL}/v1/auth/me`,
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
-      },
-    );
-
-    return response.data;
-  },
-
-  async refreshToken(refreshToken: string): Promise<VerifyCodeResponse> {
-    const response = await httpClient.post<VerifyCodeResponse>(
+  async refreshToken(): Promise<any> {
+    const response = await httpClient.post(
       `${AUTH_API_URL}/v1/auth/refresh-token`,
-      {
-        refreshToken,
-      },
-      {
-        withCredentials: true,
-      },
+      {},
     );
+    return response.data;
+  },
 
+  async updateMe(data: { name: string }): Promise<any> {
+    const response = await httpClient.patch(`${AUTH_API_URL}/v1/auth/me`, data);
     return response.data;
   },
 };

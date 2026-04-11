@@ -32,11 +32,12 @@ export function useLoginActions() {
     setIsLoading(true);
     try {
       if (isNewUser) {
-        const response = await authService.register(email, data.password);
-        finishLogin(response.token, response.refreshToken);
+        await authService.register(email, data.password);
+        finishLogin();
         router.push("/");
       } else {
         await authService.loginPassword(email, data.password);
+        finishLogin();
         router.push("/");
       }
     } catch (error) {
@@ -74,8 +75,8 @@ export function useLoginActions() {
   const handleVerifyOtp = async (code: string) => {
     setIsLoading(true);
     try {
-      const response = await authService.verifyCode(email, code);
-      finishLogin(response.token, response.refreshToken);
+      await authService.verifyCode(email, code);
+      finishLogin();
       router.push("/");
       return true;
     } catch (error) {

@@ -24,7 +24,7 @@ export interface SyncContextType {
 export const SyncContext = createContext<SyncContextType | null>(null);
 
 export function SyncProvider({ children }: { children: ReactNode }) {
-  const { token, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
   const [tasks, setTasks] = useLocalStorage<Task[]>("todo-tasks", []);
   const [projects, setProjects] = useLocalStorage<Project[]>(
     "todo-projects",
@@ -46,7 +46,7 @@ export function SyncProvider({ children }: { children: ReactNode }) {
   projectsRef.current = projects;
 
   const performSync = useCallback(async () => {
-    if (!token || isSyncingRef.current) return;
+    if (isSyncingRef.current) return;
 
     try {
       isSyncingRef.current = true;
@@ -54,7 +54,6 @@ export function SyncProvider({ children }: { children: ReactNode }) {
       setSyncError(null);
 
       const response = await syncApiService.syncTasksAndProjects(
-        token,
         tasksRef.current,
         projectsRef.current,
       );
@@ -86,21 +85,21 @@ export function SyncProvider({ children }: { children: ReactNode }) {
       isSyncingRef.current = false;
       setIsSyncing(false);
     }
-  }, [token, setLastSyncAt, setProjects, setTasks]);
+  }, [setLastSyncAt, setProjects, setTasks]);
 
   const hasSyncedRef = useRef(false);
 
   // Initial sync on login
   useEffect(() => {
-    if (isAuthenticated && token && !isSyncing && !hasSyncedRef.current) {
+    if (isAuthenticated && !isSyncing && !hasSyncedRef.current) {
       performSync();
       hasSyncedRef.current = true;
     }
-  }, [isAuthenticated, token, isSyncing, performSync]);
+  }, [isAuthenticated, isSyncing, performSync]);
 
   // Periodic sync
   useEffect(() => {
-    if (!token) {
+    if (!isAuthenticated) {
       hasSyncedRef.current = false;
       return;
     }
@@ -115,7 +114,7 @@ export function SyncProvider({ children }: { children: ReactNode }) {
     );
 
     return () => clearInterval(interval);
-  }, [token, performSync]);
+  }, [isAuthenticated, performSync]);
 
   return (
     <SyncContext.Provider

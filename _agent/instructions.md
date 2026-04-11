@@ -44,8 +44,15 @@ paul/
 - Apply **SRP** and **OCP** (SOLID): each class has one responsibility; extend via new classes, not by modifying existing ones.
 - All code, identifiers, and UI labels must be in **English**.
 - All UI development must follow the **Neobrutalism** design system ([neobrutalism.dev](https://www.neobrutalism.dev)).
-- Shared UI components are managed centrally in [`packages/ui`](file:///media/stan_silva/Partition_3/projects/_personal/paul/packages/ui) (`@paul/ui`). Use Shadcn with Neobrutalism variants.
+- Shared UI components are managed centrally in `packages/ui` (`@paul/ui`). Use Shadcn with Neobrutalism variants.
 - Prefer existing shared packages (`@paul/*`) over duplicating logic across apps.
+
+## Authentication Standard
+
+- **Cookie-Based**: Authentication is strictly handled via **HttpOnly cookies** (Access and Refresh tokens).
+- **No Local Storage**: Do not store JWTs or sensitive session data in `localStorage`. Use a simple boolean flag (`app-is-authenticated`) only for UI state hints.
+- **HTTP Client**: Always ensure `withCredentials: true` is set in the `httpClient` configuration to allow tokens to be sent automatically.
+- **Token Refresh**: Token refreshing is handled by the `handleUnauthorized` interceptor, which calls `/v1/auth/refresh-token` (cookie-protected) and retries the original request.
 
 ## Skills available
 

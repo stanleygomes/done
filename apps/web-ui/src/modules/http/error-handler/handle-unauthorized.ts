@@ -2,7 +2,7 @@ import { httpClient } from "@paul/http";
 import { handleRefreshFailure, refreshTokens } from "../../auth/token-refresh";
 
 let isRefreshing = false;
-let refreshSubscribers: ((token: string) => void)[] = [];
+let refreshSubscribers: (() => void)[] = [];
 
 export async function handleUnauthorized(originalRequest: any) {
   if (isRefreshing) {
@@ -13,10 +13,10 @@ export async function handleUnauthorized(originalRequest: any) {
   isRefreshing = true;
 
   try {
-    const newToken = await refreshTokens();
-    onRefreshed(newToken);
+    await refreshTokens();
+    onRefreshed();
     isRefreshing = false;
-    return retryRequest(originalRequest, newToken);
+    return retryRequest(originalRequest);
   } catch (refreshError) {
     isRefreshing = false;
     handleRefreshFailure();
@@ -37,29 +37,24 @@ export function isUnauthorizedError(error: any) {
   );
 }
 
-function onRefreshed(token: string) {
-  refreshSubscribers.map((cb) => cb(token));
+function onRefreshed() {
+  refreshSubscribers.map((cb) => cb());
   refreshSubscribers = [];
 }
 
-function addRefreshSubscriber(cb: (token: string) => void) {
+function addRefreshSubscriber(cb: () => void) {
   refreshSubscribers.push(cb);
 }
 
 function waitAndRetry(originalRequest: any) {
   return new Promise((resolve) => {
-    addRefreshSubscriber((token: string) => {
-      resolve(retryRequest(originalRequest, token));
+    addRefreshSubscriber(() => {
+      resolve(retryRequest(originalRequest));
     });
   });
 }
 
-function retryRequest(originalRequest: any, token: string) {
+function retryRequest(originalRequest: any) {
   originalRequest._retry = true;
-
-  if (originalRequest.headers) {
-    originalRequest.headers["Authorization"] = `Bearer ${token}`;
-  }
-
   return httpClient(originalRequest);
 }

@@ -20,12 +20,18 @@ type AuthenticatedRequest = FastifyRequest & {
 export class AuthMiddleware {
   static async authorize(request: FastifyRequest): Promise<void> {
     const authHeader = request.headers.authorization;
+    let token: string | undefined;
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      token = authHeader.replace("Bearer ", "").trim();
+    } else {
+      token = (request as any).cookies?.access_token;
+    }
+
+    if (!token) {
       throw new AuthError("Not authorized");
     }
 
-    const token = authHeader.replace("Bearer ", "").trim();
     try {
       const payload = jwtService.verify(token);
 

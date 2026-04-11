@@ -15,57 +15,38 @@ export interface PlanningConversation {
 }
 
 export const planningApiService = {
-  async listConversations(token: string): Promise<PlanningConversation[]> {
+  async listConversations(): Promise<PlanningConversation[]> {
     const response = await httpClient.get<{
       conversations: PlanningConversation[];
-    }>(`${CORE_API_URL}/v1/planning/conversations`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    }>(`${CORE_API_URL}/v1/planning/conversations`);
     return response.data.conversations;
   },
 
-  async createConversation(
-    token: string,
-    title?: string,
-  ): Promise<PlanningConversation> {
+  async createConversation(title?: string): Promise<PlanningConversation> {
     const response = await httpClient.post<PlanningConversation>(
       `${CORE_API_URL}/v1/planning/conversations`,
       { title },
-      { headers: { Authorization: `Bearer ${token}` } },
     );
     return response.data;
   },
 
-  async deleteConversation(
-    token: string,
-    conversationId: string,
-  ): Promise<void> {
+  async deleteConversation(conversationId: string): Promise<void> {
     await httpClient.delete(
       `${CORE_API_URL}/v1/planning/conversations/${conversationId}`,
-      { headers: { Authorization: `Bearer ${token}` } },
     );
   },
 
-  async getMessages(
-    token: string,
-    conversationId: string,
-  ): Promise<PlanningMessage[]> {
+  async getMessages(conversationId: string): Promise<PlanningMessage[]> {
     const response = await httpClient.get<{ messages: PlanningMessage[] }>(
       `${CORE_API_URL}/v1/planning/conversations/${conversationId}/messages`,
-      { headers: { Authorization: `Bearer ${token}` } },
     );
     return response.data.messages;
   },
 
-  async chat(
-    token: string,
-    conversationId: string,
-    message: string,
-  ): Promise<string> {
+  async chat(conversationId: string, message: string): Promise<string> {
     const response = await httpClient.post<{ response: string }>(
       `${CORE_API_URL}/v1/planning/conversations/${conversationId}/messages`,
       { message },
-      { headers: { Authorization: `Bearer ${token}` } },
     );
     return response.data.response;
   },

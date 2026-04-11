@@ -4,10 +4,9 @@ import { useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 
 export function useAuth() {
-  const [token, setToken] = useLocalStorage<string | null>("app-token", null);
-  const [refreshToken, setRefreshToken] = useLocalStorage<string | null>(
-    "app-refresh-token",
-    null,
+  const [isAuthenticated, setIsAuthenticated] = useLocalStorage<boolean>(
+    "app-is-authenticated",
+    false,
   );
   const [mounted, setMounted] = useState(false);
 
@@ -15,22 +14,18 @@ export function useAuth() {
     setMounted(true);
   }, []);
 
-  const login = (accessToken: string, refresh: string) => {
-    setToken(accessToken);
-    setRefreshToken(refresh);
+  const login = () => {
+    setIsAuthenticated(true);
   };
 
   const logout = () => {
-    setToken(null);
-    setRefreshToken(null);
+    setIsAuthenticated(false);
   };
 
   return {
-    token: mounted ? token : null,
-    refreshToken: mounted ? refreshToken : null,
+    isAuthenticated: mounted ? isAuthenticated : false,
+    isLoaded: mounted,
     login,
     logout,
-    isAuthenticated: !!(mounted && token),
-    isLoaded: mounted,
   };
 }

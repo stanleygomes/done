@@ -1,14 +1,12 @@
-import { useState, useEffect, useCallback } from "react";
-import { useAuth } from "@modules/auth/use-auth";
+import { toast } from "@paul/ui";
+import { useCallback, useEffect, useState } from "react";
 import {
   planningApiService,
-  PlanningMessage,
   PlanningConversation,
+  PlanningMessage,
 } from "./planning-api.service";
-import { toast } from "@paul/ui";
 
 export function usePlanning() {
-  const { token } = useAuth();
   const [conversations, setConversations] = useState<PlanningConversation[]>(
     [],
   );
@@ -20,11 +18,9 @@ export function usePlanning() {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
 
   const fetchConversations = useCallback(async () => {
-    if (!token) return;
     try {
-      const list = await planningApiService.listConversations(token);
+      const list = await planningApiService.listConversations();
       setConversations(list);
-      // Auto-select latest conversation if none selected
       if (list.length > 0 && !currentConversationId) {
         const first = list[0];
         if (first) {
@@ -36,23 +32,22 @@ export function usePlanning() {
     } finally {
       setIsInitialLoading(false);
     }
-  }, [token, currentConversationId]);
+  }, [currentConversationId]);
 
   const fetchMessages = useCallback(async () => {
-    if (!token || !currentConversationId) {
+    if (!currentConversationId) {
       setMessages([]);
       return;
     }
     try {
       const history = await planningApiService.getMessages(
-        token,
         currentConversationId,
       );
       setMessages(history);
     } catch (error) {
       console.error("Failed to fetch planning messages", error);
     }
-  }, [token, currentConversationId]);
+  }, [currentConversationId]);
 
   useEffect(() => {
     fetchConversations();
@@ -62,29 +57,22 @@ export function usePlanning() {
     fetchMessages();
   }, [fetchMessages]);
 
-  const createNewConversation = useCallback(
-    async (title?: string) => {
-      if (!token) return;
-      try {
-        const newConv = await planningApiService.createConversation(
-          token,
-          title,
-        );
-        setConversations((prev) => [newConv, ...prev]);
-        setCurrentConversationId(newConv.id);
-        setMessages([]);
-        return newConv;
-      } catch (error) {
-        toast.error("Failed to create new planning session");
-        console.error(error);
-      }
-    },
-    [token],
-  );
+  const createNewConversation = useCallback(async (title?: string) => {
+    try {
+      const newConv = await planningApiService.createConversation(title);
+      setConversations((prev) => [newConv, ...prev]);
+      setCurrentConversationId(newConv.id);
+      setMessages([]);
+      return newConv;
+    } catch (error) {
+      toast.error("Failed to create new planning session");
+      console.error(error);
+    }
+  }, []);
 
   const sendMessage = useCallback(
     async (content: string) => {
-      if (!token || !content.trim() || isLoading) return;
+      if (!content.trim() || isLoading) return;
 
       let targetConvId = currentConversationId;
 
@@ -99,11 +87,7 @@ export function usePlanning() {
       setIsLoading(true);
 
       try {
-        const response = await planningApiService.chat(
-          token,
-          targetConvId,
-          content,
-        );
+        const response = await planningApiService.chat(targetConvId, content);
         const aiMessage: PlanningMessage = { role: "model", content: response };
         setMessages((prev) => [...prev, aiMessage]);
       } catch (error) {
@@ -113,14 +97,13 @@ export function usePlanning() {
         setIsLoading(false);
       }
     },
-    [token, isLoading, currentConversationId, createNewConversation],
+    [isLoading, currentConversationId, createNewConversation],
   );
 
   const deleteConversation = useCallback(
     async (id: string) => {
-      if (!token) return;
       try {
-        await planningApiService.deleteConversation(token, id);
+        await planningApiService.deleteConversation(id);
         setConversations((prev) => prev.filter((c) => c.id !== id));
         if (currentConversationId === id) {
           setCurrentConversationId(null);
@@ -132,7 +115,7 @@ export function usePlanning() {
         console.error(error);
       }
     },
-    [token, currentConversationId],
+    [currentConversationId],
   );
 
   return {
