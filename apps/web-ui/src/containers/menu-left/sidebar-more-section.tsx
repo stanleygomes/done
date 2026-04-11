@@ -3,26 +3,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Sparkles, Settings, LayoutGrid } from "lucide-react";
 
-interface SidebarMoreSectionProps {
-  showProjects?: boolean;
-}
-
-export function SidebarMoreSection({ showProjects }: SidebarMoreSectionProps) {
+export function SidebarMoreSection() {
   const { t } = useTranslation();
   const pathname = usePathname();
 
   const links = [
-    ...(showProjects
-      ? [
-          {
-            href: "/projects",
-            label: t("menu.links.projects"),
-            icon: LayoutGrid,
-            colorClass: "bg-blue-100 dark:bg-blue-900",
-            iconColorClass: "text-blue-600 dark:text-blue-400",
-          },
-        ]
-      : []),
+    {
+      href: "/projects",
+      label: t("menu.links.projects"),
+      icon: LayoutGrid,
+      colorClass: "bg-blue-100 dark:bg-blue-900",
+      iconColorClass: "text-blue-600 dark:text-blue-400",
+    },
     {
       href: "/plan",
       label: t("sidebar.plan_mode"),

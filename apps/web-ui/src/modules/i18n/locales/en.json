@@ -314,9 +314,6 @@
       "all": "All Tasks",
       "important": "Important",
       "recently-deleted": "Recently Deleted"
-    },
-    "buttons": {
-      "manage_projects": "Manage Projects"
     }
   },
   "menu": {
