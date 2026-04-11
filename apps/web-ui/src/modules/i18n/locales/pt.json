@@ -59,7 +59,18 @@
       "updated_success": "Perfil atualizado com sucesso",
       "update_error": "Erro ao atualizar perfil",
       "email_change_warning": "O e-mail da conta não pode ser alterado."
-    }
+    },
+    "sync_status": "Status de Sincronização"
+  },
+  "sync": {
+    "status": {
+      "syncing": "Sincronizando...",
+      "error": "Erro na Sincronização",
+      "synced": "Sincronizado"
+    },
+    "last_sync": "Última sincronização",
+    "never_synced": "Nunca sincronizado",
+    "synchronize_now": "Sincronizar Agora"
   },
   "privacy": {
     "title": "Política de Privacidade",

@@ -59,7 +59,18 @@
       "updated_success": "Profile updated successfully",
       "update_error": "Failed to update profile",
       "email_change_warning": "Account email cannot be changed."
-    }
+    },
+    "sync_status": "Sync Status"
+  },
+  "sync": {
+    "status": {
+      "syncing": "Syncing...",
+      "error": "Sync Error",
+      "synced": "Synced"
+    },
+    "last_sync": "Last synchronization",
+    "never_synced": "Never synchronized",
+    "synchronize_now": "Sync Now"
   },
   "privacy": {
     "title": "Privacy Policy",

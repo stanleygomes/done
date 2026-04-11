@@ -17,6 +17,7 @@ import {
 import Link from "next/link";
 import { UserAvatar } from "src/components/user-avatar";
 import { useRouter } from "next/navigation";
+import { SyncStatusDetails } from "src/components/sync-status-details";
 
 export default function Settings() {
   const { user } = useUser();
@@ -108,7 +109,14 @@ export default function Settings() {
             ))}
           </div>
 
-          <div className="border-border/50 mt-10 border-t-2 pt-10">
+          <div className="rounded-xl border-2 border-border bg-secondary-background p-6 shadow-shadow">
+            <h3 className="mb-4 text-xs font-black uppercase tracking-widest text-foreground/40">
+              {t("settings.sync_status") || "Status de Sincronização"}
+            </h3>
+            <SyncStatusDetails />
+          </div>
+
+          <div className="border-border/50 mt-4 border-t-2 pt-10">
             <button
               onClick={handleLogout}
               className="flex w-full items-center justify-center gap-3 rounded-xl border-2 border-border bg-red-500 py-4 text-lg font-black uppercase tracking-tighter text-white shadow-shadow transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none active:scale-95"
