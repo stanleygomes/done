@@ -102,7 +102,7 @@ export const config: Environment = {
     },
     cors: {
       allowedOrigin: (APP_CORS_ORIGIN || "*localhost*").split(","),
-      allowedMethods: "GET,POST,PUT,DELETE,OPTIONS",
+      allowedMethods: "GET,POST,PUT,PATCH,DELETE,OPTIONS",
       allowedHeaders: "Content-Type,Authorization",
     },
     env: NODE_ENV,
