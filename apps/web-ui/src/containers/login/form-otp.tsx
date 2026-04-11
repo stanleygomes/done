@@ -45,7 +45,6 @@ export default function OtpContainer() {
         title={
           isNewUser ? t("login.otp.title_new") : t("login.otp.title_existing")
         }
-        icon="solar:letter-linear"
         backHref="/login/password"
       />
       <div className="mt-4 flex flex-col gap-4">
