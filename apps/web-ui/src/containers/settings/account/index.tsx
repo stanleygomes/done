@@ -1,10 +1,9 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { User } from "@paul/entities";
 import { useUser } from "@modules/user/use-user";
-import { useAuth } from "@modules/auth/use-auth";
-import { Check, Pencil, X, LogOut } from "lucide-react";
+import { Info } from "lucide-react";
 import { toast } from "@paul/ui";
-import { useRouter } from "next/navigation";
 import { GuestCard } from "./guest-card";
 import { SettingsHeader } from "../settings-header";
 import { SettingsMain } from "../settings-main";
@@ -15,9 +14,7 @@ interface UserProfileCardProps {
 
 export function UserProfileCard({ user }: UserProfileCardProps) {
   const { updateProfile } = useUser();
-  const { logout } = useAuth();
-  const router = useRouter();
-  const [isEditing, setIsEditing] = useState(false);
+  const { t } = useTranslation();
   const [name, setName] = useState(user?.name || "");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,95 +22,84 @@ export function UserProfileCard({ user }: UserProfileCardProps) {
     return <GuestCard />;
   }
 
-  const handleLogout = () => {
-    logout();
-    router.push("/login");
-  };
-
   const initial = (user.name || user.email)?.[0]?.toUpperCase() ?? "?";
 
   const handleSave = async () => {
     if (!name.trim()) {
-      toast.error("Name cannot be empty");
+      toast.error(
+        t("settings.profile.name_empty_error") || "Name cannot be empty",
+      );
       return;
     }
 
     setIsLoading(true);
     try {
       await updateProfile({ name: name.trim() });
-      setIsEditing(false);
-      toast.success("Profile updated");
+      toast.success(t("settings.profile.updated_success") || "Profile updated");
     } catch (error) {
-      toast.error("Failed to update profile");
+      toast.error(
+        t("settings.profile.update_error") || "Failed to update profile",
+      );
       console.error(error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleCancel = () => {
-    setName(user.name || "");
-    setIsEditing(false);
-  };
-
   return (
     <SettingsMain>
       <SettingsHeader />
-      <div className="rounded-base border-2 border-border bg-secondary-background p-6 shadow-shadow">
-        <div className="flex items-center gap-4">
-          <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-black text-2xl font-black text-[#fef6d9]">
-            {initial}
-          </div>
-          <div className="flex flex-1 flex-col gap-1">
-            {isEditing ? (
-              <div className="flex items-center gap-2">
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  disabled={isLoading}
-                  className="w-full rounded-base border-2 border-border bg-main px-2 py-1 text-lg font-black focus:outline-none"
-                  autoFocus
-                />
-                <button
-                  onClick={handleSave}
-                  disabled={isLoading}
-                  className="rounded-base bg-black p-1.5 text-white hover:bg-black/80"
-                >
-                  <Check size={18} />
-                </button>
-                <button
-                  onClick={handleCancel}
-                  disabled={isLoading}
-                  className="rounded-base border-2 border-border bg-main p-1.5 hover:bg-secondary-background"
-                >
-                  <X size={18} />
-                </button>
+      <div className="flex flex-col gap-6">
+        <div className="rounded-base border-2 border-border bg-secondary-background p-6 shadow-shadow">
+          <div className="flex flex-col gap-6">
+            <div className="flex items-center gap-4 min-w-0">
+              <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full border-4 border-border bg-main text-3xl font-black text-main-foreground shadow-shadow">
+                {initial}
               </div>
-            ) : (
-              <div className="flex items-center gap-2 group">
-                <p className="text-xl font-black">{user.name || "Sem nome"}</p>
-                <button
-                  onClick={() => setIsEditing(true)}
-                  className="opacity-0 group-hover:opacity-100 transition-opacity p-1 text-foreground/60 hover:text-foreground"
+              <div className="flex flex-col min-w-0">
+                <span className="text-sm font-black uppercase text-foreground/40 shrink-0">
+                  {t("settings.profile.account_type")}
+                </span>
+                <span
+                  className="text-lg font-black truncate"
+                  title={user.email}
                 >
-                  <Pencil size={16} />
-                </button>
+                  {user.email}
+                </span>
               </div>
-            )}
-            <p className="text-sm font-medium text-foreground/60">
-              {user.email}
-            </p>
+            </div>
+
+            <div className="flex items-start gap-2 rounded-xl border-2 border-border justify-center items-center bg-background/50 p-4 text-xs font-bold text-foreground/60 leading-tight">
+              <Info size={16} className="shrink-0 text-foreground/40" />
+              <span>{t("settings.profile.email_change_warning")}</span>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-black uppercase text-foreground/60">
+                {t("settings.profile.name_label") || "Full Name"}
+              </label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                disabled={isLoading}
+                placeholder={
+                  t("settings.profile.name_placeholder") || "Your name"
+                }
+                className="w-full rounded-base border-2 border-border bg-background px-4 py-4 text-lg font-black focus:outline-none focus:ring-4 focus:ring-main/20 transition-all font-sans"
+              />
+            </div>
+
+            <button
+              onClick={handleSave}
+              disabled={isLoading || name === user.name}
+              className="w-full rounded-base border-2 border-border bg-main py-4 text-lg font-black uppercase tracking-tighter text-main-foreground shadow-shadow transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none active:scale-95 disabled:opacity-50 disabled:grayscale disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-shadow disabled:cursor-not-allowed cursor-pointer"
+            >
+              {isLoading
+                ? t("common.saving")
+                : t("settings.profile.save_button") || "Update Profile"}
+            </button>
           </div>
-        </div>
-        <div className="mt-6 border-t-2 border-border pt-6">
-          <button
-            onClick={handleLogout}
-            className="flex w-full items-center justify-center gap-2 rounded-base border-2 border-border bg-main px-4 py-3 text-sm font-bold shadow-[4px_4px_0px_0px_var(--border)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_var(--border)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
-          >
-            <LogOut size={16} />
-            Logout
-          </button>
         </div>
       </div>
     </SettingsMain>

@@ -46,6 +46,17 @@
       "focus_label": "Foco (minutos)",
       "short_break_label": "Pausa Curta (minutos)",
       "long_break_label": "Pausa Longa (minutos)"
+    },
+    "profile": {
+      "account_type": "Conta Pessoal",
+      "name_label": "Nome completo",
+      "name_placeholder": "Seu nome",
+      "save_button": "Atualizar Perfil",
+      "logout": "Sair da Conta",
+      "name_empty_error": "O nome não pode estar vazio",
+      "updated_success": "Perfil atualizado com sucesso",
+      "update_error": "Erro ao atualizar perfil",
+      "email_change_warning": "O e-mail da conta não pode ser alterado."
     }
   },
   "projects": {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useUser } from "@modules/user/use-user";
+import { useAuth } from "@modules/auth/use-auth";
 import { useTranslation } from "react-i18next";
 import { SettingsHeader } from "./settings-header";
 import {
@@ -11,13 +12,22 @@ import {
   Timer,
   ShieldCheck,
   ChevronRight,
+  LogOut,
 } from "lucide-react";
 import Link from "next/link";
 import { UserAvatar } from "src/components/user-avatar";
+import { useRouter } from "next/navigation";
 
 export default function Settings() {
   const { user } = useUser();
+  const { logout } = useAuth();
   const { t } = useTranslation();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    router.push("/login");
+  };
 
   const menuItems = [
     {
@@ -60,7 +70,7 @@ export default function Settings() {
 
         <div className="flex flex-col gap-4">
           {user && (
-            <div className="mb-6 bg-secondary-background border-2 border-border rounded-xl p-6 flex items-center gap-4 shadow-shadow">
+            <div className="mb-6 flex items-center gap-4 rounded-xl border-2 border-border bg-secondary-background p-6 shadow-shadow">
               <UserAvatar className="h-16 w-16" />
               <div className="flex flex-col">
                 <span className="text-xl font-black">{user.name}</span>
@@ -74,11 +84,11 @@ export default function Settings() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="group flex items-center justify-between bg-secondary-background border-2 border-border rounded-xl p-4 transition-all hover:translate-x-1 hover:translate-y-1 hover:shadow-none shadow-shadow active:scale-95"
+                className="shadow-shadow active:scale-95 group flex items-center justify-between rounded-xl border-2 border-border bg-secondary-background p-4 transition-all hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
               >
                 <div className="flex items-center gap-4">
                   <div
-                    className={`p-3 rounded-base border-2 border-border ${item.color} text-white shadow-[2px_2px_0px_0px_var(--border)]`}
+                    className={`rounded-base border-2 border-border ${item.color} p-3 text-white shadow-[2px_2px_0px_0px_var(--border)]`}
                   >
                     <item.icon size={24} strokeWidth={3} />
                   </div>
@@ -93,15 +103,23 @@ export default function Settings() {
                     )}
                   </div>
                 </div>
-                <ChevronRight className="text-foreground/40 group-hover:text-foreground transition-colors" />
+                <ChevronRight className="text-foreground/40 transition-colors group-hover:text-foreground" />
               </Link>
             ))}
           </div>
 
-          <div className="mt-10 pt-10 border-t-2 border-border/50">
+          <div className="border-border/50 mt-10 border-t-2 pt-10">
+            <button
+              onClick={handleLogout}
+              className="flex w-full items-center justify-center gap-3 rounded-xl border-2 border-border bg-red-500 py-4 text-lg font-black uppercase tracking-tighter text-white shadow-shadow transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none active:scale-95"
+            >
+              <LogOut size={22} strokeWidth={3} />
+              {t("settings.profile.logout") || "Logout"}
+            </button>
+
             <Link
               href="/settings/legal"
-              className="group flex items-center justify-between p-4 rounded-xl hover:bg-secondary-background transition-colors"
+              className="mt-6 group flex items-center justify-between rounded-xl p-4 transition-colors hover:bg-secondary-background"
             >
               <div className="flex items-center gap-4">
                 <ShieldCheck className="text-foreground/40" />

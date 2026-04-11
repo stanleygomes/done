@@ -46,6 +46,17 @@
       "focus_label": "Focus (minutes)",
       "short_break_label": "Short Break (minutes)",
       "long_break_label": "Long Break (minutes)"
+    },
+    "profile": {
+      "account_type": "Personal Account",
+      "name_label": "Full Name",
+      "name_placeholder": "Your name",
+      "save_button": "Update Profile",
+      "logout": "Logout from Account",
+      "name_empty_error": "Name cannot be empty",
+      "updated_success": "Profile updated successfully",
+      "update_error": "Failed to update profile",
+      "email_change_warning": "Account email cannot be changed."
     }
   },
   "projects": {
