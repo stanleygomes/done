@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { usePomodoroSettings } from "../../modules/pomodoro/use-pomodoro-settings";
+import { usePomodoroSettings } from "@modules/pomodoro/use-pomodoro-settings";
 
 export function PomodoroSettings() {
   const { t } = useTranslation();

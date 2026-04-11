@@ -2,14 +2,13 @@
 
 import { useUser } from "@modules/user/use-user";
 import { useTranslation } from "react-i18next";
-import { UserProfileCard } from "./user-profile-card";
-import { GuestCard } from "./guest-card";
-import { ThemeSelector } from "./theme-selector";
-import { LanguageSelector } from "./language-selector";
-import { NotificationSettings } from "./notification-settings";
+import { UserProfileCard } from "./account";
+import { LanguageSelector } from "./language";
 import { LegalSection } from "./legal-section";
+import { NotificationSettings } from "./notifications";
+import { PomodoroSettings } from "./pomodoro";
 import { SettingsHeader } from "./settings-header";
-import { PomodoroSettings } from "./pomodoro-settings";
+import { ThemeSelector } from "./theme";
 
 export default function Settings() {
   const { user } = useUser();
@@ -17,7 +16,7 @@ export default function Settings() {
 
   return (
     <main className="min-h-screen bg-background pb-32">
-      <div className="mx-auto max-w-2xl px-4 pt-24">
+      <div className="mx-auto max-w-2xl px-4 pt-8">
         <SettingsHeader />
 
         <div className="flex flex-col gap-10">
@@ -25,7 +24,7 @@ export default function Settings() {
             <h2 className="text-lg font-black text-foreground">
               {t("settings.account")}
             </h2>
-            {user ? <UserProfileCard user={user} /> : <GuestCard />}
+            <UserProfileCard user={user} />
           </section>
 
           <section className="flex flex-col gap-4">

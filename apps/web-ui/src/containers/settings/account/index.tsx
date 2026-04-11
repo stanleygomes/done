@@ -1,13 +1,14 @@
 import { useState } from "react";
 import type { User } from "@paul/entities";
-import { useUser } from "../../modules/user/use-user";
-import { useAuth } from "../../modules/auth/use-auth";
+import { useUser } from "@modules/user/use-user";
+import { useAuth } from "@modules/auth/use-auth";
 import { Check, Pencil, X, LogOut } from "lucide-react";
 import { toast } from "@paul/ui";
 import { useRouter } from "next/navigation";
+import { GuestCard } from "./guest-card";
 
 interface UserProfileCardProps {
-  user: User;
+  user: User | null;
 }
 
 export function UserProfileCard({ user }: UserProfileCardProps) {
@@ -15,8 +16,12 @@ export function UserProfileCard({ user }: UserProfileCardProps) {
   const { logout } = useAuth();
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState(user.name || "");
+  const [name, setName] = useState(user?.name || "");
   const [isLoading, setIsLoading] = useState(false);
+
+  if (!user) {
+    return <GuestCard />;
+  }
 
   const handleLogout = () => {
     logout();
