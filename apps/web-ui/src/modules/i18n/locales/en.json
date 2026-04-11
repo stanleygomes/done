@@ -316,7 +316,11 @@
     }
   },
   "login": {
-    "title": "Get more Paul",
+    "title": "Hi, I'm Paul",
+    "slogan": {
+      "title": "Stop Overcomplicating.",
+      "subtitle": "Start getting your life in order today."
+    },
     "footer": "Paul © {{year}}",
     "links": {
       "privacy": "Privacy",
@@ -324,7 +328,7 @@
       "home": "Home"
     },
     "form": {
-      "title": "Manage your tasks with focus and simplicity.",
+      "title": "Achieve your goals, one task at a time.",
       "email_label": "Your Email Address",
       "email_placeholder": "name@example.com",
       "submit": "Check In",

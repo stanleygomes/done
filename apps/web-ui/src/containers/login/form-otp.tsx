@@ -1,25 +1,17 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useTranslation, Trans } from "react-i18next";
 import { Button } from "@paul/ui/components/ui/button";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
 } from "@paul/ui/components/ui/input-otp";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@paul/ui/components/ui/card";
-import { ArrowLeft } from "lucide-react";
-import { Icon } from "@paul/ui/components/ui/icon";
-import { useLoginActions } from "../../modules/auth/use-login-actions";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
 import { useLogin } from "../../modules/auth/login-context";
+import { useLoginActions } from "../../modules/auth/use-login-actions";
+import { LoginHeader } from "./login-header";
 
 export default function OtpContainer() {
   const { t } = useTranslation();
@@ -48,30 +40,15 @@ export default function OtpContainer() {
   };
 
   return (
-    <Card className="w-full max-w-lg rounded-base border-2 md:border-4 border-border bg-secondary-background p-6 md:p-8 shadow-[6px_6px_0px_0px_var(--border)] md:shadow-[10px_10px_0px_0px_var(--border)]">
-      <CardHeader className="pb-4 relative">
-        <button
-          onClick={() => router.push("/login/password")}
-          className="absolute -left-2 -top-2 h-10 w-10 md:h-12 md:w-12 flex items-center justify-center rounded-base border-2 border-border bg-main text-main-foreground shadow-shadow transition-all hover:bg-main/90 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none z-10"
-          title={t("settings.back")}
-        >
-          <ArrowLeft size={24} strokeWidth={3} />
-        </button>
-        <CardTitle className="text-3xl font-black uppercase tracking-tighter text-foreground flex flex-col gap-4">
-          <div className="flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-base border-2 md:border-4 border-border bg-main text-main-foreground shadow-shadow">
-            <Icon
-              icon="solar:letter-linear"
-              className="h-6 w-6 md:h-8 md:w-8"
-            />
-          </div>
-          <div className="text-2xl md:text-3xl">
-            {isNewUser
-              ? t("login.otp.title_new")
-              : t("login.otp.title_existing")}
-          </div>
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="mt-4 flex flex-col gap-4">
+    <>
+      <LoginHeader
+        title={
+          isNewUser ? t("login.otp.title_new") : t("login.otp.title_existing")
+        }
+        icon="solar:letter-linear"
+        backHref="/login/password"
+      />
+      <div className="mt-4 flex flex-col gap-4">
         <p className="text-sm font-medium text-foreground/70 leading-relaxed">
           <Trans
             i18nKey={
@@ -114,8 +91,8 @@ export default function OtpContainer() {
         >
           {t("login.otp.change_email")}
         </button>
-      </CardContent>
-      <CardFooter className="mt-4">
+      </div>
+      <div className="mt-4">
         <Button
           onClick={handleVerify}
           disabled={value.length < 6 || isLoading}
@@ -126,7 +103,7 @@ export default function OtpContainer() {
             ? t("login.otp.submit_new")
             : t("login.otp.submit_existing")}
         </Button>
-      </CardFooter>
-    </Card>
+      </div>
+    </>
   );
 }

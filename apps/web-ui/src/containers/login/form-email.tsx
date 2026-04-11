@@ -3,21 +3,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Image from "next/image";
 // @ts-expect-error - Module declaration for resolvers/zod may be missing or hard to resolve
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@paul/ui/components/ui/button";
 import { Input } from "@paul/ui/components/ui/input";
 import { useTranslation } from "react-i18next";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@paul/ui/components/ui/card";
-import { useLoginActions } from "../../modules/auth/use-login-actions";
 import { useLogin } from "../../modules/auth/login-context";
+import { useLoginActions } from "../../modules/auth/use-login-actions";
+import LoginFooter from "./login-footer";
+import { LoginHeader } from "./login-header";
 
 const emailSchema = z.object({
   email: z.string().email("invalid_email"),
@@ -46,21 +40,9 @@ export default function EmailContainer() {
   }, [setFocus]);
 
   return (
-    <Card className="w-full max-w-lg rounded-base border-2 md:border-4 border-border bg-secondary-background p-6 md:p-8 shadow-[6px_6px_0px_0px_var(--border)] md:shadow-[10px_10px_0px_0px_var(--border)]">
-      <CardHeader className="pb-4">
-        <CardTitle className="text-3xl font-black uppercase tracking-tighter text-foreground flex flex-col gap-4">
-          <div className="relative h-16 w-16 md:h-20 md:w-20 overflow-hidden rounded-base border-2 md:border-4 border-border bg-main shadow-shadow">
-            <Image
-              src="/images/logo.png"
-              alt="Done Logo"
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div className="text-2xl md:text-3xl">{t("login.form.title")}</div>
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="mt-4">
+    <>
+      <LoginHeader title={t("login.form.title")} showLogo />
+      <div className="mt-4">
         <form id="email-form" onSubmit={handleSubmit(handleEmailSubmit)}>
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
@@ -83,8 +65,8 @@ export default function EmailContainer() {
             </div>
           </div>
         </form>
-      </CardContent>
-      <CardFooter className="flex-col gap-4 mt-4">
+      </div>
+      <div className="flex-col gap-4 mt-4">
         <Button
           type="submit"
           form="email-form"
@@ -94,28 +76,8 @@ export default function EmailContainer() {
         >
           {t("login.form.submit")}
         </Button>
-        <span className="text-center text-xs font-bold text-foreground/40 leading-tight">
-          {t("login.form.agreement")}{" "}
-          <a
-            href="/privacy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-foreground underline decoration-2 underline-offset-2 hover:text-main"
-          >
-            {t("login.links.privacy")}
-          </a>{" "}
-          {t("login.form.and")}{" "}
-          <a
-            href="/terms"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-foreground underline decoration-2 underline-offset-2 hover:text-main"
-          >
-            {t("login.links.terms")}
-          </a>
-          .
-        </span>
-      </CardFooter>
-    </Card>
+      </div>
+      <LoginFooter />
+    </>
   );
 }

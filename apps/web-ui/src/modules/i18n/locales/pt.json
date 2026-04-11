@@ -316,7 +316,11 @@
     }
   },
   "login": {
-    "title": "Faça mais com Paul",
+    "title": "Oi, eu sou o Paul",
+    "slogan": {
+      "title": "Pare de Complicar.",
+      "subtitle": "Comece a colocar sua vida em ordem hoje."
+    },
     "footer": "Paul © {{year}}",
     "links": {
       "privacy": "Privacidade",
@@ -324,7 +328,7 @@
       "home": "Início"
     },
     "form": {
-      "title": "Gerencie suas tarefas com foco e simplicidade.",
+      "title": "Alcance seus objetivos, uma tarefa de cada vez.",
       "email_label": "Seu endereço de e-mail",
       "email_placeholder": "nome@exemplo.com",
       "submit": "Entrar",
