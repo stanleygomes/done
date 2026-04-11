@@ -312,7 +312,7 @@
     "links": {
       "tasks": "Tarefas",
       "projects": "Projetos",
-      "plan mode": "Modo Plano"
+      "plan_mode": "Planejar"
     }
   },
   "login": {

@@ -312,7 +312,7 @@
     "links": {
       "tasks": "Tasks",
       "projects": "Projects",
-      "plan mode": "Plan Mode"
+      "plan_mode": "Plan"
     }
   },
   "login": {

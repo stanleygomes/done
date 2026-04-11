@@ -15,11 +15,11 @@ export function MobileNavbar({ pathname }: MobileNavbarProps) {
   const items = [
     { href: "/", label: t("menu.links.tasks"), icon: ListTodo },
     { href: "/projects", label: t("menu.links.projects"), icon: LayoutGrid },
-    { href: "/plan", label: t("menu.links.plan mode"), icon: Wand2 },
+    { href: "/plan", label: t("menu.links.plan_mode"), icon: Wand2 },
   ];
 
   return (
-    <nav className="relative flex items-center gap-1 sm:gap-4 px-1 py-1">
+    <nav className="relative flex items-center gap-1 sm:gap-4">
       {items.map((item) => {
         const Icon = item.icon;
         const isActive = pathname === item.href;
@@ -27,7 +27,7 @@ export function MobileNavbar({ pathname }: MobileNavbarProps) {
           <Link
             key={item.href}
             href={item.href}
-            className={`relative flex flex-col items-center gap-1 p-1.5 rounded-xl transition-colors no-underline min-w-[56px] ${
+            className={`relative flex flex-col items-center gap-1 px-4 py-1 rounded-full transition-colors no-underline min-w-[56px] ${
               isActive
                 ? "text-foreground"
                 : "text-foreground/40 hover:text-foreground/70"
@@ -36,7 +36,7 @@ export function MobileNavbar({ pathname }: MobileNavbarProps) {
             {isActive && (
               <motion.div
                 layoutId="active-nav-pill"
-                className="absolute inset-0 bg-[#fef6d9] dark:bg-white/10 rounded-xl"
+                className="absolute inset-0 bg-[#fef6d9] dark:bg-white/10 rounded-full"
                 transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
               />
             )}
