@@ -12,7 +12,6 @@ import { PageActions } from "src/components/page-actions";
 import { UserMenu } from "@containers/menu-top/user-menu";
 import { CreateTaskInput } from "../create-task-input";
 import { TaskDrawer } from "../task-drawer";
-import { ZenModeView } from "../zen-mode";
 import { PinnedTasks } from "./pinned-tasks";
 import { BoardHeader } from "./project-header";
 import { TaskList } from "./task-list";
@@ -65,11 +64,18 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
     closeDrawer,
     reorderTodoTasks,
     clearFinishedTasks,
-    zenModeTask,
-    enterZenMode,
-    exitZenMode,
     isLoading,
   } = useTasks(projectId, filter);
+
+  const { setLeftContent, setRightContent } = useTopMenu();
+  const router = useRouter();
+
+  const enterZenMode = useCallback(
+    (id: string) => {
+      router.push(`/pomodoro?taskId=${id}`);
+    },
+    [router],
+  );
 
   const handleOpenDrawer = (task: any) => {
     openDrawer(task);
@@ -80,9 +86,6 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
   const pinnedTasks = [...todoTasks, ...finishedTasks].filter(
     (t) => t.isPinned,
   );
-
-  const { setLeftContent, setRightContent } = useTopMenu();
-  const router = useRouter();
 
   const toggleSearch = useCallback(() => {
     const params = new URLSearchParams(searchParams.toString());
@@ -128,19 +131,6 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
 
   if (!mounted) {
     return null;
-  }
-
-  if (zenModeTask) {
-    return (
-      <main className="min-h-screen bg-background">
-        <ZenModeView
-          task={zenModeTask}
-          onExit={exitZenMode}
-          onToggle={toggleTask}
-          onUpdateContent={updateEdit}
-        />
-      </main>
-    );
   }
 
   return (

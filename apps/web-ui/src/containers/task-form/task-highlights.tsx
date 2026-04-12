@@ -41,7 +41,7 @@ export function TaskHighlights({
       >
         <Maximize2 className="h-6 w-6" />
         <span className="text-sm font-bold uppercase">
-          {t("task_drawer.buttons.zen_mode")}
+          {t("task_drawer.buttons.pomodoro")}
         </span>
       </button>
 

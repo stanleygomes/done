@@ -93,12 +93,12 @@ export function TaskItemActions({
               type="button"
               className="shrink-0 rounded-base border-2 border-border bg-[#a7f3d0] dark:bg-[#a7f3d0]/20 p-1.5 text-foreground shadow-shadow transition-all hover:bg-[#86efac] dark:hover:bg-[#86efac]/30 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none cursor-pointer"
               onClick={() => onEnterZenMode(task.id)}
-              aria-label={t("task_item.actions.zen_mode")}
+              aria-label={t("task_item.actions.pomodoro")}
             >
               <Maximize2 size={16} />
             </button>
           </TooltipTrigger>
-          <TooltipContent>{t("task_item.actions.zen_mode")}</TooltipContent>
+          <TooltipContent>{t("task_item.actions.pomodoro")}</TooltipContent>
         </Tooltip>
       )}
 
