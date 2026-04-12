@@ -9,6 +9,7 @@ import { TaskTimeInput as TimeInput } from "../../components/task-time-input";
 import { useSidebar } from "../../modules/menu-layout/use-sidebar";
 import { InputField } from "./input-field";
 import { InputFooter } from "./footer";
+import { CreateTaskMobile } from "./mobile";
 
 interface CreateTaskInputProps {
   value: string;
@@ -97,24 +98,34 @@ export function CreateTaskInput({
 
   const isDrawer = mode === "drawer";
 
+  if (isDrawer) {
+    return (
+      <CreateTaskMobile
+        value={value}
+        onChange={handleChange}
+        onSubmit={handleSubmitAction}
+        isImportant={isImportant}
+        onImportantToggle={() => setIsImportant(!isImportant)}
+        dueDateStr={dueDateStr}
+        onDueDateChange={setDueDateStr}
+        dueTime={dueTime}
+        onDueTimeChange={setDueTime}
+        selectedProjectId={selectedProjectId}
+        onProjectIdChange={setSelectedProjectId}
+        currentProjectId={currentProjectId}
+        saveStatus={saveStatus}
+      />
+    );
+  }
+
   return (
     <form
       onSubmit={handleSubmit}
-      className={
-        isDrawer
-          ? "w-full bg-background p-4"
-          : `fixed bottom-0 left-0 right-0 z-40 bg-background p-4 transition-all duration-300 hidden sm:block ${
-              mounted && isOpen ? "pl-0 lg:pl-76" : "pl-4"
-            }`
-      }
+      className={`fixed bottom-0 left-0 right-0 z-40 bg-background p-4 transition-all duration-300 hidden sm:block ${
+        mounted && isOpen ? "pl-0 lg:pl-76" : "pl-4"
+      }`}
     >
-      <div
-        className={
-          isDrawer
-            ? "flex w-full flex-col gap-2"
-            : "mx-auto flex w-full max-w-2xl flex-col gap-2"
-        }
-      >
+      <div className="mx-auto flex w-full max-w-2xl flex-col gap-2">
         <div className="flex flex-col overflow-hidden rounded-xl border-2 border-border bg-secondary-background shadow-[4px_4px_0px_0px_var(--border)] transition-all">
           <InputField
             ref={inputRef}
@@ -123,34 +134,31 @@ export function CreateTaskInput({
             onKeyDown={handleKeyDown}
           />
 
-          <div className="flex flex-wrap items-center gap-2 border-t-2 border-border/50 bg-secondary-background/50 px-3 py-2 text-sm z-0">
-            <div className="flex w-full items-center gap-2 sm:w-auto">
-              <ImportantToggle
-                isImportant={isImportant}
-                onToggle={() => setIsImportant(!isImportant)}
-              />
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar border-t-2 border-border/50 bg-secondary-background/50 px-3 py-2 text-sm z-0">
+            <ImportantToggle
+              isImportant={isImportant}
+              onToggle={() => setIsImportant(!isImportant)}
+              className="shrink-0"
+            />
 
-              <DatePicker
-                dueDateStr={dueDateStr}
-                onDateChange={setDueDateStr}
-                className="bg-secondary-background flex-1 sm:flex-initial"
-              />
-            </div>
+            <DatePicker
+              dueDateStr={dueDateStr}
+              onDateChange={setDueDateStr}
+              className="shrink-0 bg-secondary-background"
+            />
 
-            <div className="flex w-full items-center gap-2 sm:w-auto">
-              <TimeInput
-                value={dueTime}
-                onChange={setDueTime}
-                className="bg-secondary-background flex-1 sm:flex-initial"
-              />
+            <TimeInput
+              value={dueTime}
+              onChange={setDueTime}
+              className="shrink-0 bg-secondary-background"
+            />
 
-              <ProjectSelector
-                value={selectedProjectId}
-                onChange={setSelectedProjectId}
-                isVisible={!currentProjectId}
-                className="bg-secondary-background flex-1 sm:w-40"
-              />
-            </div>
+            <ProjectSelector
+              value={selectedProjectId}
+              onChange={setSelectedProjectId}
+              isVisible={!currentProjectId}
+              className="shrink-0 bg-secondary-background sm:w-40"
+            />
           </div>
         </div>
         <InputFooter saveStatus={saveStatus} />

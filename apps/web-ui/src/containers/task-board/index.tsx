@@ -257,7 +257,7 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
         open={isCreateDrawerOpen}
         onOpenChange={(open) => setIsCreateDrawerOpen(open)}
       >
-        <DrawerContent className="bg-background pb-safe-bottom">
+        <DrawerContent className="bg-background border-t-4 border-border rounded-t-[32px] overflow-hidden focus:outline-none pb-safe-bottom">
           <CreateTaskInput
             mode="drawer"
             value={newTask}

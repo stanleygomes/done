@@ -29,7 +29,7 @@ export function TaskDatePicker({
       <PopoverTrigger asChild>
         <button
           type="button"
-          className={`flex h-8 cursor-pointer items-center gap-1 rounded-base border-2 border-border px-2 py-1 font-bold shadow-sm transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none whitespace-nowrap ${
+          className={`flex h-10 sm:h-8 cursor-pointer items-center gap-1 rounded-base border-2 border-border px-3 py-1 font-bold shadow-sm transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none whitespace-nowrap ${
             dueDateStr
               ? "bg-main text-main-foreground"
               : "bg-secondary-background text-foreground/60 hover:text-foreground"
@@ -37,7 +37,7 @@ export function TaskDatePicker({
           title={t("common.components.date_picker.title")}
         >
           <CalendarIcon className="h-4 w-4 shrink-0" />
-          <span className="text-xs font-bold">
+          <span className="text-sm sm:text-xs font-bold">
             {dueDate && isValid(dueDate)
               ? format(dueDate, "dd/MM/yy")
               : t("common.components.date_picker.default_label")}

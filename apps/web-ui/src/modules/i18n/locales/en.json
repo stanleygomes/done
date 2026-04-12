@@ -361,7 +361,7 @@
     }
   },
   "create_task": {
-    "placeholder": "New task...",
+    "placeholder": "What needs to be done?",
     "add_button": "Add",
     "status": {
       "saving": "Saving...",

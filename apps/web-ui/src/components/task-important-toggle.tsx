@@ -18,7 +18,7 @@ export function TaskImportantToggle({
     <button
       type="button"
       onClick={onToggle}
-      className={`flex h-8 items-center cursor-pointer gap-1 rounded-base border-2 border-border px-2 py-1 font-bold shadow-sm transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${
+      className={`flex h-10 sm:h-8 items-center cursor-pointer gap-1 rounded-base border-2 border-border px-3 py-1 font-bold shadow-sm transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${
         isImportant
           ? "bg-main text-main-foreground"
           : "bg-zinc-100 dark:bg-zinc-800 text-foreground/60 hover:text-foreground"

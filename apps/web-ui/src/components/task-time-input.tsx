@@ -35,7 +35,7 @@ export function TaskTimeInput({ value, onChange, className }: TimeInputProps) {
 
   return (
     <div
-      className={`flex h-8 cursor-pointer items-center gap-1 rounded-base border-2 border-border px-2 py-1 shadow-sm transition-colors focus-within:text-foreground whitespace-nowrap ${
+      className={`flex h-10 sm:h-8 cursor-pointer items-center gap-1 rounded-base border-2 border-border px-3 py-1 shadow-sm transition-colors focus-within:text-foreground whitespace-nowrap ${
         value ? "text-foreground" : "text-foreground/40"
       } ${className}`}
     >
@@ -45,7 +45,7 @@ export function TaskTimeInput({ value, onChange, className }: TimeInputProps) {
         value={value}
         onChange={(e) => handleTimeChange(e.target.value)}
         placeholder={t("common.components.time_input.placeholder")}
-        className="bg-transparent outline-none text-xs font-bold w-[45px] cursor-pointer placeholder:text-foreground/40"
+        className="bg-transparent outline-none text-sm sm:text-xs font-bold w-[55px] cursor-pointer placeholder:text-foreground/40"
         maxLength={5}
       />
     </div>

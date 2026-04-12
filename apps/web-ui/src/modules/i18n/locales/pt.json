@@ -361,7 +361,7 @@
     }
   },
   "create_task": {
-    "placeholder": "Nova tarefa...",
+    "placeholder": "O que você precisa fazer?",
     "add_button": "Adicionar",
     "status": {
       "saving": "Salvando...",
