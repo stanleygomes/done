@@ -134,6 +134,8 @@ export function useTasks(projectId?: string | null, filter?: string | null) {
       result = result.filter((t) => !!t.dueDate);
     } else if (filter === "important") {
       result = result.filter((t) => t.important);
+    } else if (filter === "completed") {
+      result = result.filter((t) => t.done);
     }
 
     if (filter === "recently-deleted") {
@@ -145,18 +147,19 @@ export function useTasks(projectId?: string | null, filter?: string | null) {
     return result;
   }, [normalizedTasks, searchQuery, projectId, filter]);
 
-  const { todoTasks, finishedTasks } = useMemo(
-    () =>
-      filteredTasks.reduce<{ todoTasks: Task[]; finishedTasks: Task[] }>(
-        (acc, task) => {
-          if (task.done) acc.finishedTasks.push(task);
-          else acc.todoTasks.push(task);
-          return acc;
-        },
-        { todoTasks: [], finishedTasks: [] },
-      ),
-    [filteredTasks],
-  );
+  const { todoTasks, finishedTasks } = useMemo(() => {
+    if (filter === "completed") {
+      return { todoTasks: filteredTasks, finishedTasks: [] as Task[] };
+    }
+    return filteredTasks.reduce<{ todoTasks: Task[]; finishedTasks: Task[] }>(
+      (acc, task) => {
+        if (task.done) acc.finishedTasks.push(task);
+        else acc.todoTasks.push(task);
+        return acc;
+      },
+      { todoTasks: [], finishedTasks: [] },
+    );
+  }, [filteredTasks, filter]);
 
   const selectedTask = useMemo(
     () => normalizedTasks.find((t) => t.id === selectedTaskId) ?? null,

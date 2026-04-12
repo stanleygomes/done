@@ -164,6 +164,7 @@
       "scheduled": "Scheduled",
       "all": "All Tasks",
       "important": "Important",
+      "completed": "Completed",
       "recently-deleted": "Recently Deleted"
     }
   },
@@ -385,6 +386,7 @@
       "scheduled": "Scheduled",
       "all": "All Tasks",
       "important": "Important",
+      "completed": "Completed",
       "recently-deleted": "Recently Deleted"
     }
   },

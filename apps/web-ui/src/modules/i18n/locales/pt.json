@@ -164,6 +164,7 @@
       "scheduled": "Agendado",
       "all": "Todas Tarefas",
       "important": "Importante",
+      "completed": "Concluídas",
       "recently-deleted": "Excluídos Recentemente"
     }
   },
@@ -385,6 +386,7 @@
       "scheduled": "Agendadas",
       "all": "Todas as Tarefas",
       "important": "Importante",
+      "completed": "Concluídas",
       "recently-deleted": "Excluídas Recentemente"
     }
   },
