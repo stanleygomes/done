@@ -504,6 +504,8 @@
   "actions": {
     "create_task": "Create Task",
     "create_project": "Create Project",
-    "search": "Search"
+    "search": "Search",
+    "select": "Select",
+    "selected": "Selected"
   }
 }

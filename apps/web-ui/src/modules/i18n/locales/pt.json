@@ -504,6 +504,8 @@
   "actions": {
     "create_task": "Criar Tarefa",
     "create_project": "Criar Projeto",
-    "search": "Pesquisar"
+    "search": "Pesquisar",
+    "select": "Selecionar",
+    "selected": "Selecionado"
   }
 }
