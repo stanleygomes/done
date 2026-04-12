@@ -1,6 +1,10 @@
 {
   "settings": {
     "title": "Configurações",
+    "theme_page": {
+      "title": "Tema e Aparência",
+      "subtitle": "Escolha o visual que melhor se adapta ao seu estilo de trabalho e ao seu ambiente."
+    },
     "back": "Voltar",
     "account": "Conta",
     "theme": "Tema",

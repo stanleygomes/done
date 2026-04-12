@@ -4,33 +4,80 @@ import { useTranslation } from "react-i18next";
 import { useTheme, type Theme } from "@modules/theme/use-theme";
 import { SettingsMain } from "../settings-main";
 import { SettingsHeader } from "../settings-header";
+import { Monitor, Moon, Sun, Snowflake, LucideIcon } from "lucide-react";
+
+interface ThemeOption {
+  value: Theme;
+  label: string;
+  icon: LucideIcon;
+  description: string;
+}
 
 export function ThemeSelector() {
   const { t } = useTranslation();
   const { theme, setTheme } = useTheme();
 
-  const THEME_OPTIONS: { value: Theme; label: string }[] = [
-    { value: "classic", label: t("settings.themes.classic") },
-    { value: "ice", label: t("settings.themes.ice") },
-    { value: "dark", label: t("settings.themes.dark") },
-    { value: "auto", label: t("settings.themes.auto") },
+  const THEME_OPTIONS: ThemeOption[] = [
+    {
+      value: "classic",
+      label: t("settings.themes.classic"),
+      icon: Sun,
+      description: "Amarelo vibrante e energético",
+    },
+    {
+      value: "ice",
+      label: t("settings.themes.ice"),
+      icon: Snowflake,
+      description: "Azul calmo e refrescante",
+    },
+    {
+      value: "dark",
+      label: t("settings.themes.dark"),
+      icon: Moon,
+      description: "Visual focado para a noite",
+    },
+    {
+      value: "auto",
+      label: t("settings.themes.auto"),
+      icon: Monitor,
+      description: "Segue as regras do sistema",
+    },
   ];
 
   return (
     <SettingsMain>
       <SettingsHeader />
-      <div className="flex gap-2">
+
+      <div className="mb-8">
+        <h2 className="text-2xl font-black">
+          {t("settings.theme_page.title")}
+        </h2>
+        <p className="text-foreground/60 font-bold">
+          {t("settings.theme_page.subtitle")}
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {THEME_OPTIONS.map((option) => (
           <button
             key={option.value}
             onClick={() => setTheme(option.value)}
-            className={`rounded-base border-2 border-border px-4 py-2 text-sm font-bold transition-all ${
+            className={`flex flex-col items-center justify-center p-8 rounded-xl border-2 border-border transition-all cursor-pointer group ${
               theme === option.value
-                ? "bg-main text-main-foreground translate-x-[2px] translate-y-[2px] shadow-none"
-                : "bg-secondary-background shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
+                ? "bg-main text-main-foreground shadow-none translate-x-[4px] translate-y-[4px]"
+                : "bg-secondary-background hover:translate-x-[2px] hover:translate-y-[2px] shadow-[4px_4px_0px_0px_var(--border)] hover:shadow-none"
             }`}
           >
-            {option.label}
+            <option.icon
+              className={`size-10 mb-4 transition-transform group-hover:scale-110 ${
+                theme === option.value
+                  ? "text-main-foreground"
+                  : "text-foreground/40"
+              }`}
+            />
+            <span className="text-lg font-black uppercase tracking-tighter">
+              {option.label}
+            </span>
           </button>
         ))}
       </div>

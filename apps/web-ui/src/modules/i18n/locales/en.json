@@ -1,6 +1,10 @@
 {
   "settings": {
     "title": "Settings",
+    "theme_page": {
+      "title": "Theme & Appearance",
+      "subtitle": "Choose the look that best fits your workflow and environment."
+    },
     "back": "Back",
     "account": "Account",
     "theme": "Theme",
