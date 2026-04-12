@@ -3,7 +3,7 @@
 import { useSync } from "@modules/sync/use-sync";
 import { Popover, PopoverContent, PopoverTrigger } from "@paul/ui";
 import { AlertCircle, Cloud, CloudOff, RefreshCw } from "lucide-react";
-import { SyncStatusDetails } from "./sync-status-details";
+import { SyncStatusDetails } from ".";
 
 export function SyncStatusBadge() {
   const { isSyncing, lastSyncAt, syncError } = useSync();

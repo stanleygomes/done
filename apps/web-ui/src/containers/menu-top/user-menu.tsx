@@ -1,7 +1,7 @@
 "use client";
 
-import { UserAvatar } from "./user-avatar";
-import { SyncStatusBadge } from "./sync-status-badge";
+import { UserAvatar } from "../../components/user-avatar";
+import { SyncStatusBadge } from "../sync/sync-status-badge";
 
 interface UserMenuProps {
   className?: string;

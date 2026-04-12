@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { Button } from "src/components/button";
 import { SimpleCard } from "src/components/simple-card";
-import { SyncStatusDetails } from "src/components/sync-status-details";
+import { SyncStatusDetails } from "@containers/sync";
 import { Typography } from "src/components/typography";
 import { UserAvatar } from "src/components/user-avatar";
 import { SettingsHeader } from "./header";

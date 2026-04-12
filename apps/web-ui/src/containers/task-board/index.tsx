@@ -9,7 +9,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { PageActions } from "src/components/page-actions";
-import { UserMenu } from "src/components/user-menu";
+import { UserMenu } from "@containers/menu-top/user-menu";
 import { CreateTaskInput } from "../create-task-input";
 import { TaskDrawer } from "../task-drawer";
 import { ZenModeView } from "../zen-mode";
