@@ -4,11 +4,8 @@ import { config } from "../config/environment.js";
 import { AuthController } from "../controllers/auth/auth.controller.js";
 import { UserController } from "../controllers/user/user.controller.js";
 import { PromptController } from "../controllers/prompt/prompt.controller.js";
-import { ApiClientRepository } from "../repositories/api-client.repository.js";
 import { UserRepository } from "../repositories/user.repository.js";
 import { VerificationCodeRepository } from "../repositories/verification-code.repository.js";
-import { ClientCredentialsService } from "../services/client-credentials.service.js";
-import { CreateApiClientService } from "../services/create-api-client.service.js";
 import { GetProfileService } from "../services/get-profile.service.js";
 import { LoginPasswordService } from "../services/login-password.service.js";
 import { RefreshTokenService } from "../services/refresh-token.service.js";
@@ -42,7 +39,6 @@ import { PlanningMessageController } from "../controllers/planning-message/plann
 const promptLogRepository = new PromptLogRepository();
 const userRepository = new UserRepository();
 const verificationCodeRepository = new VerificationCodeRepository();
-const apiClientRepository = new ApiClientRepository();
 const projectRepository = new ProjectRepository();
 const taskRepository = new TaskRepository();
 const planningRepository = new PlanningRepository();
@@ -73,11 +69,6 @@ const verifyEmailCodeService = new VerifyEmailCodeService(
 );
 
 const refreshTokenService = new RefreshTokenService(jwtService);
-const clientCredentialsService = new ClientCredentialsService(
-  apiClientRepository,
-  jwtService,
-);
-const createApiClientService = new CreateApiClientService(apiClientRepository);
 const getProfileService = new GetProfileService(userRepository);
 const updateProfileService = new UpdateProfileService(userRepository);
 const loginPasswordService = new LoginPasswordService(
@@ -120,8 +111,6 @@ export const authController = new AuthController(
   sendEmailCodeService,
   verifyEmailCodeService,
   refreshTokenService,
-  clientCredentialsService,
-  createApiClientService,
   loginPasswordService,
   resetPasswordService,
   registerService,

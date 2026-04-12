@@ -9,12 +9,8 @@ import {
 } from "@paul/entities";
 import { FastifyInstance } from "fastify";
 import { AuthError } from "../../errors/AuthError.js";
-import { validateClientCredentials } from "../../schemas/validators/client-credentials.validator.js";
-import { validateCreateClient } from "../../schemas/validators/create-client.validator.js";
 import { validateVerifyCode } from "../../schemas/validators/verify-code.validator.js";
 import { CheckUserExistenceService } from "../../services/check-user-existence.service.js";
-import { ClientCredentialsService } from "../../services/client-credentials.service.js";
-import { CreateApiClientService } from "../../services/create-api-client.service.js";
 import { LoginPasswordService } from "../../services/login-password.service.js";
 import { RefreshTokenService } from "../../services/refresh-token.service.js";
 import { RegisterService } from "../../services/register.service.js";
@@ -23,13 +19,11 @@ import { SendEmailCodeService } from "../../services/send-email-code.service.js"
 import { VerifyEmailCodeService } from "../../services/verify-email-code.service.js";
 import {
   checkEmailSchema,
-  createClientSchema,
   loginPasswordSchema,
   refreshTokenSchema,
   registerSchema,
   resetPasswordSchema,
   sendCodeSchema,
-  tokenSchema,
   verifyCodeSchema,
 } from "./auth.doc.js";
 
@@ -38,8 +32,6 @@ export class AuthController {
     private readonly sendEmailCodeService: SendEmailCodeService,
     private readonly verifyEmailCodeService: VerifyEmailCodeService,
     private readonly refreshTokenService: RefreshTokenService,
-    private readonly clientCredentialsService: ClientCredentialsService,
-    private readonly createApiClientService: CreateApiClientService,
     private readonly loginPasswordService: LoginPasswordService,
     private readonly resetPasswordService: ResetPasswordService,
     private readonly registerService: RegisterService,
@@ -161,37 +153,6 @@ export class AuthController {
           fastify.log.error(error);
           throw error;
         }
-      },
-    );
-
-    fastify.post<{
-      Body: {
-        grant_type: "client_credentials";
-        client_id: string;
-        client_secret: string;
-      };
-    }>(
-      `${prefix}/v1/auth/token`,
-      { schema: tokenSchema },
-      async (request, reply) => {
-        const validatedData = validateClientCredentials(request.body);
-        const result = await this.clientCredentialsService.execute(
-          validatedData.client_id,
-          validatedData.client_secret,
-        );
-        reply.send(result);
-      },
-    );
-
-    fastify.post<{ Body: { name: string } }>(
-      `${prefix}/v1/auth/clients`,
-      { schema: createClientSchema },
-      async (request, reply) => {
-        const validatedData = validateCreateClient(request.body);
-        const result = await this.createApiClientService.execute(
-          validatedData.name,
-        );
-        reply.status(201).send(result);
       },
     );
   }
