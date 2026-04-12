@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import type { User } from "@paul/entities";
 import { useUser } from "@modules/user/use-user";
@@ -22,6 +22,12 @@ export function UserProfileCard({ user }: UserProfileCardProps) {
   const { t } = useTranslation();
   const [name, setName] = useState(user?.name || "");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (user?.name) {
+      setName(user.name);
+    }
+  }, [user?.name]);
 
   if (!user) {
     return <GuestCard />;
