@@ -285,7 +285,6 @@
     "description": "Visualize e edite os detalhes da sua tarefa aqui.",
     "buttons": {
       "full_page": "Abrir Página Cheia",
-      "zen_mode": "Entrar em Modo Zen",
       "pomodoro": "Pomodoro"
     }
   },
@@ -333,7 +332,6 @@
     "actions": {
       "delete": "Excluir tarefa",
       "restore": "Restaurar tarefa",
-      "zen_mode": "Entrar em Modo Zen",
       "details": "Abrir detalhes da tarefa",
       "pomodoro": "Pomodoro"
     },

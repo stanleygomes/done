@@ -285,7 +285,6 @@
     "description": "View and edit the details of your task here.",
     "buttons": {
       "full_page": "Open Full Page",
-      "zen_mode": "Enter Zen Mode",
       "pomodoro": "Pomodoro"
     }
   },
@@ -333,7 +332,6 @@
     "actions": {
       "delete": "Delete task",
       "restore": "Restore task",
-      "zen_mode": "Enter Zen Mode",
       "details": "Open Task Details",
       "pomodoro": "Pomodoro"
     },

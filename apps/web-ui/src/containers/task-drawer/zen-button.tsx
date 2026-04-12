@@ -23,7 +23,7 @@ export function TaskDrawerZenButton({
         onClose();
       }}
     >
-      <Maximize2 className="h-6 w-6" /> {t("task_drawer.buttons.zen_mode")}
+      <Maximize2 className="h-6 w-6" /> {t("task_drawer.buttons.pomodoro")}
     </button>
   );
 }
