@@ -64,6 +64,7 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
     openDrawer,
     closeDrawer,
     reorderTodoTasks,
+    clearFinishedTasks,
     zenModeTask,
     enterZenMode,
     exitZenMode,
@@ -158,9 +159,18 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
           />
         )}
 
-        {/* '{filter && !currentProject && (
-          <BoardHeader title={filter} isFilter={true} />
-        )} */}
+        {filter && !currentProject && (
+          <BoardHeader
+            title={filter}
+            isFilter={true}
+            onAction={filter === "completed" ? clearFinishedTasks : undefined}
+            actionLabel={
+              filter === "completed"
+                ? t("task_board.finished_header.clear_all")
+                : undefined
+            }
+          />
+        )}
 
         <PinnedTasks
           tasks={pinnedTasks}

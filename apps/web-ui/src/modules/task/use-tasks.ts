@@ -296,7 +296,8 @@ export function useTasks(projectId?: string | null, filter?: string | null) {
   }
 
   function clearFinishedTasks() {
-    setTasks((prev) => prev.filter((t) => !t.done));
+    setTasks(manager.softRemoveAllDone());
+    toast.success("Finished tasks moved to Recently Deleted");
     setTimeout(performSync, 1000);
   }
 

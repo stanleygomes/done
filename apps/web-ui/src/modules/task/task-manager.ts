@@ -84,6 +84,19 @@ export class TaskManager {
     );
   }
 
+  softRemoveAllDone(): Task[] {
+    return this.tasks.map((task) =>
+      task.done && !task.isDeleted
+        ? {
+            ...task,
+            isDeleted: true,
+            deletedAt: this.now(),
+            updatedAt: this.now(),
+          }
+        : task,
+    );
+  }
+
   remove(id: string): Task[] {
     return this.tasks.filter((task) => task.id !== id);
   }
