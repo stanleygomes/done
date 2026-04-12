@@ -42,7 +42,7 @@ export function ListItem({
           {description && (
             <Typography
               variant="small"
-              className="text-foreground/50 truncate w-full text-left"
+              className="text-foreground/50 truncate w-full max-w-[180px] sm:max-w-[400px] text-left font-bold"
             >
               {description}
             </Typography>

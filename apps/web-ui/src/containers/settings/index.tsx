@@ -32,9 +32,16 @@ export default function Settings() {
           {user && (
             <SimpleCard className="!flex-row items-center gap-4 mb-6">
               <UserAvatar className="h-16 w-16" />
-              <div className="flex flex-col">
-                <Typography variant="h3">{user.name}</Typography>
-                <Typography variant="small">{user.email}</Typography>
+              <div className="flex flex-col min-w-0">
+                <Typography variant="h3" className="truncate font-black">
+                  {user.name}
+                </Typography>
+                <Typography
+                  variant="small"
+                  className="truncate max-w-[180px] sm:max-w-[300px] font-bold opacity-60"
+                >
+                  {user.email}
+                </Typography>
               </div>
             </SimpleCard>
           )}

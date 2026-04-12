@@ -69,7 +69,10 @@ export function UserProfileCard({ user }: UserProfileCardProps) {
               <Badge variant="yellow" className="w-fit mb-1">
                 {t("settings.profile.account_type")}
               </Badge>
-              <Typography variant="large" className="font-black truncate">
+              <Typography
+                variant="large"
+                className="font-black truncate max-w-[180px] sm:max-w-[400px]"
+              >
                 {user.email}
               </Typography>
             </div>
