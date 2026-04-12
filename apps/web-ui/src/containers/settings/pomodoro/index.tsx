@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { usePomodoroSettings } from "@modules/pomodoro/use-pomodoro-settings";
-import { SettingsMain } from "../settings-main";
-import { SettingsHeader } from "../settings-header";
+import { SettingsContainer } from "../container";
+import { SettingsHeader } from "../header";
 import { toast } from "@paul/ui";
 import { Save } from "lucide-react";
 
@@ -25,7 +25,7 @@ export function PomodoroSettings() {
   const hasChanges = JSON.stringify(localSettings) !== JSON.stringify(settings);
 
   return (
-    <SettingsMain>
+    <SettingsContainer>
       <SettingsHeader />
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-4 bg-secondary-background p-6 rounded-xl border-2 border-border shadow-shadow">
@@ -105,6 +105,6 @@ export function PomodoroSettings() {
           {t("settings.pomodoro.save_button")}
         </button>
       </div>
-    </SettingsMain>
+    </SettingsContainer>
   );
 }

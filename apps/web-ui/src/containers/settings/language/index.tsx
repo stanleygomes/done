@@ -2,8 +2,8 @@
 
 import { useTranslation } from "react-i18next";
 import { LANGUAGE_OPTIONS } from "@constants/languages";
-import { SettingsMain } from "../settings-main";
-import { SettingsHeader } from "../settings-header";
+import { SettingsContainer } from "../container";
+import { SettingsHeader } from "../header";
 
 export function LanguageSelector() {
   const { i18n, t } = useTranslation();
@@ -13,7 +13,7 @@ export function LanguageSelector() {
   };
 
   return (
-    <SettingsMain>
+    <SettingsContainer>
       <SettingsHeader />
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
@@ -37,6 +37,6 @@ export function LanguageSelector() {
           ))}
         </div>
       </div>
-    </SettingsMain>
+    </SettingsContainer>
   );
 }

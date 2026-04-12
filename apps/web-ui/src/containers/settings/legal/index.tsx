@@ -2,8 +2,8 @@
 
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import { SettingsMain } from "../settings-main";
-import { SettingsHeader } from "../settings-header";
+import { SettingsContainer } from "../container";
+import { SettingsHeader } from "../header";
 
 export function LegalSection() {
   const { t } = useTranslation();
@@ -22,7 +22,7 @@ export function LegalSection() {
   ];
 
   return (
-    <SettingsMain>
+    <SettingsContainer>
       <SettingsHeader />
       <div className="flex flex-col gap-4">
         <h2 className="text-lg font-black text-foreground">
@@ -50,6 +50,6 @@ export function LegalSection() {
           </Link>
         ))}
       </div>
-    </SettingsMain>
+    </SettingsContainer>
   );
 }

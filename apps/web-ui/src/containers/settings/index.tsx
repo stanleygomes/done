@@ -3,7 +3,7 @@
 import { useUser } from "@modules/user/use-user";
 import { useAuth } from "@modules/auth/use-auth";
 import { useTranslation } from "react-i18next";
-import { SettingsHeader } from "./settings-header";
+import { SettingsHeader } from "./header";
 import {
   User,
   Palette,

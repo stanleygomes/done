@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import { NotificationManager } from "@modules/notifications/manager";
 import { Bell, BellOff } from "lucide-react";
-import { SettingsMain } from "../settings-main";
-import { SettingsHeader } from "../settings-header";
+import { SettingsContainer } from "../container";
+import { SettingsHeader } from "../header";
 
 export function NotificationSettings() {
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ export function NotificationSettings() {
   };
 
   return (
-    <SettingsMain>
+    <SettingsContainer>
       <SettingsHeader />
       <div className="flex flex-col gap-4 rounded-base border-2 border-border bg-secondary-background p-6 shadow-shadow">
         <div className="flex items-center gap-3">
@@ -65,6 +65,6 @@ export function NotificationSettings() {
           </button>
         )}
       </div>
-    </SettingsMain>
+    </SettingsContainer>
   );
 }

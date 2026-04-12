@@ -5,8 +5,8 @@ import { useUser } from "@modules/user/use-user";
 import { Info } from "lucide-react";
 import { toast } from "@paul/ui";
 import { GuestCard } from "./guest-card";
-import { SettingsHeader } from "../settings-header";
-import { SettingsMain } from "../settings-main";
+import { SettingsHeader } from "../header";
+import { SettingsContainer } from "../container";
 
 interface UserProfileCardProps {
   user: User | null;
@@ -47,7 +47,7 @@ export function UserProfileCard({ user }: UserProfileCardProps) {
   };
 
   return (
-    <SettingsMain>
+    <SettingsContainer>
       <SettingsHeader />
       <div className="flex flex-col gap-6">
         <div className="rounded-base border-2 border-border bg-secondary-background p-6 shadow-shadow">
@@ -102,6 +102,6 @@ export function UserProfileCard({ user }: UserProfileCardProps) {
           </div>
         </div>
       </div>
-    </SettingsMain>
+    </SettingsContainer>
   );
 }
