@@ -6,12 +6,17 @@ import { NotificationManager } from "@modules/notifications/manager";
 import { Bell, BellOff } from "lucide-react";
 import { SettingsContainer } from "../container";
 import { SettingsHeader } from "../header";
+import { SimpleCard } from "src/components/simple-card";
+import { Typography } from "src/components/typography";
+import { Button } from "src/components/button";
 
 export function NotificationSettings() {
   const { t } = useTranslation();
   const [permission, setPermission] = useState<
     NotificationPermission | "unsupported"
   >("default");
+
+  const [isRequesting, setIsRequesting] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined" && "Notification" in window) {
@@ -22,49 +27,84 @@ export function NotificationSettings() {
   }, []);
 
   const handleRequest = async () => {
-    const result = await NotificationManager.requestPermission();
-    setPermission(result);
+    setIsRequesting(true);
+    try {
+      const result = await NotificationManager.requestPermission();
+      setPermission(result);
+    } finally {
+      setIsRequesting(false);
+    }
   };
+
+  const getNotificationConfig = () => {
+    if (permission === "granted") {
+      return {
+        Icon: Bell,
+        statusKey: "settings.notification_settings.status.granted",
+        colorClass: "bg-main text-main-foreground",
+        buttonTextKey: null,
+      };
+    }
+
+    if (permission === "unsupported") {
+      return {
+        Icon: BellOff,
+        statusKey: "settings.notification_settings.status.unsupported",
+        colorClass: "bg-background text-foreground/50",
+        buttonTextKey: null,
+      };
+    }
+
+    return {
+      Icon: BellOff,
+      statusKey: "settings.notification_settings.status.default",
+      colorClass: "bg-background text-foreground/50",
+      buttonTextKey:
+        permission === "denied"
+          ? "settings.notification_settings.buttons.denied"
+          : "settings.notification_settings.buttons.enable",
+    };
+  };
+
+  const config = getNotificationConfig();
 
   return (
     <SettingsContainer>
       <SettingsHeader />
-      <div className="flex flex-col gap-4 rounded-base border-2 border-border bg-secondary-background p-6 shadow-shadow">
-        <div className="flex items-center gap-3">
-          {permission === "granted" ? (
-            <div className="rounded-base border-2 border-border bg-main p-2">
-              <Bell className="h-5 w-5 text-main-foreground" />
-            </div>
-          ) : (
-            <div className="rounded-base border-2 border-border bg-background p-2">
-              <BellOff className="h-5 w-5 text-foreground/50" />
-            </div>
-          )}
+      <SimpleCard className="flex flex-col gap-6 !p-6">
+        <div className="flex items-center gap-4">
+          <div
+            className={`rounded-base border-2 border-border p-3 shadow-[2px_2px_0px_0px_var(--border)] ${config.colorClass}`}
+          >
+            <config.Icon className="h-6 w-6" />
+          </div>
           <div className="flex-1">
-            <h3 className="text-sm font-black text-foreground">
+            <Typography
+              variant="large"
+              className="font-black uppercase tracking-tight"
+            >
               {t("settings.notification_settings.title")}
-            </h3>
-            <p className="text-xs font-medium text-foreground/60 leading-tight mt-1">
-              {permission === "granted"
-                ? t("settings.notification_settings.status.granted")
-                : permission === "unsupported"
-                  ? t("settings.notification_settings.status.unsupported")
-                  : t("settings.notification_settings.status.default")}
-            </p>
+            </Typography>
+            <Typography
+              variant="small"
+              className="font-bold text-foreground/60 leading-tight"
+            >
+              {t(config.statusKey)}
+            </Typography>
           </div>
         </div>
 
-        {permission !== "granted" && permission !== "unsupported" && (
-          <button
+        {config.buttonTextKey && (
+          <Button
             onClick={handleRequest}
-            className="mt-2 w-full rounded-base border-2 border-border bg-main py-2 text-sm font-bold text-main-foreground shadow-shadow transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none hover:bg-main/90"
+            isLoading={isRequesting}
+            loadingText={t("actions.saving")}
+            className="w-full h-12"
           >
-            {permission === "denied"
-              ? t("settings.notification_settings.buttons.denied")
-              : t("settings.notification_settings.buttons.enable")}
-          </button>
+            {t(config.buttonTextKey)}
+          </Button>
         )}
-      </div>
+      </SimpleCard>
     </SettingsContainer>
   );
 }
