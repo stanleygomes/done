@@ -149,7 +149,7 @@ export function useTasks(projectId?: string | null, filter?: string | null) {
 
   const { todoTasks, finishedTasks } = useMemo(() => {
     if (filter === "completed") {
-      return { todoTasks: filteredTasks, finishedTasks: [] as Task[] };
+      return { todoTasks: filteredTasks, finishedTasks: [] };
     }
     return filteredTasks.reduce<{ todoTasks: Task[]; finishedTasks: Task[] }>(
       (acc, task) => {
