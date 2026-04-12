@@ -9,32 +9,27 @@ import {
 } from "@paul/entities";
 import { FastifyInstance } from "fastify";
 import { AuthError } from "../../errors/AuthError.js";
-import { AuthMiddleware, UserAuth } from "../../middlewares/auth.middleware.js";
 import { validateClientCredentials } from "../../schemas/validators/client-credentials.validator.js";
 import { validateCreateClient } from "../../schemas/validators/create-client.validator.js";
 import { validateVerifyCode } from "../../schemas/validators/verify-code.validator.js";
 import { CheckUserExistenceService } from "../../services/check-user-existence.service.js";
 import { ClientCredentialsService } from "../../services/client-credentials.service.js";
 import { CreateApiClientService } from "../../services/create-api-client.service.js";
-import { GetProfileService } from "../../services/get-profile.service.js";
 import { LoginPasswordService } from "../../services/login-password.service.js";
 import { RefreshTokenService } from "../../services/refresh-token.service.js";
 import { RegisterService } from "../../services/register.service.js";
 import { ResetPasswordService } from "../../services/reset-password.service.js";
 import { SendEmailCodeService } from "../../services/send-email-code.service.js";
-import { UpdateProfileService } from "../../services/update-profile.service.js";
 import { VerifyEmailCodeService } from "../../services/verify-email-code.service.js";
 import {
   checkEmailSchema,
   createClientSchema,
-  getProfileSchema,
   loginPasswordSchema,
   refreshTokenSchema,
   registerSchema,
   resetPasswordSchema,
   sendCodeSchema,
   tokenSchema,
-  updateProfileSchema,
   verifyCodeSchema,
 } from "./auth.doc.js";
 
@@ -45,8 +40,6 @@ export class AuthController {
     private readonly refreshTokenService: RefreshTokenService,
     private readonly clientCredentialsService: ClientCredentialsService,
     private readonly createApiClientService: CreateApiClientService,
-    private readonly getProfileService: GetProfileService,
-    private readonly updateProfileService: UpdateProfileService,
     private readonly loginPasswordService: LoginPasswordService,
     private readonly resetPasswordService: ResetPasswordService,
     private readonly registerService: RegisterService,
@@ -199,29 +192,6 @@ export class AuthController {
           validatedData.name,
         );
         reply.status(201).send(result);
-      },
-    );
-
-    fastify.get(
-      `${prefix}/v1/auth/me`,
-      { preHandler: [AuthMiddleware.authorize], schema: getProfileSchema },
-      async (request, reply) => {
-        const { id } = (request as any).user as UserAuth;
-        const result = await this.getProfileService.execute(id);
-        reply.send(result);
-      },
-    );
-
-    fastify.patch<{ Body: { name: string } }>(
-      `${prefix}/v1/auth/me`,
-      { preHandler: [AuthMiddleware.authorize], schema: updateProfileSchema },
-      async (request, reply) => {
-        const { id } = (request as any).user as UserAuth;
-        const result = await this.updateProfileService.execute(
-          id,
-          request.body,
-        );
-        reply.send(result);
       },
     );
   }

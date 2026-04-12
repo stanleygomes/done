@@ -1,6 +1,7 @@
 import { FastifyInstance } from "fastify";
 import {
   authController,
+  userController,
   promptController,
   projectController,
   taskController,
@@ -12,6 +13,7 @@ import {
 export class AppRouter {
   public register(fastify: FastifyInstance, prefix = "") {
     authController.registerRoutes(fastify, prefix);
+    userController.registerRoutes(fastify, prefix);
     promptController.registerRoutes(fastify, prefix);
     projectController.registerRoutes(fastify, prefix);
     taskController.registerRoutes(fastify, prefix);

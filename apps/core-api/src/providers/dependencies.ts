@@ -2,6 +2,7 @@ import { EmailService, JwtService } from "@paul/node-utils";
 import type { SignOptions } from "jsonwebtoken";
 import { config } from "../config/environment.js";
 import { AuthController } from "../controllers/auth/auth.controller.js";
+import { UserController } from "../controllers/user/user.controller.js";
 import { PromptController } from "../controllers/prompt/prompt.controller.js";
 import { ApiClientRepository } from "../repositories/api-client.repository.js";
 import { UserRepository } from "../repositories/user.repository.js";
@@ -121,12 +122,15 @@ export const authController = new AuthController(
   refreshTokenService,
   clientCredentialsService,
   createApiClientService,
-  getProfileService,
-  updateProfileService,
   loginPasswordService,
   resetPasswordService,
   registerService,
   checkUserExistenceService,
+);
+
+export const userController = new UserController(
+  getProfileService,
+  updateProfileService,
 );
 
 export const projectController = new ProjectController(projectService);

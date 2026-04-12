@@ -96,21 +96,11 @@ export const authService = {
     return response.data;
   },
 
-  async getMe(): Promise<any> {
-    const response = await httpClient.get(`${AUTH_API_URL}/v1/auth/me`);
-    return response.data;
-  },
-
   async refreshToken(): Promise<any> {
     const response = await httpClient.post(
       `${AUTH_API_URL}/v1/auth/refresh-token`,
       {},
     );
-    return response.data;
-  },
-
-  async updateMe(data: { name: string }): Promise<any> {
-    const response = await httpClient.patch(`${AUTH_API_URL}/v1/auth/me`, data);
     return response.data;
   },
 };

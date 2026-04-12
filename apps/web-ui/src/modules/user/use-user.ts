@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import type { User } from "@paul/entities";
 import { useAuth } from "../auth/use-auth";
-import { authService } from "../auth/auth-api.service";
+import { userService } from "./user-api.service";
 
 export function useUser() {
   const [user, setUser] = useLocalStorage<User | null>("app-user", null);
@@ -17,7 +17,7 @@ export function useUser() {
 
   const fetchProfile = useCallback(async () => {
     try {
-      const profile = await authService.getMe();
+      const profile = await userService.getMe();
       setUser(profile);
     } catch (error) {
       console.error("Error fetching profile:", error);
@@ -26,7 +26,7 @@ export function useUser() {
 
   const updateProfile = async (data: { name: string }) => {
     try {
-      const profile = await authService.updateMe(data);
+      const profile = await userService.updateMe(data);
       setUser(profile);
       return profile;
     } catch (error) {
