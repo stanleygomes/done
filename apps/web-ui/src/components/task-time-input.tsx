@@ -1,5 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Clock } from "lucide-react";
+import { useEffect, useState } from "react";
+import { isMobileDevice } from "../modules/utils/device";
 
 interface TimeInputProps {
   value: string;
@@ -9,6 +11,11 @@ interface TimeInputProps {
 
 export function TaskTimeInput({ value, onChange, className }: TimeInputProps) {
   const { t } = useTranslation();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(isMobileDevice());
+  }, []);
 
   function handleTimeChange(newValue: string) {
     let formattedValue = newValue.replace(/\D/g, "");
@@ -35,19 +42,31 @@ export function TaskTimeInput({ value, onChange, className }: TimeInputProps) {
 
   return (
     <div
-      className={`flex h-10 sm:h-8 cursor-pointer items-center gap-1 rounded-base border-2 border-border px-3 py-1 shadow-sm transition-colors focus-within:text-foreground whitespace-nowrap ${
+      className={`relative flex h-10 sm:h-8 cursor-pointer items-center gap-1 rounded-base border-2 border-border px-3 py-1 shadow-sm transition-colors focus-within:text-foreground whitespace-nowrap ${
         value ? "text-foreground" : "text-foreground/40"
       } ${className}`}
     >
       <Clock className="h-4 w-4 shrink-0" />
       <input
-        type="text"
+        type={isMobile ? "time" : "text"}
         value={value}
-        onChange={(e) => handleTimeChange(e.target.value)}
+        onChange={(e) =>
+          isMobile ? onChange(e.target.value) : handleTimeChange(e.target.value)
+        }
         placeholder={t("common.components.time_input.placeholder")}
-        className="bg-transparent outline-none text-sm sm:text-xs font-bold w-[55px] cursor-pointer placeholder:text-foreground/40"
+        className={`bg-transparent outline-none text-sm sm:text-xs font-bold ${
+          isMobile ? "w-full" : "w-[55px]"
+        } cursor-pointer placeholder:text-foreground/40`}
         maxLength={5}
       />
+      {isMobile && (
+        <input
+          type="time"
+          className="absolute inset-0 opacity-0 cursor-pointer"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      )}
     </div>
   );
 }

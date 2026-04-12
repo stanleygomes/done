@@ -5,6 +5,7 @@ import { AutoResizeTextarea } from "../../components/auto-resize-textarea";
 import { TaskDatePicker as DatePicker } from "../../components/task-date-picker";
 import { TaskProjectSelector as ProjectSelector } from "../../components/task-project-selector";
 import { TaskTimeInput as TimeInput } from "../../components/task-time-input";
+import { useProjects } from "../../modules/project/use-projects";
 
 interface CreateTaskMobileProps {
   value: string;
@@ -38,6 +39,8 @@ export function CreateTaskMobile({
   saveStatus,
 }: CreateTaskMobileProps) {
   const { t } = useTranslation();
+  const { projects } = useProjects();
+  const hasProjects = projects.length > 0;
 
   return (
     <div className="flex flex-col h-full bg-background overflow-hidden overscroll-none">
@@ -67,7 +70,7 @@ export function CreateTaskMobile({
         </div>
 
         {/* Project Selection */}
-        {!currentProjectId && (
+        {!currentProjectId && hasProjects && (
           <div className="mb-8">
             <label className="block font-black uppercase tracking-wider mb-2 text-sm text-foreground/60">
               {t("task_form.labels.project")}

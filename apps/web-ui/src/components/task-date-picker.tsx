@@ -3,6 +3,8 @@ import { format, parseISO, isValid } from "date-fns";
 import { ptBR, enUS } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import { Calendar, Popover, PopoverTrigger, PopoverContent } from "@paul/ui";
+import { useEffect, useState } from "react";
+import { isMobileDevice } from "../modules/utils/device";
 
 const locales = {
   en: enUS,
@@ -24,26 +26,46 @@ export function TaskDatePicker({
   const dueDate = dueDateStr ? parseISO(dueDateStr) : undefined;
   const currentLocale = locales[i18n.language as keyof typeof locales] || enUS;
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(isMobileDevice());
+  }, []);
+
+  const trigger = (
+    <button
+      type="button"
+      className={`relative flex h-10 sm:h-8 cursor-pointer items-center gap-1 rounded-base border-2 border-border px-3 py-1 font-bold shadow-sm transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none whitespace-nowrap ${
+        dueDateStr
+          ? "bg-main text-main-foreground"
+          : "bg-secondary-background text-foreground/60 hover:text-foreground"
+      } ${className}`}
+      title={t("common.components.date_picker.title")}
+    >
+      <CalendarIcon className="h-4 w-4 shrink-0" />
+      <span className="text-sm sm:text-xs font-bold">
+        {dueDate && isValid(dueDate)
+          ? format(dueDate, "dd/MM/yy")
+          : t("common.components.date_picker.default_label")}
+      </span>
+      {isMobile && (
+        <input
+          type="date"
+          className="absolute inset-0 opacity-0 cursor-pointer"
+          value={dueDateStr || ""}
+          onChange={(e) => onDateChange(e.target.value)}
+        />
+      )}
+    </button>
+  );
+
+  if (isMobile) {
+    return trigger;
+  }
+
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <button
-          type="button"
-          className={`flex h-10 sm:h-8 cursor-pointer items-center gap-1 rounded-base border-2 border-border px-3 py-1 font-bold shadow-sm transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none whitespace-nowrap ${
-            dueDateStr
-              ? "bg-main text-main-foreground"
-              : "bg-secondary-background text-foreground/60 hover:text-foreground"
-          } ${className}`}
-          title={t("common.components.date_picker.title")}
-        >
-          <CalendarIcon className="h-4 w-4 shrink-0" />
-          <span className="text-sm sm:text-xs font-bold">
-            {dueDate && isValid(dueDate)
-              ? format(dueDate, "dd/MM/yy")
-              : t("common.components.date_picker.default_label")}
-          </span>
-        </button>
-      </PopoverTrigger>
+      <PopoverTrigger asChild>{trigger}</PopoverTrigger>
       <PopoverContent className="w-auto p-0 border-2 border-border shadow-shadow bg-secondary-background">
         <Calendar
           mode="single"

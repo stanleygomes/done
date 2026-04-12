@@ -49,10 +49,11 @@ paul/
 
 ## Authentication Standard
 
-- **Cookie-Based**: Authentication is strictly handled via **HttpOnly cookies** (Access and Refresh tokens).
-- **No Local Storage**: Do not store JWTs or sensitive session data in `localStorage`. Use a simple boolean flag (`app-is-authenticated`) only for UI state hints.
-- **HTTP Client**: Always ensure `withCredentials: true` is set in the `httpClient` configuration to allow tokens to be sent automatically.
-- **Token Refresh**: Token refreshing is handled by the `handleUnauthorized` interceptor, which calls `/v1/auth/refresh-token` (cookie-protected) and retries the original request.
+- **Hybrid Setup**: Authentication currently uses a hybrid approach of **HttpOnly cookies** and **Bearer tokens** in the `Authorization` header.
+- **Bearer Fallback**: Due to Safari (iOS) blocking cross-domain cookies (ITP), JWTs are returned in the login response body and stored in `localStorage` (`auth-access-token`, `auth-refresh-token`).
+- **Temporary Measurement**: This fallback is **temporary**. The long-term plan is to migrate to a **Custom Domain** (making the app and API same-site) or use **Vercel Rewrites** to proxy the API through the same origin. Once achieved, we must return to **strictly HttpOnly cookies** and remove `localStorage` token storage.
+- **HTTP Client**: Headers are automatically injected via an interceptor in `apps/web-ui/src/modules/http/http-client-setup.ts`. `withCredentials: true` is still used.
+- **Token Refresh**: Handled by the `handleUnauthorized` interceptor. It uses the Bearer refresh token from `localStorage` as a fallback if the cookie is blocked.
 
 ## Skills available
 
