@@ -22,25 +22,25 @@ export function ThemeSelector() {
       value: "classic",
       label: t("settings.themes.classic"),
       icon: Sun,
-      description: "Amarelo vibrante e energético",
+      description: t("settings.themes.classic_description"),
     },
     {
       value: "ice",
       label: t("settings.themes.ice"),
       icon: Snowflake,
-      description: "Azul calmo e refrescante",
+      description: t("settings.themes.ice_description"),
     },
     {
       value: "dark",
       label: t("settings.themes.dark"),
       icon: Moon,
-      description: "Visual focado para a noite",
+      description: t("settings.themes.dark_description"),
     },
     {
       value: "auto",
       label: t("settings.themes.auto"),
       icon: Monitor,
-      description: "Segue as regras do sistema",
+      description: t("settings.themes.auto_description"),
     },
   ];
 
@@ -77,6 +77,9 @@ export function ThemeSelector() {
             />
             <span className="text-lg font-black uppercase tracking-tighter">
               {option.label}
+            </span>
+            <span className="mt-1 text-xs font-bold text-foreground/40 text-center">
+              {option.description}
             </span>
           </button>
         ))}
