@@ -4,6 +4,7 @@ import {
   Layers,
   AlertCircle,
   Trash2,
+  CheckCircle,
   LucideIcon,
 } from "lucide-react";
 
@@ -42,6 +43,13 @@ export const PROJECT_FILTERS: FilterItem[] = [
     name: "Important",
     href: "/?filter=important",
     icon: AlertCircle,
+    color: "text-gray-500",
+  },
+  {
+    id: "completed",
+    name: "Completed",
+    href: "/?filter=completed",
+    icon: CheckCircle,
     color: "text-gray-500",
   },
   {

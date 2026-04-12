@@ -13,7 +13,6 @@ import { UserMenu } from "src/components/user-menu";
 import { CreateTaskInput } from "../create-task-input";
 import { TaskDrawer } from "../task-drawer";
 import { ZenModeView } from "../zen-mode";
-import { FinishedHeader } from "./finished-header";
 import { PinnedTasks } from "./pinned-tasks";
 import { BoardHeader } from "./project-header";
 import { TaskList } from "./task-list";
@@ -65,8 +64,6 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
     openDrawer,
     closeDrawer,
     reorderTodoTasks,
-    reorderFinishedTasks,
-    clearFinishedTasks,
     zenModeTask,
     enterZenMode,
     exitZenMode,
@@ -194,31 +191,6 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
             isRecentlyDeleted={isRecentlyDeleted}
           />
         </section>
-
-        {finishedTasks.length > 0 && (
-          <section className="flex flex-col gap-4 mt-10">
-            <FinishedHeader onClear={clearFinishedTasks} />
-            <TaskList
-              tasks={finishedTasks}
-              editingTaskId={selectedTask === null ? editingTaskId : null}
-              editingContent={editingContent}
-              onEditingContentChange={setEditingContent}
-              onToggle={toggleTask}
-              onStartEdit={startEdit}
-              onUpdateEdit={updateEdit}
-              onCloseEdit={closeEdit}
-              onDelete={deleteTask}
-              onRestore={restoreTask}
-              onReorder={reorderFinishedTasks}
-              onOpenDrawer={handleOpenDrawer}
-              onUpdateDetails={updateTaskDetails}
-              onEnterZenMode={enterZenMode}
-              showProject={!projectId}
-              isLoading={isLoading}
-              isRecentlyDeleted={isRecentlyDeleted}
-            />
-          </section>
-        )}
       </div>
 
       <CreateTaskInput
