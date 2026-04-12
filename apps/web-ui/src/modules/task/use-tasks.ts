@@ -8,6 +8,7 @@ import { generateUUID, isUUID } from "@paul/utils";
 import { useEffect, useMemo, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { taskApiService } from "./task-api.service";
+import { useUser } from "../user/use-user";
 
 function normalizeTask(task: any): Task {
   const content = task.content ?? task.title ?? "";
@@ -82,7 +83,11 @@ function deriveParentTaskDoneState(
 import { useSync } from "../sync/use-sync";
 
 export function useTasks(projectId?: string | null, filter?: string | null) {
-  const [tasks, setTasks] = useLocalStorage<Task[]>("todo-tasks", []);
+  const { user } = useUser();
+  const tasksKey = user ? `todo-tasks:${user.id}` : "todo-tasks";
+  const zenKey = user ? `todo-zen-mode:${user.id}` : "todo-zen-mode";
+
+  const [tasks, setTasks] = useLocalStorage<Task[]>(tasksKey, []);
   const { isSyncing, performSync } = useSync();
   const [newTask, setNewTask] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -90,7 +95,7 @@ export function useTasks(projectId?: string | null, filter?: string | null) {
   const [editingContent, setEditingContent] = useState("");
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
   const [zenModeTaskId, setZenModeTaskId] = useLocalStorage<string | null>(
-    "todo-zen-mode",
+    zenKey,
     null,
   );
   const [isLoading, setIsLoading] = useState(false);

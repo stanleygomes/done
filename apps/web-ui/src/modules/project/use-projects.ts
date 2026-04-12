@@ -4,12 +4,13 @@ import { useLocalStorage } from "usehooks-ts";
 import { Project } from "@paul/entities";
 import { generateUUID } from "@paul/utils";
 import { useSync } from "../sync/use-sync";
+import { useUser } from "../user/use-user";
 
 export function useProjects() {
-  const [projects, setProjects] = useLocalStorage<Project[]>(
-    "todo-projects",
-    [],
-  );
+  const { user } = useUser();
+  const projectsKey = user ? `todo-projects:${user.id}` : "todo-projects";
+
+  const [projects, setProjects] = useLocalStorage<Project[]>(projectsKey, []);
   const { isSyncing, performSync } = useSync();
 
   function createProject(name: string, color: string) {

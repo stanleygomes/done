@@ -3,6 +3,20 @@
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 
+const SENSITIVE_KEYS = [
+  "todo-tasks",
+  "todo-projects",
+  "todo-zen-mode",
+  "app-user",
+  "app-is-authenticated",
+];
+
+export function clearUserData() {
+  SENSITIVE_KEYS.forEach((key) => {
+    localStorage.removeItem(key);
+  });
+}
+
 export function useAuth() {
   const [isAuthenticated, setIsAuthenticated] = useLocalStorage<boolean>(
     "app-is-authenticated",
@@ -19,6 +33,7 @@ export function useAuth() {
   };
 
   const logout = () => {
+    clearUserData();
     setIsAuthenticated(false);
   };
 

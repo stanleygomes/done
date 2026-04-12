@@ -13,6 +13,7 @@ import { useAuth } from "@modules/auth/use-auth";
 import { syncApiService } from "./sync-api.service";
 import { SyncManager } from "./sync-manager";
 import type { Task, Project } from "@paul/entities";
+import { useUser } from "../user/use-user";
 
 export interface SyncContextType {
   isSyncing: boolean;
@@ -25,14 +26,16 @@ export const SyncContext = createContext<SyncContextType | null>(null);
 
 export function SyncProvider({ children }: { children: ReactNode }) {
   const { isAuthenticated } = useAuth();
-  const [tasks, setTasks] = useLocalStorage<Task[]>("todo-tasks", []);
-  const [projects, setProjects] = useLocalStorage<Project[]>(
-    "todo-projects",
-    [],
-  );
+  const { user } = useUser();
+  const tasksKey = user ? `todo-tasks:${user.id}` : "todo-tasks";
+  const projectsKey = user ? `todo-projects:${user.id}` : "todo-projects";
+  const lastSyncKey = user ? `app-last-sync-at:${user.id}` : "app-last-sync-at";
+
+  const [tasks, setTasks] = useLocalStorage<Task[]>(tasksKey, []);
+  const [projects, setProjects] = useLocalStorage<Project[]>(projectsKey, []);
 
   const [lastSyncAt, setLastSyncAt] = useLocalStorage<number | null>(
-    "app-ast-sync-at",
+    lastSyncKey,
     null,
   );
 

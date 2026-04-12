@@ -42,7 +42,7 @@ export function useUser() {
   }, [isAuthenticated, mounted, user, fetchProfile]);
 
   return {
-    user: mounted ? user : null,
+    user: mounted && isAuthenticated ? user : null,
     updateProfile,
     refreshProfile: fetchProfile,
   };
