@@ -285,7 +285,8 @@
     "description": "View and edit the details of your task here.",
     "buttons": {
       "full_page": "Open Full Page",
-      "zen_mode": "Enter Zen Mode"
+      "zen_mode": "Enter Zen Mode",
+      "pomodoro": "Pomodoro"
     }
   },
   "zen_mode": {
@@ -333,7 +334,8 @@
       "delete": "Delete task",
       "restore": "Restore task",
       "zen_mode": "Enter Zen Mode",
-      "details": "Open Task Details"
+      "details": "Open Task Details",
+      "pomodoro": "Pomodoro"
     },
     "delete_confirm": {
       "title": "Are you absolutely sure?",
@@ -510,5 +512,25 @@
     "select": "Select",
     "selected": "Selected",
     "saving": "Saving..."
+  },
+  "pomodoro": {
+    "title": "Pomodoro",
+    "phase": {
+      "focus": "Focus",
+      "short_break": "Short Break",
+      "long_break": "Long Break"
+    },
+    "cycle": "Cycle {{current}}/4",
+    "start": "Start",
+    "pause": "Pause",
+    "skip": "Skip",
+    "settings_link": "Adjust pomodoro times",
+    "badges": {
+      "important": "Important"
+    },
+    "sections": {
+      "notes": "Notes",
+      "subtasks": "Subtasks"
+    }
   }
 }
