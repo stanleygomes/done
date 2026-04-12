@@ -23,9 +23,13 @@
     },
     "themes": {
       "classic": "Clássico",
+      "classic_description": "Amarelo vibrante e energético",
       "ice": "Gelo",
+      "ice_description": "Azul calmo e refrescante",
       "dark": "Escuro",
-      "auto": "Automático"
+      "dark_description": "Visual focado para a noite",
+      "auto": "Automático",
+      "auto_description": "Segue o tema do seu sistema"
     },
     "notification_settings": {
       "title": "Lembretes de Tarefas",

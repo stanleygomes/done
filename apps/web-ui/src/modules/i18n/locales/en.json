@@ -23,9 +23,13 @@
     },
     "themes": {
       "classic": "Classic",
+      "classic_description": "Vibrant and energetic yellow",
       "ice": "Ice",
+      "ice_description": "Calm and refreshing blue",
       "dark": "Dark",
-      "auto": "Auto"
+      "dark_description": "Focused look for the night",
+      "auto": "Auto",
+      "auto_description": "Matches your system theme"
     },
     "notification_settings": {
       "title": "Task Reminders",
