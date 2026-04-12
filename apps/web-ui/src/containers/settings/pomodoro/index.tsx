@@ -1,25 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import { usePomodoroSettings } from "@modules/pomodoro/use-pomodoro-settings";
+import { Input, toast } from "@paul/ui";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Button } from "src/components/button";
+import { Label } from "src/components/label";
+import { SimpleCard } from "src/components/simple-card";
+import { Typography } from "src/components/typography";
 import { SettingsContainer } from "../container";
 import { SettingsHeader } from "../header";
-import { toast } from "@paul/ui";
-import { Save } from "lucide-react";
 
 export function PomodoroSettings() {
   const { t } = useTranslation();
   const [settings, setSettings] = usePomodoroSettings();
   const [localSettings, setLocalSettings] = useState(settings);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setLocalSettings(settings);
   }, [settings]);
 
-  const handleSave = () => {
-    setSettings(localSettings);
-    toast.success(
-      t("settings.pomodoro.saved_success") || "Pomodoro settings saved!",
-    );
+  const handleSave = async () => {
+    setIsLoading(true);
+    try {
+      // Simulado para o feedback visual do botão bonito
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      setSettings(localSettings);
+      toast.success(t("settings.pomodoro.saved_success"));
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const hasChanges = JSON.stringify(localSettings) !== JSON.stringify(settings);
@@ -28,26 +37,30 @@ export function PomodoroSettings() {
     <SettingsContainer>
       <SettingsHeader />
       <div className="flex flex-col gap-6">
-        <div className="flex flex-col gap-4 bg-secondary-background p-6 rounded-xl border-2 border-border shadow-shadow">
+        <SimpleCard className="flex flex-col gap-6 !p-6">
           <div className="flex flex-col gap-1">
-            <h3 className="font-black text-xl uppercase tracking-tighter">
+            <Typography
+              variant="h2"
+              className="uppercase font-black tracking-tight"
+            >
               {t("settings.pomodoro.title")}
-            </h3>
-            <p className="text-sm font-bold text-foreground/50">
+            </Typography>
+            <Typography
+              variant="small"
+              className="font-bold text-foreground/50"
+            >
               {t("settings.pomodoro.device_hint")}
-            </p>
+            </Typography>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-black uppercase text-foreground/60">
-                {t("settings.pomodoro.focus_label")}
-              </label>
-              <input
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="flex flex-col gap-3">
+              <Label>{t("settings.pomodoro.focus_label")}</Label>
+              <Input
                 type="number"
                 min={1}
                 max={120}
-                className="rounded-base border-2 border-border bg-background px-4 py-3 text-lg font-black shadow-shadow outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-none"
+                className="h-14 text-lg font-black bg-background"
                 value={localSettings.focusTime}
                 onChange={(e) =>
                   setLocalSettings({
@@ -57,15 +70,13 @@ export function PomodoroSettings() {
                 }
               />
             </div>
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-black uppercase text-foreground/60">
-                {t("settings.pomodoro.short_break_label")}
-              </label>
-              <input
+            <div className="flex flex-col gap-3">
+              <Label>{t("settings.pomodoro.short_break_label")}</Label>
+              <Input
                 type="number"
                 min={1}
                 max={60}
-                className="rounded-base border-2 border-border bg-background px-4 py-3 text-lg font-black shadow-shadow outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-none"
+                className="h-14 text-lg font-black bg-background"
                 value={localSettings.shortBreakTime}
                 onChange={(e) =>
                   setLocalSettings({
@@ -75,15 +86,13 @@ export function PomodoroSettings() {
                 }
               />
             </div>
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-black uppercase text-foreground/60">
-                {t("settings.pomodoro.long_break_label")}
-              </label>
-              <input
+            <div className="flex flex-col gap-3">
+              <Label>{t("settings.pomodoro.long_break_label")}</Label>
+              <Input
                 type="number"
                 min={1}
                 max={60}
-                className="rounded-base border-2 border-border bg-background px-4 py-3 text-lg font-black shadow-shadow outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-none"
+                className="h-14 text-lg font-black bg-background"
                 value={localSettings.longBreakTime}
                 onChange={(e) =>
                   setLocalSettings({
@@ -94,16 +103,17 @@ export function PomodoroSettings() {
               />
             </div>
           </div>
-        </div>
+        </SimpleCard>
 
-        <button
+        <Button
           onClick={handleSave}
           disabled={!hasChanges}
-          className="group flex w-full items-center justify-center gap-2 rounded-xl border-2 border-border bg-main py-4 text-lg font-black uppercase tracking-tighter text-main-foreground shadow-shadow transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none active:scale-95 disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed cursor-pointer"
+          isLoading={isLoading}
+          loadingText={t("actions.saving")}
+          className="w-full h-14"
         >
-          <Save size={20} strokeWidth={3} />
           {t("settings.pomodoro.save_button")}
-        </button>
+        </Button>
       </div>
     </SettingsContainer>
   );

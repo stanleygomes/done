@@ -21,7 +21,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const variants = {
-    primary: "bg-main text-white",
+    primary: "bg-main text-main-foreground",
     danger: "bg-red-500 text-white",
     secondary: "bg-secondary-background text-foreground",
   };
