@@ -83,7 +83,7 @@ export function ComparisonSection() {
                     className="relative w-full max-w-sm aspect-square grayscale opacity-60 flex items-center justify-center"
                   >
                     <Image
-                      src="/images/user-frustrated.png"
+                      src="/images/paul-frustrated.png"
                       alt="Frustrated"
                       width={400}
                       height={400}
@@ -127,7 +127,7 @@ export function ComparisonSection() {
                     className="relative w-full max-w-sm aspect-square flex items-center justify-center drop-shadow-[20px_20px_0px_rgba(0,0,0,0.1)]"
                   >
                     <Image
-                      src="/images/user-happy.png"
+                      src="/images/paul-happy.png"
                       alt="Happy"
                       width={400}
                       height={400}

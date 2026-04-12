@@ -26,7 +26,7 @@ export default function LoginContainer({
 
             <div className="relative h-full aspect-square max-h-[220px] z-10 drop-shadow-[5px_5px_0px_rgba(0,0,0,1)]">
               <Image
-                src="/images/user-happy.png"
+                src="/images/paul-happy.png"
                 alt="App mascot"
                 fill
                 className="object-contain"
@@ -85,7 +85,7 @@ export default function LoginContainer({
             <div className="relative w-full aspect-square max-w-[450px] transition-transform hover:scale-105 hover:rotate-2 duration-500">
               <div className="absolute inset-0 bg-white/10 rounded-full blur-3xl" />
               <Image
-                src="/images/user-happy.png"
+                src="/images/paul-happy.png"
                 alt="Done"
                 fill
                 className="object-contain drop-shadow-[30px_30px_0px_rgba(0,0,0,1)]"
