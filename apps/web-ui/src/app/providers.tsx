@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 import { useTheme } from "@modules/theme/use-theme";
 import { TooltipProvider } from "@paul/ui/components/ui/tooltip";
 import { Toaster } from "@paul/ui";
-import { NotificationWatcher } from "@containers/notifications/watcher";
+// import { NotificationWatcher } from "@containers/notifications/watcher";
 
 import { SidebarProvider } from "../modules/menu-layout/use-sidebar";
 import { SyncProvider } from "../modules/sync/sync-provider";
@@ -22,7 +22,7 @@ export function Providers({ children }: { children: ReactNode }) {
       <SidebarProvider>
         <TopMenuProvider>
           <TooltipProvider>
-            <NotificationWatcher />
+            {/* <NotificationWatcher /> */}
             {children}
             <Toaster />
           </TooltipProvider>

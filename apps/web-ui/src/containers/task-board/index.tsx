@@ -70,7 +70,7 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
   const { setLeftContent, setRightContent } = useTopMenu();
   const router = useRouter();
 
-  const enterZenMode = useCallback(
+  const openPomodoro = useCallback(
     (id: string) => {
       router.push(`/pomodoro?taskId=${id}`);
     },
@@ -185,7 +185,7 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
             onReorder={reorderTodoTasks}
             onOpenDrawer={handleOpenDrawer}
             onUpdateDetails={updateTaskDetails}
-            onEnterZenMode={enterZenMode}
+            onEnterZenMode={openPomodoro}
             showProject={!projectId}
             isLoading={isLoading}
             isRecentlyDeleted={isRecentlyDeleted}
@@ -218,7 +218,7 @@ export default function TaskBoard({ projectId, filter }: TaskBoardProps) {
         onCloseEdit={closeEdit}
         onDelete={deleteTask}
         onRestore={restoreTask}
-        onEnterZenMode={enterZenMode}
+        onEnterZenMode={openPomodoro}
         onUpdateDetails={updateTaskDetails}
         onSuggestSubtasks={suggestSubtasks}
         isSuggestingSubtasks={isSuggestingSubtasks}

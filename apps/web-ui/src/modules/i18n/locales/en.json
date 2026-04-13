@@ -529,6 +529,17 @@
     "sections": {
       "notes": "Notes",
       "subtasks": "Subtasks"
+    },
+    "notifications": {
+      "focus_finished": {
+        "title": "Pomodoro Finished",
+        "short_break": "Time for a short break!",
+        "long_break": "Time for a long break!"
+      },
+      "break_finished": {
+        "title": "Break Finished",
+        "body": "Ready to focus again?"
+      }
     }
   }
 }

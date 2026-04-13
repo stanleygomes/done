@@ -2,7 +2,7 @@ import {
   User,
   Palette,
   Languages,
-  Bell,
+  // Bell,
   Timer,
   ShieldCheck,
 } from "lucide-react";
@@ -28,12 +28,12 @@ export const SETTINGS_MENU_ITEMS: SettingsMenuItem[] = [
     icon: Languages,
     color: "bg-green-500",
   },
-  {
-    href: "/settings/notifications",
-    labelKey: "settings.notifications",
-    icon: Bell,
-    color: "bg-red-500",
-  },
+  // {
+  //   href: "/settings/notifications",
+  //   labelKey: "settings.notifications",
+  //   icon: Bell,
+  //   color: "bg-red-500",
+  // },
   {
     href: "/settings/pomodoro",
     labelKey: "settings.pomodoro.title",
