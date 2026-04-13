@@ -3,8 +3,8 @@
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import { Button } from "src/components/button";
-import { Typography } from "src/components/typography";
+import { Button } from "@components/button";
+import { Typography } from "@components/typography";
 
 export function PomodoroHeader() {
   const { t } = useTranslation();

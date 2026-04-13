@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import { SimpleCard } from "src/components/simple-card";
-import { Typography } from "src/components/typography";
-import { Button } from "src/components/button";
+import { SimpleCard } from "@components/simple-card";
+import { Typography } from "@components/typography";
+import { Button } from "@components/button";
 
 export function GuestCard() {
   const { t } = useTranslation();

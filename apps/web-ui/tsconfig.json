@@ -12,6 +12,7 @@
       "@app/*": ["src/app/*"],
       "@config/*": ["src/config/*"],
       "@constants/*": ["src/constants/*"],
+      "@components/*": ["src/components/*"],
       "@containers/*": ["src/containers/*"],
       "@modules/*": ["src/modules/*"],
       "@types/*": ["src/types/*"],

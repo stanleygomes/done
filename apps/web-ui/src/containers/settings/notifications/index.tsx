@@ -6,9 +6,9 @@ import { NotificationManager } from "@modules/notifications/manager";
 import { Bell, BellOff } from "lucide-react";
 import { SettingsContainer } from "../container";
 import { SettingsHeader } from "../header";
-import { SimpleCard } from "src/components/simple-card";
-import { Typography } from "src/components/typography";
-import { Button } from "src/components/button";
+import { SimpleCard } from "@components/simple-card";
+import { Typography } from "@components/typography";
+import { Button } from "@components/button";
 
 export function NotificationSettings() {
   const { t } = useTranslation();

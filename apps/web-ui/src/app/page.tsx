@@ -2,7 +2,7 @@
 
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import TaskBoard from "src/containers/task-board";
+import TaskBoard from "@containers/task-board";
 
 function HomeContent() {
   const searchParams = useSearchParams();
