@@ -2,9 +2,9 @@
 
 import { useTranslation } from "react-i18next";
 import { Star, Clock, Tag, Check } from "lucide-react";
-import { SimpleCard } from "src/components/simple-card";
-import { Badge } from "src/components/badge";
-import { Typography } from "src/components/typography";
+import { SimpleCard } from "@components/simple-card";
+import { Badge } from "@components/badge";
+import { Typography } from "@components/typography";
 import { useTasks } from "@modules/task/use-tasks";
 import { useProjects } from "@modules/project/use-projects";
 

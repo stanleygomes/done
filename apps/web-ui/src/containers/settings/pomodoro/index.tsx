@@ -2,10 +2,10 @@ import { usePomodoroSettings } from "@modules/pomodoro/use-pomodoro-settings";
 import { Input, toast } from "@paul/ui";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "src/components/button";
-import { Label } from "src/components/label";
-import { SimpleCard } from "src/components/simple-card";
-import { Typography } from "src/components/typography";
+import { Button } from "@components/button";
+import { Label } from "@components/label";
+import { SimpleCard } from "@components/simple-card";
+import { Typography } from "@components/typography";
 import { SettingsContainer } from "../container";
 import { SettingsHeader } from "../header";
 

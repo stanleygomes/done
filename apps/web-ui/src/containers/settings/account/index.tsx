@@ -7,12 +7,12 @@ import { toast, Input } from "@paul/ui";
 import { GuestCard } from "./guest-card";
 import { SettingsHeader } from "../header";
 import { SettingsContainer } from "../container";
-import { SimpleCard } from "src/components/simple-card";
-import { Typography } from "src/components/typography";
-import { Button } from "src/components/button";
-import { Label } from "src/components/label";
-import { Badge } from "src/components/badge";
-import { UserAvatar } from "src/components/user-avatar";
+import { SimpleCard } from "@components/simple-card";
+import { Typography } from "@components/typography";
+import { Button } from "@components/button";
+import { Label } from "@components/label";
+import { Badge } from "@components/badge";
+import { UserAvatar } from "@components/user-avatar";
 
 interface UserProfileCardProps {
   user: User | null;

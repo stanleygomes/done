@@ -13,8 +13,8 @@ import { PlanHistory } from "./history";
 import { parseTaskFromResponse } from "./utils/task-parser";
 import { AnimatePresence } from "framer-motion";
 import { useTopMenu } from "@modules/menu-layout/use-top-menu";
-import { UserAvatar } from "src/components/user-avatar";
-import { PageActions } from "src/components/page-actions";
+import { UserAvatar } from "@components/user-avatar";
+import { PageActions } from "@components/page-actions";
 import { History, MessageSquarePlus } from "lucide-react";
 import { useTranslation } from "react-i18next";
 

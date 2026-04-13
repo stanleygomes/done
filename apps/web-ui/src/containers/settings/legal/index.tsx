@@ -3,8 +3,8 @@
 import { LEGAL_MENU_ITEMS } from "@constants/settings-menu.constant";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { ListItem } from "src/components/list-item";
-import { Typography } from "src/components/typography";
+import { ListItem } from "@components/list-item";
+import { Typography } from "@components/typography";
 import { SettingsContainer } from "../container";
 import { SettingsHeader } from "../header";
 

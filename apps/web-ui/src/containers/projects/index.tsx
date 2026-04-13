@@ -11,9 +11,9 @@ import TaskFilters from "./filters";
 import ProjectList from "./list";
 import ProjectHeader from "./header";
 import ProjectListHeader from "./list-header";
-import { UserAvatar } from "src/components/user-avatar";
+import { UserAvatar } from "@components/user-avatar";
 import { useTopMenu } from "@modules/menu-layout/use-top-menu";
-import { PageActions } from "src/components/page-actions";
+import { PageActions } from "@components/page-actions";
 import { Plus } from "lucide-react";
 
 export default function Projects() {

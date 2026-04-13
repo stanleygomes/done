@@ -4,11 +4,11 @@ import { useAuth } from "@modules/auth/use-auth";
 import { useUser } from "@modules/user/use-user";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import { Button } from "src/components/button";
-import { SimpleCard } from "src/components/simple-card";
+import { Button } from "@components/button";
+import { SimpleCard } from "@components/simple-card";
 import { SyncStatusDetails } from "@containers/sync";
-import { Typography } from "src/components/typography";
-import { UserAvatar } from "src/components/user-avatar";
+import { Typography } from "@components/typography";
+import { UserAvatar } from "@components/user-avatar";
 import { SettingsHeader } from "./header";
 import { SettingsItems } from "./items";
 

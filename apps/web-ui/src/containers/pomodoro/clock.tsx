@@ -7,10 +7,10 @@ import {
 import { Pause, Play, SkipForward } from "lucide-react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { Badge } from "src/components/badge";
-import { Button } from "src/components/button";
-import { SimpleCard } from "src/components/simple-card";
-import { Typography } from "src/components/typography";
+import { Badge } from "@components/badge";
+import { Button } from "@components/button";
+import { SimpleCard } from "@components/simple-card";
+import { Typography } from "@components/typography";
 
 export function PomodoroClock() {
   const { t } = useTranslation();

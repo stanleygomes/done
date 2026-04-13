@@ -1,6 +1,6 @@
 "use client";
 
-import Settings from "src/containers/settings";
+import Settings from "@containers/settings";
 
 export default function SettingsPage() {
   return <Settings />;
